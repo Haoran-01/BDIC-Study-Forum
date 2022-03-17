@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
 app=Flask(__name__)
 
@@ -8,7 +9,7 @@ PORT ='3306'
 DATABASE='zl_flask'
 USERNAME='root'
 DB_URI='mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8'.format(USERNAME,PASSWORD,HOSTNAME,PORT,DATABASE)
-app.config['SQLaLCHEMY_DATABASE_URI']=DB_URI
+app.config['SQLALCHEMY_DATABASE_URI']=DB_URI
 
 MAIL_SERVER ="smtp.qq.com"
 MAIL_PORT =465
@@ -18,6 +19,3 @@ MAIL_DEBUG =True
 MAIL_USERNAME ="2769059069@qq.com"
 MAIL_PASSWORD ="aiwxvcisknaodcef"
 MAIL_DEFAULT_SENDER ="2769059069@qq.com"
-MAIL_MAX_EMAILS =
-MAIL_SUPPRESS_SEND =
-MAIL_ASCII_ATTACHMENTS =
