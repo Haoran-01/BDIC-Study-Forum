@@ -12,8 +12,8 @@
             <img src="images/logo_full.png">
         </div>
 
-        <form class="inputArea">
-            <input type="text" required>
+        <form class="inputArea" novalidate>
+            <input type="text" required oninvalid="setCustomValidity('No')" οninput="setCustomValidity(’’)">
             <div class="user"></div>
             <input type="text" required>
             <div class="key"></div>
