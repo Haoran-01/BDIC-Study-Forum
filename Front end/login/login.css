@@ -21,7 +21,7 @@ body {
     margin: auto;
     min-width: 0;
     padding: 0;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgb(255, 255, 255);
     border-radius: 2px;
     width: 400px;
     height: 62%;
@@ -31,35 +31,112 @@ body {
 .inputArea{
     margin: 20px;
     text-align: center;
+    position: relative;
+}
+.inputArea .user{
+    background-image: url("images/user.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: 400ms;
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    left: 50px;
+    bottom: 188px;
+}
+
+.inputArea .key{
+    background-image: url("images/key.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: 400ms;
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    left: 50px;
+    bottom: 105px;
 }
 
 .inputArea input{
+    transition: 400ms;
+    outline-color: #8ab5ff;
     width: 250px;
-    height: 25px;
+    height: 30px;
     background-color: rgba(255, 255, 255, 0);
-    margin: 15px;
+    margin: 25px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
     border-top: 0;
     border-left: 0;
     border-right: 0;
+    caret-color: rgba(255, 255, 255, 0);
+    padding-left: 10px;
+}
+
+.inputArea input:focus{
+    outline-color: #8ab5ff;
+    transition: 400ms;
+    border-radius: 15px;
+    caret-color: black;
+    z-index:100;
+}
+
+.inputArea input:focus + .user{
+    background-image: url("images/user_active.png");
+    transition: 400ms;
+    left: 10px;
+}
+
+.inputArea input:focus + .key{
+    background-image: url("images/key_active.png");
+    transition: 400ms;
+    left: 10px;
+}
+
+.inputArea input:valid{
+    outline: auto;
+    outline-color: #8ab5ff;
+    transition: 400ms;
+    border-radius: 15px;
+    caret-color: black;
+    z-index:100;
+}
+
+.inputArea input:valid + .user{
+    background-image: url("images/user_active.png");
+    transition: 400ms;
+    left: 10px;
+}
+
+.inputArea input:valid + .key{
+    background-image: url("images/key_active.png");
+    transition: 400ms;
+    left: 10px;
 }
 
 .inputArea button{
+    font-family: "Noto Sans", serif;
+    font-size: 18px;
+    transition: all 500ms;
     margin: 20px;
-    width: 180px;
+    width: 250px;
     border: none;
-    height: 25px;
-    background-color: rgba(158, 180, 255, 1);
+    height: 35px;
+    background-color: rgb(0, 182, 254);
     color: aliceblue;
+    border-radius: 4px;
 }
 
 .inputArea button:hover{
-    background-color: rgb(255, 255, 255);
-    color: rgb(15, 15, 15);
+    transition: all 400ms;
+    /*background-color: rgb(0, 149, 193);*/
+    color: rgb(255, 255, 255);
     border: none;
+    box-shadow: 0 0 0 3px #8ab5ff;
 }
 
-.header{
-    text-align: center;
+.logo > img{
+    position: relative;
+    left: 17%;
+    width: 60%;
     padding: 15px;
 }
