@@ -64,7 +64,7 @@ body {
     height: 30px;
     background-color: rgba(255, 255, 255, 0);
     margin: 25px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     border-top: 0;
     border-left: 0;
     border-right: 0;
@@ -114,7 +114,7 @@ body {
 }
 
 .inputArea button{
-    font-family: "Noto Sans", serif;
+    font-family: "Noto Sans", sans-serif;
     font-size: 18px;
     transition: all 500ms;
     margin: 20px;
@@ -136,7 +136,41 @@ body {
 
 .logo > img{
     position: relative;
-    left: 17%;
+    left: 13%;
     width: 60%;
-    padding: 15px;
+    padding: 25px;
+}
+
+#forgetHr{
+    box-sizing: border-box;
+    margin: 0;
+    min-width: 0;
+    border-top: 1px solid;
+    border-color: rgba(0, 0, 0, 0.2);
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+#forgetPass {
+    position: relative;
+    left: 170px;
+    top: 10px;
+}
+
+#signIn {
+    position: relative;
+    left: 20px;
+    top: 10px;
+}
+
+.buttonNotObviously {
+    font-family: "Noto Sans", sans-serif;
+    font-size: 16px;
+    color: #929497;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.buttonNotObviously:hover{
+    color: grey;
 }
