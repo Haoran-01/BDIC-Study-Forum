@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>CyanPine</title>
-    <link href="login.css" rel="stylesheet" type="text/css"/>
+    <link href="{{ url_for('static', filename = 'css/login.css') }}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
     <div class="login">
 
         <div class="logo">
-            <img src="images/logo_full.png" alt="logo">
+            <img src="{{ url_for('static', filename = 'images/logo_full.png') }}" alt="logo">
         </div>
 
         <div class="slogan">
@@ -18,7 +18,7 @@
         <div>BDICers to collect information</div>
         </div>
 
-        <form class="inputArea" novalidate>
+        <form class="inputArea" novalidate, action="/login", method="post">
             <input type="text" required oninvalid="setCustomValidity('No')" οninput="setCustomValidity(’’)">
             <div class="user"></div>
             <input type="text" required>

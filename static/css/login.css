@@ -41,7 +41,7 @@ body {
     position: relative;
 }
 .inputArea .user{
-    background-image: url("images/user.png");
+    background-image: url("../images/user.png");
     background-size: contain;
     background-repeat: no-repeat;
     transition: 400ms;
@@ -53,7 +53,7 @@ body {
 }
 
 .inputArea .key{
-    background-image: url("images/key.png");
+    background-image: url("../images/key.png");
     background-size: contain;
     background-repeat: no-repeat;
     transition: 400ms;
@@ -88,13 +88,13 @@ body {
 }
 
 .inputArea input:focus + .user{
-    background-image: url("images/user_active.png");
+    background-image: url("../images/user_active.png");
     transition: 400ms;
     left: 10px;
 }
 
 .inputArea input:focus + .key{
-    background-image: url("images/key_active.png");
+    background-image: url("../images/key_active.png");
     transition: 400ms;
     left: 10px;
 }
@@ -109,13 +109,13 @@ body {
 }
 
 .inputArea input:valid + .user{
-    background-image: url("images/user_active.png");
+    background-image: url("../images/user_active.png");
     transition: 400ms;
     left: 10px;
 }
 
 .inputArea input:valid + .key{
-    background-image: url("images/key_active.png");
+    background-image: url("../images/key_active.png");
     transition: 400ms;
     left: 10px;
 }
