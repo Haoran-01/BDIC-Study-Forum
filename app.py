@@ -2,7 +2,7 @@ from flask import Flask,request,render_template,url_for
 import config
 from flask_migrate import Migrate
 from db import db
-from models import User
+# from models import User
 from forms import LoginFrom
 # 创建一个app对象
 app = Flask(__name__)
