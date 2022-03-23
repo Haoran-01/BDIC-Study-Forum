@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-
 app = Flask(__name__)
 
 #数据库的配置变量
@@ -19,7 +18,7 @@ db = SQLAlchemy(app)
 @app.route('/')
 def hello_world():
 #验证是否连接成功的测试代码
-    engine=db.get_engine()
+    engine = db.get_engine()
     with engine.connect() as conn:
         result=conn.execute("select 1")
         print(result.fetchone())
