@@ -8,7 +8,7 @@ body {
     flex-direction: column;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    background-image: url(https://cdn.pixabay.com/photo/2018/02/03/09/44/waters-3127274_1280.jpg);
+    /*background-image: url(https://cdn.pixabay.com/photo/2018/02/03/09/44/waters-3127274_1280.jpg);*/
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
@@ -29,6 +29,27 @@ body {
     height: 647px;
     overflow: hidden;
 }
+
+#backgroundVideo{
+
+    margin: 0px;
+    padding: 0px;
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+    /*min-width: 1vw;*/
+    /*min-height: 1vw;*/
+    height: 110%;
+    /*width: 100%;*/
+    z-index:-100
+}
+
+/*source{*/
+/*    min-width: 100%;*/
+/*    min-height: 100%;*/
+/*    height: auto;*/
+/*    width: auto;*/
+/*}*/
 
 .slogan{
     position: relative;
