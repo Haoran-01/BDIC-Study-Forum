@@ -12,36 +12,56 @@
     <video id="backgroundVideo" autoplay loop muted>
         <source src="images/background_video.mp4" type="video/mp4">
     </video>
-    <div class="login">
+    <div class="main">
 
         <div class="logo">
             <img src="images/logo_full.png" alt="logo">
         </div>
+<!--        <div class="signUp", id="signUp">
+            <form class="signUpInputArea" novalidate>
+                <input class="mail" type="email" required>
+                <div class="letter"></div>
+                <input type="text" required oninvalid="setCustomValidity('No')" οninput="setCustomValidity(’’)">
+                <div class="user"></div>
+                <input class="password" id = "signUpPass" type="password" required>
+                <div class="key"></div>
+                <input class="password" id = "signUpPassRe" type="password" required>
+                <div class="key"></div>
+                <input class="identify" type="text" required>
+                <div class="togglePassword" id="signUpToggle"></div>
+                <button type="submit">SignUp</button>
+            </form>
+        </div>-->
+        <div class="login", id = "login">
+            <div class="slogan">
+                <div>The forum for BDICers to discuss and the</div>
+                <div>comprehensive services provider for</div>
+                <div>BDICers to collect information</div>
+            </div>
 
-        <div class="slogan">
-        <div>The forum for BDICers to discuss and the</div>
-        <div>comprehensive services provider for</div>
-        <div>BDICers to collect information</div>
+            <form class="logInInputArea" novalidate>
+                <input class type="text" required oninvalid="setCustomValidity('No')" οninput="setCustomValidity(’’)">
+                <div class="user"></div>
+                <input class="password" id = "password" type="password" required>
+                <div class="key"></div>
+                <div class="togglePassword" id="togglePassword"></div>
+                <button type="submit">Login</button>
+            </form>
+
+            <div id="forgetHr"></div>
+            <button id="signIn" class="buttonNotObviously">Sign up</button>
+            <button id="forgetPass" class="buttonNotObviously">Forgot password?</button>
         </div>
+        <div class="forgetPassword", id="forgetPassword">
 
-        <form class="inputArea" novalidate>
-            <input type="text" required oninvalid="setCustomValidity('No')" οninput="setCustomValidity(’’)">
-            <div class="user"></div>
-            <input class="password" id = "password" type="password" required>
-            <div class="key"></div>
-            <div class="togglePassword" id="togglePassword"></div>
-            <button type="submit">Login</button>
-        </form>
-
-        <div id="forgetHr"></div>
-        <button id="signIn" class="buttonNotObviously">Sign up</button>
-        <button id="forgetPass" class="buttonNotObviously">Forgot password?</button>
+        </div>
     </div>
     <footer>
         <span class="right">Copyright@Group 12</span>
     </footer>
 
     <script>
+
         let password = document.getElementById("password");
         let togglePassword = document.getElementById("togglePassword");
         togglePassword.addEventListener('mousedown', function (e){
@@ -56,6 +76,7 @@
                 togglePassword.style.bottom = "103px";
             }
         })
+
     </script>
 </body>
 </html>

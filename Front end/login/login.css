@@ -22,7 +22,7 @@ body {
     display: none
 }
 
-.login{
+.main{
     box-sizing: border-box;
     margin: auto;
     min-width: 0;
@@ -34,18 +34,28 @@ body {
     overflow: hidden;
 }
 
-#backgroundVideo{
+@media (min-aspect-ratio: 2560/1440) {
+    #backgroundVideo{
+        margin: 0px;
+        padding: 0px;
+        position: fixed;
+        right: 0px;
+        bottom: 0px;
+        width: 100%;
+        z-index:-100
+    }
+}
 
-    margin: 0px;
-    padding: 0px;
-    position: fixed;
-    right: 0px;
-    bottom: 0px;
-    /*min-width: 1vw;*/
-    /*min-height: 1vw;*/
-    height: 110%;
-    /*width: 100%;*/
-    z-index:-100
+@media (max-aspect-ratio: 2560/1440) {
+    #backgroundVideo{
+        margin: 0px;
+        padding: 0px;
+        position: fixed;
+        right: 0px;
+        bottom: 0px;
+        height: 100%;
+        z-index:-100
+    }
 }
 
 /*source{*/
@@ -62,12 +72,12 @@ body {
     font-family: "Comic Sans MS", serif;
 }
 
-.inputArea{
+.logInInputArea{
     margin: 20px;
     text-align: center;
     position: relative;
 }
-.inputArea .user{
+.logInInputArea .user{
     background-image: url("images/user.png");
     background-size: contain;
     background-repeat: no-repeat;
@@ -79,7 +89,7 @@ body {
     bottom: 188px;
 }
 
-.inputArea .key{
+.logInInputArea .key{
     background-image: url("images/key.png");
     background-size: contain;
     background-repeat: no-repeat;
@@ -91,7 +101,7 @@ body {
     bottom: 105px;
 }
 
-.inputArea input{
+.logInInputArea input{
     transition: 400ms;
     outline-color: #8ab5ff;
     width: 250px;
@@ -106,7 +116,7 @@ body {
     padding-left: 10px;
 }
 
-.inputArea input:focus{
+.logInInputArea input:focus{
     outline-color: #8ab5ff;
     transition: 400ms;
     border-radius: 15px;
@@ -114,19 +124,19 @@ body {
     z-index:100;
 }
 
-.inputArea input:focus + .user{
+.logInInputArea input:focus + .user{
     background-image: url("images/user_active.png");
     transition: 400ms;
     left: 10px;
 }
 
-.inputArea input:focus + .key{
+.logInInputArea input:focus + .key{
     background-image: url("images/key_active.png");
     transition: 400ms;
     left: 10px;
 }
 
-.inputArea input:focus + .key + .togglePassword{
+.logInInputArea input:focus + .key + .togglePassword{
     user-select: none;
     background-image: url("images/eye_open.png");
     background-size: contain;
@@ -138,7 +148,7 @@ body {
     bottom: 103px;
 }
 
-.inputArea input:focus + .key + .togglePassword:focus{
+.logInInputArea input:focus + .key + .togglePassword:focus{
     background-image: url("images/eye_close.png");
     background-size: contain;
     background-repeat: no-repeat;
@@ -149,7 +159,7 @@ body {
     bottom: 100px;
 }
 
-.inputArea input:valid{
+.logInInputArea input:valid{
     outline: auto;
     outline-color: #8ab5ff;
     transition: 400ms;
@@ -158,19 +168,19 @@ body {
     z-index:100;
 }
 
-.inputArea input:valid + .user{
+.logInInputArea input:valid + .user{
     background-image: url("images/user_active.png");
     transition: 400ms;
     left: 10px;
 }
 
-.inputArea input:valid + .key{
+.logInInputArea input:valid + .key{
     background-image: url("images/key_active.png");
     transition: 400ms;
     left: 10px;
 }
 
-.inputArea button{
+.logInInputArea button{
     font-family: "Noto Sans", sans-serif;
     font-size: 18px;
     transition: all 500ms;
@@ -183,7 +193,7 @@ body {
     border-radius: 4px;
 }
 
-.inputArea button:hover{
+.logInInputArea button:hover{
     transition: all 400ms;
     /*background-color: rgb(0, 149, 193);*/
     color: rgb(255, 255, 255);
