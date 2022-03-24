@@ -140,6 +140,7 @@ footer{
     left: 0;
     position: absolute;
     transition: .5s;
+    width: 100%;
 }
 
 /*标语------------------------*/
@@ -298,6 +299,7 @@ footer{
 #signUp{
     left: -450px;
     position: absolute;
+    transition: .5s;
 }
 
 /*forgetPassword区域-----------------------------------------*/
@@ -305,6 +307,7 @@ footer{
 #forgetPassword{
     left: 450px;
     position: absolute;
+    transition: .5s;
 }
 
 .forgetPassword, .signUpInputArea{
