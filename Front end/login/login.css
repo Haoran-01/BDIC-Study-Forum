@@ -31,7 +31,9 @@ body {
     border-radius: 2px;
     width: 400px;
     height: 647px;
-    overflow: hidden;
+    /*删除了overflow:hidden*/
+    position: relative;
+    /*将main块元素设置成position:relative*/
 }
 
 @media (min-aspect-ratio: 2560/1440) {
@@ -101,29 +103,6 @@ body {
     bottom: 105px;
 }
 
-.logInInputArea input{
-    transition: 400ms;
-    outline-color: #8ab5ff;
-    width: 250px;
-    height: 30px;
-    background-color: rgba(255, 255, 255, 0);
-    margin: 25px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    border-top: 0;
-    border-left: 0;
-    border-right: 0;
-    caret-color: rgba(255, 255, 255, 0);
-    padding-left: 10px;
-}
-
-.logInInputArea input:focus{
-    outline-color: #8ab5ff;
-    transition: 400ms;
-    border-radius: 15px;
-    caret-color: black;
-    z-index:100;
-}
-
 .logInInputArea input:focus + .user{
     background-image: url("images/user_active.png");
     transition: 400ms;
@@ -146,26 +125,6 @@ body {
     position: absolute;
     left: 275px;
     bottom: 103px;
-}
-
-.logInInputArea input:focus + .key + .togglePassword:focus{
-    background-image: url("images/eye_close.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    height: 20px;
-    width: 20px;
-    position: absolute;
-    left: 275px;
-    bottom: 100px;
-}
-
-.logInInputArea input:valid{
-    outline: auto;
-    outline-color: #8ab5ff;
-    transition: 400ms;
-    border-radius: 15px;
-    caret-color: black;
-    z-index:100;
 }
 
 .logInInputArea input:valid + .user{
@@ -191,6 +150,7 @@ body {
     background-color: rgb(0, 182, 254);
     color: aliceblue;
     border-radius: 4px;
+    cursor: pointer;
 }
 
 .logInInputArea button:hover{
@@ -236,6 +196,7 @@ body {
     color: #929497;
     border: none;
     background-color: rgba(0, 0, 0, 0);
+    cursor: pointer;
 }
 
 .buttonNotObviously:hover{
@@ -262,3 +223,98 @@ header{
     font-family: "Noto Sans", sans-serif;
     margin: auto;
 }
+
+/*更改部分*/
+#login{
+    left: 0;
+    position: absolute;
+    transition: .5s;
+}
+
+.logo{
+    position: relative;
+}
+
+#forgetPassword{
+    left: 450px;
+    position: absolute;
+}
+
+.forgetPassword, .signUpInputArea{
+    margin: 20px;
+    text-align: center;
+    position: relative;
+}
+
+input{
+    transition: 400ms;
+    outline-color: #8ab5ff;
+    width: 250px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0);
+    margin: 25px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    caret-color: rgba(255, 255, 255, 0);
+    padding-left: 10px;
+}
+
+input:focus{
+    outline-color: #8ab5ff;
+    transition: 400ms;
+    border-radius: 15px;
+    caret-color: black;
+    z-index:100;
+}
+
+input:valid{
+    outline: auto;
+    outline-color: #8ab5ff;
+    transition: 400ms;
+    border-radius: 15px;
+    caret-color: black;
+    z-index:100;
+}
+
+.forgetPassword button, .signUpInputArea button{
+    font-family: "Noto Sans", sans-serif;
+    font-size: 18px;
+    transition: all 500ms;
+    margin: 20px;
+    width: 250px;
+    border: none;
+    height: 35px;
+    background-color: rgb(0, 182, 254);
+    color: aliceblue;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.forgetPassword button:hover, .signUpInputArea button:hover{
+    transition: all 400ms;
+    /*background-color: rgb(0, 149, 193);*/
+    color: rgb(255, 255, 255);
+    border: none;
+    box-shadow: 0 0 0 3px #8ab5ff;
+}
+
+#signUp{
+    left: -450px;
+    position: absolute;
+}
+
+::placeholder{
+    padding-left: 25px;
+}
+
+
+
+
+
+
+
+
+
+
