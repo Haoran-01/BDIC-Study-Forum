@@ -21,4 +21,3 @@ def my_mail():
     )
     mail.send(message)
     return "success"
-    
