@@ -27,8 +27,9 @@
         <form class="inputArea" novalidate>
             <input type="text" required oninvalid="setCustomValidity('No')" οninput="setCustomValidity(’’)">
             <div class="user"></div>
-            <input type="password" required>
+            <input class="password" id = "password" type="password" required>
             <div class="key"></div>
+            <div class="togglePassword" id="togglePassword"></div>
             <button type="submit">Login</button>
         </form>
 
@@ -39,5 +40,22 @@
     <footer>
         <span class="right">Copyright@Group 12</span>
     </footer>
+
+    <script>
+        let password = document.getElementById("password");
+        let togglePassword = document.getElementById("togglePassword");
+        togglePassword.addEventListener('mousedown', function (e){
+            e.preventDefault();
+            if (password.type === 'password'){
+                password.setAttribute('type', 'text');
+                togglePassword.style.backgroundImage = 'url("images/eye_close.png")';
+                togglePassword.style.bottom = "100px";
+            }else{
+                password.setAttribute('type', 'password');
+                togglePassword.style.backgroundImage = 'url("images/eye_open.png")';
+                togglePassword.style.bottom = "103px";
+            }
+        })
+    </script>
 </body>
 </html>
