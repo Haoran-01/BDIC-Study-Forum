@@ -298,6 +298,112 @@ footer{
 #signUp{
     left: -450px;
     position: absolute;
+    width: 400px;
+    height: 647px;
+}
+
+/*邮箱图标-----------------------*/
+
+.signUpInputArea .letter{
+    background-image: url("images/letter.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: 400ms;
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    left: 70px;
+    top: 30px;
+}
+
+.signUpInputArea input:focus + .letter{
+    background-image: url("images/letter_active.png");
+    transition: 400ms;
+    left: 30px;
+}
+
+.signUpInputArea input:valid + .letter{
+    background-image: url("images/letter_active.png");
+    transition: 400ms;
+    left: 30px;
+}
+
+/*用户名图标-------------------*/
+
+.signUpInputArea .user{
+    background-image: url("images/user.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: 400ms;
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    left: 70px;
+    top: 105px;
+}
+
+.signUpInputArea input:focus + .user{
+    background-image: url("images/user_active.png");
+    transition: 400ms;
+    left: 30px;
+}
+
+.signUpInputArea input:valid + .user{
+    background-image: url("images/user_active.png");
+    transition: 400ms;
+    left: 30px;
+}
+
+/*密码图标--------------------*/
+
+.signUpInputArea .key1{
+    background-image: url("images/key.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: 400ms;
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    left: 70px;
+    top: 185px;
+}
+
+.signUpInputArea input:focus + .key1{
+    background-image: url("images/key_active.png");
+    transition: 400ms;
+    left: 30px;
+}
+
+.signUpInputArea input:valid + .key1{
+    background-image: url("images/key_active.png");
+    transition: 400ms;
+    left: 30px;
+}
+
+/*重复密码图标--------------------*/
+
+.signUpInputArea .key2{
+    background-image: url("images/key.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: 400ms;
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    left: 70px;
+    top: 270px;
+}
+
+.signUpInputArea input:focus + .key2{
+    background-image: url("images/key_active.png");
+    transition: 400ms;
+    left: 30px;
+}
+
+.signUpInputArea input:valid + .key2{
+    background-image: url("images/key_active.png");
+    transition: 400ms;
+    left: 30px;
 }
 
 /*forgetPassword区域-----------------------------------------*/
@@ -305,12 +411,39 @@ footer{
 #forgetPassword{
     left: 450px;
     position: absolute;
+    width: 400px;
+    height: 647px;
 }
 
-.forgetPassword, .signUpInputArea{
-    margin: 20px;
+.forgetPassInputArea, .signUpInputArea{
     text-align: center;
     position: relative;
+}
+
+/*邮箱图标-------------------*/
+
+.forgetPassInputArea .letter{
+    background-image: url("images/letter.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: 400ms;
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    left: 70px;
+    top: 30px;
+}
+
+.forgetPassInputArea input:focus + .letter{
+    background-image: url("images/letter_active.png");
+    transition: 400ms;
+    left: 30px;
+}
+
+.forgetPassInputArea input:valid + .letter{
+    background-image: url("images/letter_active.png");
+    transition: 400ms;
+    left: 30px;
 }
 
 /*浏览器专用---------------------------------------------------*/
