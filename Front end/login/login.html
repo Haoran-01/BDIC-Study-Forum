@@ -25,17 +25,16 @@
                 <div class="letter"></div>
                 <input type="text" required oninvalid="setCustomValidity('No')" οninput="setCustomValidity(’’)" placeholder="Enter username">
                 <div class="user"></div>
-                <input class="password" id = "signUpPass" type="password" required placeholder="Password">
+                <input class="password" id = "signUpPass" type="password" required placeholder="Password" onfocus="resetInputColor(signUpPass)">
                 <div class="key1"></div>
-<!--                <div class="togglePassword" id="signUpToggle1"></div>-->
-                <input class="password" id = "signUpPassRe" type="password" required placeholder="Confirm">
+                <div class="togglePassword" id="signUpToggle1"></div>
+                <input class="password" id = "signUpPassRe" type="password" required placeholder="Confirm" onblur="checkPass()" onfocus="resetInputColor(signUpPassRe)">
                 <div class="key2"></div>
-<!--                <div class="togglePassword" id="signUpToggle2"></div>-->
+                <div class="togglePassword" id="signUpToggle2"></div>
                 <div id="verificationBox">
                     <input class="identify" type="text" required placeholder="Enter captcha">
-                    <button type="button" id="verificationCode" value="hhhh"></button>
+                    <button type="button" id="verificationCode" class="verificationCode"></button>
                 </div>
-                <div class="togglePassword" id="signUpToggle1"></div>
                 <button type="submit" class = "submit">Sign Up</button>
             </form>
         </div>
@@ -63,9 +62,9 @@
         <!--------forgetPassword区域------------------------------------------------------------------------------->
         <div class="forgetPassword", id="forgetPassword">
             <form class="forgetPassInputArea" novalidate>
-                <div>Find your account</div>
-                <div>Enter your email to continue</div>
-                <input class="mailConfig" type="text" required>
+                <div class="forgetTitle">Find your account</div>
+                <div class="forgetWords">Enter your email to continue:</div>
+                <input class="mailConfig" type="text" placeholder="Email" required>
                 <div class="letter"></div>
                 <button type="submit" class = "submit">Next</button>
             </form>
@@ -77,22 +76,6 @@
     </footer>
 
     <script>
-
-        let password = document.getElementById("password");
-        let togglePassword = document.getElementById("togglePassword");
-        togglePassword.addEventListener('mousedown', function (e){
-            e.preventDefault();
-            if (password.type === 'password'){
-                password.setAttribute('type', 'text');
-                togglePassword.style.backgroundImage = 'url("images/eye_close.png")';
-                togglePassword.style.bottom = "100px";
-            }else{
-                password.setAttribute('type', 'password');
-                togglePassword.style.backgroundImage = 'url("images/eye_open.png")';
-                togglePassword.style.bottom = "103px";
-            }
-        })
-
         var login = document.getElementById("login");
         var signUp = document.getElementById("signUp");
         var forgetPassword =document.getElementById("forgetPassword");
@@ -111,17 +94,61 @@
         button.innerHTML = 'get';
        button.onclick = function () {
             button.disabled = 'disabled';
+            button.classList.remove('verificationCode');
+            button.classList.add('verificationCodeDisabled');
             var time = 60;
             var timer = setInterval(function () {
-                if (time == 0) {
+                if (time === 0) {
                     clearInterval(timer)
                     button.disabled = '';
                     button.innerHTML = 'get';
+                    button.classList.remove('verificationCodeDisabled');
+                    button.classList.add('verificationCode');
                 } else {
                     time--;
                     button.innerHTML = time + 's';
                 }
             }, 1000)
+        }
+
+        let togglePassword0 = document.getElementById("togglePassword");
+        let togglePassword1 = document.getElementById("signUpToggle1");
+        let togglePassword2 = document.getElementById("signUpToggle2");
+        const togglePasswords = Array(togglePassword0, togglePassword1, togglePassword2);
+        let password0 = document.getElementById("password");
+        let signUpPass = document.getElementById("signUpPass");
+        let signUpPassRe = document.getElementById("signUpPassRe");
+        const passwords = Array(password0, signUpPass, signUpPassRe);
+        for (var i = 0, len = passwords.length; i < len; i = i + 1){
+            let password = passwords[i];
+            let togglePassword = togglePasswords[i];
+            togglePassword.addEventListener('mousedown', function (e){
+                e.preventDefault();
+                if (password.type === 'password'){
+                    password.setAttribute('type', 'text');
+                    togglePassword.style.backgroundImage = 'url("images/eye_close.png")';
+                    togglePassword.style.bottom = "100px";
+                }else{
+                    password.setAttribute('type', 'password');
+                    togglePassword.style.backgroundImage = 'url("images/eye_open.png")';
+                    togglePassword.style.bottom = "103px";
+                }
+            })
+        }
+
+        function checkPass() {
+            if (signUpPass.value !== signUpPassRe.value){
+                signUpPass.style.animation = 'rock 1s 0s ease-in-out';
+                signUpPassRe.style.animation = 'rock 1s 0s ease-in-out';
+                signUpPass.style.borderBottom = '1px solid #ff6d6d';
+                signUpPassRe.style.borderBottom = '1px solid #ff6d6d';
+                signUpPass.value = '';
+                signUpPassRe.value = '';
+            }
+        }
+
+        function resetInputColor(id){
+            id.style = '';
         }
 
     </script>
