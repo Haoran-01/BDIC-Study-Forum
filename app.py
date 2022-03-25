@@ -3,7 +3,7 @@ import config
 from flask_migrate import Migrate
 from exts import db, mail
 from models import User
-from forms import LoginFrom,RegistForm
+from forms import LoginFrom,RegisterForm
 
 from blueprints import page_bp,user_bp,cs_bp
 
