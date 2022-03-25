@@ -1,5 +1,5 @@
 from flask import Blueprint,request,render_template
-from forms import LoginFrom,RegistForm
+from forms import LoginFrom, RegisterForm
 from models import User
 from exts import db, mail
 from flask_mail import Message
@@ -16,7 +16,7 @@ def login():
 
 @bp.route("/register", methods=['GET','POST'])
 def register():
-    form = RegistForm(request.form)
+    form = RegisterForm(request.form)
     if request.method == 'POST' and form.validate():
         user = User(user_email=form.user_email.data, user_name=form.user_name.data, password=form.password.data)
         db.session.add(user)
