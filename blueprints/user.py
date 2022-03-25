@@ -1,7 +1,7 @@
 import random
 import string
 
-from flask import Blueprint,request,render_template,redirect,url_for
+from flask import Blueprint,request,render_template,redirect,url_for,session
 from forms import LoginFrom, RegisterForm, EmailCaptchaModel
 from models import User
 from exts import db, mail
@@ -18,9 +18,15 @@ def login():
     else:
         form = LoginFrom(request.form)
         if form.validate():
-            return "登录成功"
+            user_email = form.user_email.data
+            user_password = form.user_password.data
+            user = User.query.filter_by(user_email=user_email).first()
+            if user and check_password_hash(user.user_password,user_password):
+                return redirect('/')
+            else:
+                return redirect(url_for("User.login"))
         else:
-            return render_template("login.html")
+            return redirect(url_for("User.login"))
 
 
 @bp.route("/register", methods=['GET','POST'])

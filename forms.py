@@ -6,13 +6,12 @@ class LoginFrom(wtforms.Form):
     user_email = wtforms.StringField(validators=[email()])
     user_password = wtforms.StringField(validators=[length(min=3,max=20)])
 
-    def validate_user_password(self,field):
-        print("ssdddsd")
-        user_password = field.data
-        user_email = self.user_email.data
-        user_model = User.query.filter_by(user_email=user_email).first()
-        if not user_model and user_model.user_password != user_password:
-            raise wtforms.ValidationError("密码错误")
+    # def validate_user_password(self,field):
+    #     user_password = field.data
+    #     user_email = self.user_email.data
+    #     user_model = User.query.filter_by(user_email=user_email).first()
+    #     if not user_model and user_model.user_password != user_password:
+    #         raise wtforms.ValidationError("密码错误")
 
 
 class RegisterForm(wtforms.Form):
