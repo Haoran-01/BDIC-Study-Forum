@@ -1,30 +1,38 @@
-from flask import Blueprint,request,render_template
-from forms import LoginFrom,RegistForm
+from flask import Blueprint,request,render_template,redirect,url_for
+from forms import LoginFrom,RegisterForm
 from models import User
 from exts import db, mail
 from flask_mail import Message
 
 bp = Blueprint("User",__name__,url_prefix="/user")
 
+
+# 登录界面
 @bp.route("/login", methods=['GET','POST'])
 def login():
     form = LoginFrom(request.form)
     if request.method == 'POST' and form.validate():
+
         return "登录成功"
     else:
         return render_template('login.html')
 
+# 注册界面
 @bp.route("/register", methods=['GET','POST'])
 def register():
-    form = RegistForm(request.form)
-    if request.method == 'POST' and form.validate():
-        user = User(user_email=form.user_email.data, user_name=form.user_name.data, password=form.password.data)
-        db.session.add(user)
-        db.session.commit()
-        return "注册成功"
+    if request.method == 'GET':
+        return render_template("register.html")
     else:
-        return render_template('register.html')
-
+        form = RegisterForm(request.form)
+        if form.validate():
+            user = User(user_email=form.user_email.data, user_name=form.user_name.data,
+                        user_password=form.user_password.data)
+            db.session.add(user)
+            db.session.commit()
+            return redirect(url_for("User.login"))
+        else:
+            return redirect(url_for("User.register"))
+# 发送邮件
 @bp.route("/mail")
 def my_mail():
     message = Message(
