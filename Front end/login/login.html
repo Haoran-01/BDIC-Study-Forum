@@ -31,9 +31,12 @@
                 <input class="password" id = "signUpPassRe" type="password" required placeholder="Confirm">
                 <div class="key2"></div>
 <!--                <div class="togglePassword" id="signUpToggle2"></div>-->
-                <input class="identify" type="text" required placeholder="Enter captcha">
+                <div id="verificationBox">
+                    <input class="identify" type="text" required placeholder="Enter captcha">
+                    <button type="button" id="verificationCode" value="hhhh"></button>
+                </div>
                 <div class="togglePassword" id="signUpToggle1"></div>
-                <button type="submit">Sign Up</button>
+                <button type="submit" class = "submit">Sign Up</button>
             </form>
         </div>
         <!--------login区域---------------------------------------------------------------------------------------->
@@ -94,13 +97,31 @@
 
         function register() {
             login.style.left = "450px";
-            signUp.style.left = "25px";
+            signUp.style.left = "0px";
         }
 
         function forgetPass() {
             login.style.left = "-450px";
-            forgetPassword.style.left = "25px";
+            forgetPassword.style.left = "0px";
         }
+
+       var button = document.getElementById('verificationCode');
+        button.innerHTML = 'get';
+       button.onclick = function () {
+            button.disabled = 'disabled';
+            var time = 60;
+            var timer = setInterval(function () {
+                if (time == 0) {
+                    clearInterval(timer)
+                    button.disabled = '';
+                    button.innerHTML = 'get';
+                } else {
+                    time--;
+                    button.innerHTML = time + 's';
+                }
+            }, 1000)
+        }
+
     </script>
 </body>
 </html>

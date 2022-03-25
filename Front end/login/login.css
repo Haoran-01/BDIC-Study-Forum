@@ -83,7 +83,7 @@ footer{
     border-radius: 2px;
     width: 400px;
     height: 647px;
-    /*删除了overflow:hidden*/
+    /*overflow:hidden;*/
     position: relative;
     /*将main块元素设置成position:relative*/
 }
@@ -139,6 +139,7 @@ footer{
 #login{
     left: 0;
     position: absolute;
+    width: 100%;
     transition: .5s;
 }
 
@@ -302,6 +303,31 @@ footer{
     width: 400px;
     height: 647px;
 }
+#verificationBox{
+    position: relative;
+}
+
+#verificationCode{
+    position: absolute;
+    color: white;
+    font-size: 13px;
+    top: 28px;
+    right: 71px;
+    width: 55px;
+    height: 27px;
+    border: none;
+    border-radius:25px;
+    background-color: rgb(0, 182, 254);
+    cursor: pointer;
+}
+
+#verificationCode:hover{
+    transition: all 400ms;
+    /*background-color: rgb(0, 149, 193);*/
+    color: rgb(255, 255, 255);
+    border: none;
+    box-shadow: 0 0 0 3px #8ab5ff;
+}
 
 /*邮箱图标-----------------------*/
 
@@ -433,7 +459,7 @@ footer{
     width: 30px;
     position: absolute;
     left: 70px;
-    top: 30px;
+    top: 75px;
 }
 
 .forgetPassInputArea input:focus + .letter{
