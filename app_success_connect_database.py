@@ -63,10 +63,6 @@ def one_to_many():
     print(user.articles)
     return "One to many successful!"
 
-
-
-
-
 @app.route("/delete")
 def delete():
     Article.query.filter_by(id=1).delete()
