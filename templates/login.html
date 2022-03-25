@@ -18,10 +18,10 @@
         <div>BDICers to collect information</div>
         </div>
 
-        <form class="inputArea" novalidate action="/login", method="post">
+        <form class="inputArea" novalidate action="/user/login", method="post">
             <input type="text" name="user_name" required oninvalid="setCustomValidity('No')" οninput="setCustomValidity(’’)">
             <div class="user"></div>
-            <input type="text" name="password" required>
+            <input type="text" name="user_password" required>
             <div class="key"></div>
             <button type="submit">Login</button>
         </form>

@@ -6,8 +6,8 @@ from datetime import datetime
 class User(db.Model):
     __tablename__ = 'user'
     user_email = db.Column(db.CHAR(200), primary_key = True, nullable=False, unique=True)
-    user_name = db.Column(db.CHAR(200), nullable = False, unique=True)
-    user_password = db.Column(db.CHAR(200), nullable = False, unique=True)
+    user_name = db.Column(db.CHAR(200), primary_key=False,nullable = False, unique=True)
+    user_password = db.Column(db.CHAR(200), primary_key=False, nullable = False, unique=True)
 
 class EmailCaptchaModel(db.Model):
     __tablename__ = "email_captcha"
