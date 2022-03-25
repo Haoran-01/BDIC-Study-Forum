@@ -1,7 +1,8 @@
 from flask import Blueprint,request,render_template
 from forms import LoginFrom,RegistForm
 from models import User
-from exts import db
+from exts import db, mail
+from flask_mail import Message
 
 bp = Blueprint("User",__name__,url_prefix="/user")
 
@@ -23,5 +24,17 @@ def register():
         return "注册成功"
     else:
         return render_template('register.html')
+
+@bp.route("/mail")
+def my_mail():
+    message = Message(
+        subject="Cyan Pine 验证码",
+        recipients=['2334201198@qq.com'],
+        body="同学您好，/n您正在CyanPine进行注册验证，验证码有效期1分钟，请尽快完成注册"
+
+    )
+    mail.send(message)
+    return "success"
+
 
 
