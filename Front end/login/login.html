@@ -54,8 +54,8 @@
             </form>
 
             <div id="forgetHr"></div>
-            <button id="signUpButton" class="buttonNotObviously">Sign up</button>
-            <button id="forgetPassButton" class="buttonNotObviously">Forgot password?</button>
+            <button id="signUpButton" class="buttonNotObviously" onclick="register()">Sign up</button>
+            <button id="forgetPassButton" class="buttonNotObviously" onclick="forgetPass()">Forgot password?</button>
         </div>
         <!--------forgetPassword区域------------------------------------------------------------------------------->
         <div class="forgetPassword", id="forgetPassword">
@@ -88,6 +88,19 @@
             }
         })
 
+        var login = document.getElementById("login");
+        var signUp = document.getElementById("signUp");
+        var forgetPassword =document.getElementById("forgetPassword");
+
+        function register() {
+            login.style.left = "450px";
+            signUp.style.left = "25px";
+        }
+
+        function forgetPass() {
+            login.style.left = "-450px";
+            forgetPassword.style.left = "25px";
+        }
     </script>
 </body>
 </html>
