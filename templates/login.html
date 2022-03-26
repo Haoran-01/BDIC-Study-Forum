@@ -20,7 +20,7 @@
 
         <!--------signUp区域---------------------------------------------------------------------------------------->
         <div class="signUp", id="signUp">
-            <form action="{{ url_for("User.login") }}" method="post" class="signUpInputArea" novalidate onsubmit="checkSignUp()">
+            <form action="{{ url_for("User.register_check") }}" method="post" class="signUpInputArea" novalidate onsubmit="checkSignUp()">
                 <input class="mail" id="mailSignUp" name="user_email" type="email" required placeholder="Enter e-mail address" onblur="checkEmail('mailSignUp', 'signUpSubmit')" onfocus="resetInput('mailSignUp')">
                 <div class="letter"></div>
                 <input type="text" id = "nameSignUp" name="user_name" required onfocus="resetInput('nameSignUp')" placeholder="Enter username">
@@ -46,13 +46,13 @@
                 <div>BDICers to collect information</div>
             </div>
 
-            <form action="{{ url_for("User.login") }}" method="post" class="logInInputArea" novalidate onsubmit="checkLogin()">
+            <form action="{{ url_for("User.login_check") }}" method="post" class="logInInputArea" novalidate onsubmit="checkLogin()">
                 <input id = "mailLogin" name="user_email" type="email" required onblur="checkEmail('mailLogin')" onfocus="resetInput('mailLogin')">
                 <div class="letter"></div>
                 <input class="password" id = "password" name="user_password" type="password" required onfocus="resetInput('password')">
                 <div class="key"></div>
                 <div class="togglePassword" id="togglePassword"></div>
-                <button type="submit" class = "submit" id = "submitLogin">Login</button>
+                <button type="submit" class = "submit" id = "submitLogin" name="sign_up" value="True">Login</button>
             </form>
 
             <div id="forgetHr"></div>
@@ -202,7 +202,6 @@
                 event.preventDefault();
             }
         }
-
     </script>
 </body>
 </html>

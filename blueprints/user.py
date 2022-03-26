@@ -15,36 +15,36 @@ bp = Blueprint("User",__name__,url_prefix="/user")
 def login():
     if request.method == 'GET':
         return render_template('login.html')
+
+@bp.route("/register_form", methods=['POST'])
+def register_check():
+    register_form = RegisterForm(request.form)
+
+    if register_form.validate():
+        hash_password = generate_password_hash(register_form.user_password.data)
+        user = User(user_email=register_form.user_email.data, user_name=register_form.user_name.data, user_password=hash_password)
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('User.login'))
     else:
-        form = LoginFrom(request.form)
-        if form.validate():
-            user_email = form.user_email.data
-            user_password = form.user_password.data
-            user = User.query.filter_by(user_email=user_email).first()
-            if user and check_password_hash(user.user_password,user_password):
-                return redirect('/')
-            else:
-                flash("邮箱或密码错误")
-                return redirect(url_for("User.login"))
+        return redirect(url_for('User.login'))
+
+
+@bp.route("/login_form",methods=['POST'])
+def login_check():
+    login_form = LoginFrom(request.form)
+    if login_form.validate():
+        user_email = login_form.user_email.data
+        user_password = login_form.user_password.data
+        user = User.query.filter_by(user_email=user_email).first()
+        if user and check_password_hash(user.user_password, user_password):
+            return redirect('/')
         else:
-            flash("邮箱或密码格式错误")
+            flash("邮箱或密码错误")
             return redirect(url_for("User.login"))
-
-
-@bp.route("/register", methods=['GET','POST'])
-def register():
-    if request.method == 'GET':
-        return render_template("register.html")
     else:
-        form = RegisterForm(request.form)
-        if form.validate():
-            hash_password = generate_password_hash(form.user_password.data)
-            user = User(user_email=form.user_email.data, user_name=form.user_name.data, user_password=hash_password)
-            db.session.add(user)
-            db.session.commit()
-            return redirect(url_for('User.login'))
-        else:
-            return redirect(url_for('User.register'))
+        flash("邮箱或密码格式错误")
+        return redirect(url_for("User.login"))
 
 @bp.route("/captcha")
 def my_mail():
