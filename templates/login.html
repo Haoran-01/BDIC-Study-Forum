@@ -20,19 +20,19 @@
 
         <!--------signUp区域---------------------------------------------------------------------------------------->
         <div class="signUp", id="signUp">
-            <form class="signUpInputArea" novalidate onsubmit="checkSignUp()">
-                <input class="mail" id="mailSignUp" type="email" required placeholder="Enter e-mail address" onblur="checkEmail('mailSignUp', 'signUpSubmit')" onfocus="resetInput('mailSignUp')">
+            <form action="{{ url_for("User.login") }}" method="post" class="signUpInputArea" novalidate onsubmit="checkSignUp()">
+                <input class="mail" id="mailSignUp" name="user_email" type="email" required placeholder="Enter e-mail address" onblur="checkEmail('mailSignUp', 'signUpSubmit')" onfocus="resetInput('mailSignUp')">
                 <div class="letter"></div>
-                <input type="text" id = "nameSignUp" required onfocus="resetInput('nameSignUp')" placeholder="Enter username">
+                <input type="text" id = "nameSignUp" name="user_name" required onfocus="resetInput('nameSignUp')" placeholder="Enter username">
                 <div class="user"></div>
-                <input class="password" id = "signUpPass" type="password" required placeholder="Password" onfocus="resetInput('signUpPass')">
+                <input class="password" id = "signUpPass" name="user_password" type="password" required placeholder="Password" onfocus="resetInput('signUpPass')">
                 <div class="key1"></div>
                 <div class="togglePassword" id="signUpToggle1"></div>
-                <input class="password" id = "signUpPassRe" type="password" required placeholder="Confirm" onblur="checkPass()" onfocus="resetInput('signUpPassRe')">
+                <input class="password" id = "signUpPassRe" name="confirm" type="password" required placeholder="Confirm" onblur="checkPass()" onfocus="resetInput('signUpPassRe')">
                 <div class="key2"></div>
                 <div class="togglePassword" id="signUpToggle2"></div>
                 <div id="verificationBox">
-                    <input class="identify" id = "identifier" type="text" required placeholder="Enter captcha" onfocus="resetInput('identifier')">
+                    <input class="identify" id = "identifier" name="captcha" type="text" required placeholder="Enter captcha" onfocus="resetInput('identifier')">
                     <button type="button" id="verificationCode" class="verificationCode"></button>
                 </div>
                 <button type="submit" class = "submit" id="signUpSubmit" onmousedown="checkSignUp()">Sign Up</button>
@@ -46,10 +46,10 @@
                 <div>BDICers to collect information</div>
             </div>
 
-            <form class="logInInputArea" novalidate onsubmit="checkLogin()">
-                <input id = "mailLogin" type="email" required onblur="checkEmail('mailLogin')" onfocus="resetInput('mailLogin')">
+            <form action="{{ url_for("User.login") }}" method="post" class="logInInputArea" novalidate onsubmit="checkLogin()">
+                <input id = "mailLogin" name="user_email" type="email" required onblur="checkEmail('mailLogin')" onfocus="resetInput('mailLogin')">
                 <div class="letter"></div>
-                <input class="password" id = "password" type="password" required onfocus="resetInput('password')">
+                <input class="password" id = "password" name="user_password" type="password" required onfocus="resetInput('password')">
                 <div class="key"></div>
                 <div class="togglePassword" id="togglePassword"></div>
                 <button type="submit" class = "submit" id = "submitLogin">Login</button>
@@ -61,10 +61,10 @@
         </div>
         <!--------forgetPassword区域------------------------------------------------------------------------------->
         <div class="forgetPassword", id="forgetPassword">
-            <form class="forgetPassInputArea" novalidate onsubmit="checkForgetPass()">
+            <form action="{{ url_for("User.login") }}" method="post" class="forgetPassInputArea" novalidate onsubmit="checkForgetPass()">
                 <div class="forgetTitle">Find your account</div>
                 <div class="forgetWords">Enter your email to continue:</div>
-                <input class="mailConfig" type="email" id="forgetMail" placeholder='Enter e-mail address' required onblur="checkEmail('forgetMail', 'forgetPassSubmit')" onfocus="resetInput('forgetMail')">
+                <input class="mailConfig" type="email" id="forgetMail" name="user_email" placeholder='Enter e-mail address' required onblur="checkEmail('forgetMail', 'forgetPassSubmit')" onfocus="resetInput('forgetMail')">
                 <div class="letter"></div>
                 <button type="submit" class = "submit" id = "forgetPassSubmit">Next</button>
             </form>
