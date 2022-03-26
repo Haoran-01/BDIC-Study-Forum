@@ -20,22 +20,22 @@
 
         <!--------signUp区域---------------------------------------------------------------------------------------->
         <div class="signUp", id="signUp">
-            <form class="signUpInputArea" novalidate>
-                <input class="mail" type="email" required placeholder="Enter e-mail address">
+            <form class="signUpInputArea" novalidate onsubmit="checkSignUp()">
+                <input class="mail" id="mailSignUp" type="email" required placeholder="Enter e-mail address" onblur="checkEmail('mailSignUp', 'signUpSubmit')" onfocus="resetInput('mailSignUp')">
                 <div class="letter"></div>
-                <input type="text" required oninvalid="setCustomValidity('No')" οninput="setCustomValidity(’’)" placeholder="Enter username">
+                <input type="text" id = "nameSignUp" required onfocus="resetInput('nameSignUp')" placeholder="Enter username">
                 <div class="user"></div>
-                <input class="password" id = "signUpPass" type="password" required placeholder="Password" onfocus="resetInputColor(signUpPass)">
+                <input class="password" id = "signUpPass" type="password" required placeholder="Password" onfocus="resetInput('signUpPass')">
                 <div class="key1"></div>
                 <div class="togglePassword" id="signUpToggle1"></div>
-                <input class="password" id = "signUpPassRe" type="password" required placeholder="Confirm" onblur="checkPass()" onfocus="resetInputColor(signUpPassRe)">
+                <input class="password" id = "signUpPassRe" type="password" required placeholder="Confirm" onblur="checkPass()" onfocus="resetInput('signUpPassRe')">
                 <div class="key2"></div>
                 <div class="togglePassword" id="signUpToggle2"></div>
                 <div id="verificationBox">
-                    <input class="identify" type="text" required placeholder="Enter captcha">
+                    <input class="identify" id = "identifier" type="text" required placeholder="Enter captcha" onfocus="resetInput('identifier')">
                     <button type="button" id="verificationCode" class="verificationCode"></button>
                 </div>
-                <button type="submit" class = "submit">Sign Up</button>
+                <button type="submit" class = "submit" id="signUpSubmit" onmousedown="checkSignUp()">Sign Up</button>
             </form>
         </div>
         <!--------login区域---------------------------------------------------------------------------------------->
@@ -46,13 +46,13 @@
                 <div>BDICers to collect information</div>
             </div>
 
-            <form class="logInInputArea" novalidate>
-                <input class type="text" required oninvalid="setCustomValidity('No')" οninput="setCustomValidity(’’)">
-                <div class="user"></div>
-                <input class="password" id = "password" type="password" required>
+            <form class="logInInputArea" novalidate onsubmit="checkLogin()">
+                <input id = "mailLogin" type="email" required onblur="checkEmail('mailLogin')" onfocus="resetInput('mailLogin')">
+                <div class="letter"></div>
+                <input class="password" id = "password" type="password" required onfocus="resetInput('password')">
                 <div class="key"></div>
                 <div class="togglePassword" id="togglePassword"></div>
-                <button type="submit" class = "submit">Login</button>
+                <button type="submit" class = "submit" id = "submitLogin">Login</button>
             </form>
 
             <div id="forgetHr"></div>
@@ -61,12 +61,12 @@
         </div>
         <!--------forgetPassword区域------------------------------------------------------------------------------->
         <div class="forgetPassword", id="forgetPassword">
-            <form class="forgetPassInputArea" novalidate>
+            <form class="forgetPassInputArea" novalidate onsubmit="checkForgetPass()">
                 <div class="forgetTitle">Find your account</div>
                 <div class="forgetWords">Enter your email to continue:</div>
-                <input class="mailConfig" type="text" placeholder="Email" required>
+                <input class="mailConfig" type="email" id="forgetMail" placeholder='Enter e-mail address' required onblur="checkEmail('forgetMail', 'forgetPassSubmit')" onfocus="resetInput('forgetMail')">
                 <div class="letter"></div>
-                <button type="submit" class = "submit">Next</button>
+                <button type="submit" class = "submit" id = "forgetPassSubmit">Next</button>
             </form>
         </div>
 
@@ -76,6 +76,7 @@
     </footer>
 
     <script>
+        /*三个区域的动效**********************************************************************************************/
         var login = document.getElementById("login");
         var signUp = document.getElementById("signUp");
         var forgetPassword =document.getElementById("forgetPassword");
@@ -90,6 +91,7 @@
             forgetPassword.style.left = "0px";
         }
 
+        /*验证码获取按钮**********************************************************************************************/
        var button = document.getElementById('verificationCode');
         button.innerHTML = 'get';
        button.onclick = function () {
@@ -111,6 +113,7 @@
             }, 1000)
         }
 
+        /*显示隐藏密码按钮**********************************************************************************************/
         let togglePassword0 = document.getElementById("togglePassword");
         let togglePassword1 = document.getElementById("signUpToggle1");
         let togglePassword2 = document.getElementById("signUpToggle2");
@@ -136,6 +139,17 @@
             })
         }
 
+        /*验证用户输入**********************************************************************************************/
+        function checkEmail(id, button) {
+            var tester = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
+            if (!tester.test(document.getElementById(id).value)){
+                document.getElementById(id).value = "";
+                document.getElementById(id).style.borderBottom = '1px solid #ff6d6d';
+                document.getElementById(id).style.animation = 'rock 1s 0s ease-in-out';
+                document.getElementById(id).setAttribute('placeHolder', 'Invalid email');
+            }
+        }
+
         function checkPass() {
             if (signUpPass.value !== signUpPassRe.value){
                 signUpPass.style.animation = 'rock 1s 0s ease-in-out';
@@ -147,8 +161,46 @@
             }
         }
 
-        function resetInputColor(id){
-            id.style = '';
+        function resetInput(id){
+            document.getElementById(id).style = '';
+            if (document.getElementById(id).type === 'email'){
+                if (id === 'mailLogin'){
+                    document.getElementById(id).setAttribute('placeHolder', '');
+                }else {
+                    document.getElementById(id).setAttribute('placeHolder', 'Enter e-mail address');
+                }
+            }
+        }
+
+        function checkSignUp(){
+            let idList = ['mailSignUp', 'nameSignUp', 'signUpPass', 'signUpPassRe', 'identifier'];
+            for (var i = 0; i < idList.length; i++){
+                if (document.getElementById(idList[i]).value === ''){
+                    document.getElementById(idList[i]).style.borderBottom = '1px solid #ff6d6d';
+                }
+            }
+            if (document.getElementById('mailSignUp').value === '' || document.getElementById('nameSignUp').value === '' || signUpPass.value === '' || signUpPassRe.value === '' || document.getElementById('identifier').value === ''){
+                event.preventDefault();
+            }
+        }
+
+        function checkLogin(){
+            if (document.getElementById('mailLogin').value === ''){
+                document.getElementById('mailLogin').style.borderBottom = '1px solid #ff6d6d';
+            }
+            if (document.getElementById('password').value === ''){
+                document.getElementById('password').style.borderBottom = '1px solid #ff6d6d';
+            }
+            if (document.getElementById('mailLogin').value === '' || document.getElementById('password').value === ''){
+                event.preventDefault();
+            }
+        }
+
+        function checkForgetPass(){
+            if (document.getElementById('forgetMail').value === ''){
+                document.getElementById('forgetMail').style.borderBottom = '1px solid #ff6d6d';
+                event.preventDefault();
+            }
         }
 
     </script>

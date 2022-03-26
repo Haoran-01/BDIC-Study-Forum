@@ -131,7 +131,7 @@ footer{
     border-radius: 2px;
     width: 400px;
     height: 647px;
-    /*overflow:hidden;*/
+    overflow:hidden;
     position: relative;
     /*将main块元素设置成position:relative*/
 }
@@ -210,8 +210,8 @@ footer{
 
 /*用户名图标-------------------*/
 
-.logInInputArea .user{
-    background-image: url("images/user.png");
+.logInInputArea .letter{
+    background-image: url("images/letter.png");
     background-size: contain;
     background-repeat: no-repeat;
     transition: 400ms;
@@ -219,17 +219,17 @@ footer{
     width: 30px;
     position: absolute;
     left: 50px;
-    bottom: 188px;
+    bottom: 180px;
 }
 
-.logInInputArea input:focus + .user{
-    background-image: url("images/user_active.png");
+.logInInputArea input:focus + .letter{
+    background-image: url("images/letter_active.png");
     transition: 400ms;
     left: 10px;
 }
 
-.logInInputArea input:valid + .user{
-    background-image: url("images/user_active.png");
+.logInInputArea input:valid + .letter{
+    background-image: url("images/letter_active.png");
     transition: 400ms;
     left: 10px;
 }
