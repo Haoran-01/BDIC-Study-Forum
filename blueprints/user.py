@@ -1,7 +1,7 @@
 import random
 import string
 
-from flask import Blueprint,request,render_template,redirect,url_for,session
+from flask import Blueprint,request,render_template,redirect,url_for,flash
 from forms import LoginFrom, RegisterForm, EmailCaptchaModel
 from models import User
 from exts import db, mail
@@ -24,8 +24,10 @@ def login():
             if user and check_password_hash(user.user_password,user_password):
                 return redirect('/')
             else:
+                flash("邮箱或密码错误")
                 return redirect(url_for("User.login"))
         else:
+            flash("邮箱或密码格式错误")
             return redirect(url_for("User.login"))
 
 

@@ -211,7 +211,7 @@ footer{
 /*用户名图标-------------------*/
 
 .logInInputArea .letter{
-    background-image: url("images/letter.png");
+    background-image: url("../images/letter.png");
     background-size: contain;
     background-repeat: no-repeat;
     transition: 400ms;
@@ -223,13 +223,13 @@ footer{
 }
 
 .logInInputArea input:focus + .letter{
-    background-image: url("images/letter_active.png");
+    background-image: url("../images/letter_active.png");
     transition: 400ms;
     left: 10px;
 }
 
 .logInInputArea input:valid + .letter{
-    background-image: url("images/letter_active.png");
+    background-image: url("../images/letter_active.png");
     transition: 400ms;
     left: 10px;
 }
@@ -237,7 +237,7 @@ footer{
 /*密码图标--------------------*/
 
 .logInInputArea .key{
-    background-image: url("images/key.png");
+    background-image: url("../images/key.png");
     background-size: contain;
     background-repeat: no-repeat;
     transition: 400ms;
@@ -249,13 +249,13 @@ footer{
 }
 
 .logInInputArea input:focus + .key{
-    background-image: url("images/key_active.png");
+    background-image: url("../images/key_active.png");
     transition: 400ms;
     left: 10px;
 }
 
 .logInInputArea input:valid + .key{
-    background-image: url("images/key_active.png");
+    background-image: url("../images/key_active.png");
     transition: 400ms;
     left: 10px;
 }
@@ -264,7 +264,7 @@ footer{
 
 .logInInputArea input:focus + .key + .togglePassword{
     user-select: none;
-    background-image: url("images/eye_open.png");
+    background-image: url("../images/eye_open.png");
     background-size: contain;
     background-repeat: no-repeat;
     height: 20px;
@@ -355,7 +355,7 @@ footer{
 /*邮箱图标-----------------------*/
 
 .signUpInputArea .letter{
-    background-image: url("images/letter_active.png");
+    background-image: url("../images/letter_active.png");
     background-size: contain;
     background-repeat: no-repeat;
     transition: 400ms;
@@ -367,13 +367,13 @@ footer{
 }
 
 .signUpInputArea input:placeholder-shown + .letter{
-    background-image: url("images/letter.png");
+    background-image: url("../images/letter.png");
     transition: 400ms;
     left: 70px;
 }
 
 .signUpInputArea input:focus + .letter{
-    background-image: url("images/letter_active.png");
+    background-image: url("../images/letter_active.png");
     transition: 400ms;
     left: 30px;
 }
@@ -381,7 +381,7 @@ footer{
 /*用户名图标-------------------*/
 
 .signUpInputArea .user{
-    background-image: url("images/user.png");
+    background-image: url("../images/user.png");
     background-size: contain;
     background-repeat: no-repeat;
     transition: 400ms;
@@ -393,13 +393,13 @@ footer{
 }
 
 .signUpInputArea input:focus + .user{
-    background-image: url("images/user_active.png");
+    background-image: url("../images/user_active.png");
     transition: 400ms;
     left: 30px;
 }
 
 .signUpInputArea input:valid + .user{
-    background-image: url("images/user_active.png");
+    background-image: url("../images/user_active.png");
     transition: 400ms;
     left: 30px;
 }
@@ -407,7 +407,7 @@ footer{
 /*密码图标--------------------*/
 
 .signUpInputArea .key1{
-    background-image: url("images/key.png");
+    background-image: url("../images/key.png");
     background-size: contain;
     background-repeat: no-repeat;
     transition: 400ms;
@@ -419,13 +419,13 @@ footer{
 }
 
 .signUpInputArea input:focus + .key1{
-    background-image: url("images/key_active.png");
+    background-image: url("../images/key_active.png");
     transition: 400ms;
     left: 30px;
 }
 
 .signUpInputArea input:valid + .key1{
-    background-image: url("images/key_active.png");
+    background-image: url("../images/key_active.png");
     transition: 400ms;
     left: 30px;
 }
@@ -434,7 +434,7 @@ footer{
 
 .signUpInputArea input:focus + .key1 + .togglePassword{
     user-select: none;
-    background-image: url("images/eye_open.png");
+    background-image: url("../images/eye_open.png");
     background-size: contain;
     background-repeat: no-repeat;
     height: 20px;
@@ -446,7 +446,7 @@ footer{
 
 .signUpInputArea input:valid + .key1 + .togglePassword{
     user-select: none;
-    background-image: url("images/eye_open.png");
+    background-image: url("../images/eye_open.png");
     background-size: contain;
     background-repeat: no-repeat;
     height: 20px;
@@ -459,7 +459,7 @@ footer{
 /*重复密码图标--------------------*/
 
 .signUpInputArea .key2{
-    background-image: url("images/key.png");
+    background-image: url("../images/key.png");
     background-size: contain;
     background-repeat: no-repeat;
     transition: 400ms;
@@ -471,13 +471,13 @@ footer{
 }
 
 .signUpInputArea input:focus + .key2{
-    background-image: url("images/key_active.png");
+    background-image: url("../images/key_active.png");
     transition: 400ms;
     left: 30px;
 }
 
 .signUpInputArea input:valid + .key2{
-    background-image: url("images/key_active.png");
+    background-image: url("../images/key_active.png");
     transition: 400ms;
     left: 30px;
 }
@@ -486,7 +486,7 @@ footer{
 
 .signUpInputArea input:focus + .key2 + .togglePassword{
     user-select: none;
-    background-image: url("images/eye_open.png");
+    background-image: url("../images/eye_open.png");
     background-size: contain;
     background-repeat: no-repeat;
     height: 20px;
@@ -498,7 +498,7 @@ footer{
 
 .signUpInputArea input:valid + .key2 + .togglePassword{
     user-select: none;
-    background-image: url("images/eye_open.png");
+    background-image: url("../images/eye_open.png");
     background-size: contain;
     background-repeat: no-repeat;
     height: 20px;
@@ -587,7 +587,7 @@ footer{
 /*邮箱图标-------------------*/
 
 .forgetPassInputArea .letter{
-    background-image: url("images/letter_active.png");
+    background-image: url("../images/letter_active.png");
     background-size: contain;
     background-repeat: no-repeat;
     transition: 400ms;
@@ -599,13 +599,13 @@ footer{
 }
 
 .forgetPassInputArea input:placeholder-shown + .letter{
-    background-image: url("images/letter.png");
+    background-image: url("../images/letter.png");
     transition: 400ms;
     left: 70px;
 }
 
 .forgetPassInputArea input:focus + .letter{
-    background-image: url("images/letter_active.png");
+    background-image: url("../images/letter_active.png");
     transition: 400ms;
     left: 30px;
 }
