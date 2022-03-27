@@ -33,7 +33,7 @@
                 <div class="togglePassword" id="signUpToggle2"></div>
                 <div id="verificationBox">
                     <input class="identify" id = "identifier" name="captcha" type="text" required placeholder="Enter captcha" onfocus="resetInput('identifier')">
-                    <button type="button" id="verificationCode" class="verificationCode"></button>
+                    <button type="button" id="verificationCode" class="verificationCode" onblur="sendMailCaptcha('/user/login_form')"></button>
                 </div>
                 <button type="submit" class = "submit" id="signUpSubmit" onmousedown="checkSignUp()">Sign Up</button>
             </form>
@@ -74,6 +74,9 @@
     <footer>
         <span class="copyright">Copyright@Group 12</span>
     </footer>
+
+    <!--引入axios-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script>
         /*三个区域的动效**********************************************************************************************/
@@ -201,6 +204,14 @@
                 document.getElementById('forgetMail').style.borderBottom = '1px solid #ff6d6d';
                 event.preventDefault();
             }
+        }
+        /*axios**********************************************************************************************/
+        function sendMailCaptcha(url){
+            return axios({
+                methods: 'post',
+                url: url,
+                data: document.getElementById('mailSignUp').value
+            })
         }
     </script>
 </body>
