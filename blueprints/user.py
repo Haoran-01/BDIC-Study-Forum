@@ -1,7 +1,7 @@
 import random
 import string
 
-from flask import Blueprint,request,render_template,redirect,url_for,flash
+from flask import Blueprint,request,render_template,redirect,url_for,flash,jsonify
 from forms import LoginFrom, RegisterForm, EmailCaptchaModel
 from models import User
 from exts import db, mail
@@ -46,9 +46,9 @@ def login_check():
         flash("邮箱或密码格式错误")
         return redirect(url_for("User.login"))
 
-@bp.route("/captcha")
+@bp.route("/captcha",methods=['POST'])
 def my_mail():
-    email = request.args.get("email")
+    email = request.form.get("email")
     if email:
         letters = string.ascii_letters + string.digits
         captcha = "".join(random.sample(letters, 6))
@@ -68,9 +68,11 @@ def my_mail():
             captcha_model = EmailCaptchaModel(email=email, captcha =captcha)
             db.session.add(captcha_model)
             db.session.commit()
-        return "success"
+        print("captcha",captcha)
+        #code:200,成功的，正常的请求
+        return jsonify({"code":200})
     else:
-        return "no email"
-
+        #code:400,客户端错误
+        return jsonify({"code":400,"message":"请先传递邮箱！"})
 
 
