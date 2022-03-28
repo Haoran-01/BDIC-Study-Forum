@@ -273,7 +273,45 @@ footer{
     left: 275px;
     bottom: 103px;
 }
+/*向左向右图标------------------*/
+.rightArrow{
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: 400ms;
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    left: 370px;
+    bottom: 290px;
+    cursor: pointer;
+}
 
+.leftArrow{
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: 400ms;
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    left: 10px;
+    bottom: 135px;
+    cursor: pointer;
+}
+
+#rightToLogin{
+    background-image: url("images/arrow_right.png");
+}
+
+#rightToLogin:hover {
+    background-image: url("images/arrow_right_active.png");
+}
+
+#leftToLogin:hover {
+    background-image: url("images/arrow_left_active.png");
+}
+#leftToLogin{
+    background-image: url("images/arrow_left.png");
+}
 /*所有提交按钮------------------*/
 
 .submit{

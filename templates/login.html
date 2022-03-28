@@ -36,6 +36,7 @@
                     <button type="button" id="verificationCode" class="verificationCode"></button>
                 </div>
                 <button type="submit" class = "submit" id="signUpSubmit" onmousedown="checkSignUp()">Sign Up</button>
+                <div id="rightToLogin" class="rightArrow" onclick="rightToLogin()" title="Back to login in"></div>
             </form>
         </div>
         <!--------login区域---------------------------------------------------------------------------------------->
@@ -67,6 +68,7 @@
                 <input class="mailConfig" type="email" id="forgetMail" name="user_email" placeholder='Enter e-mail address' required onblur="checkEmail('forgetMail', 'forgetPassSubmit')" onfocus="resetInput('forgetMail')">
                 <div class="letter"></div>
                 <button type="submit" class = "submit" id = "forgetPassSubmit">Next</button>
+                <div id="leftToLogin" class="leftArrow" onclick="leftToLogin()" title="Back to login in"></div>
             </form>
         </div>
 
@@ -91,6 +93,15 @@
             forgetPassword.style.left = "0px";
         }
 
+        function rightToLogin() {
+            login.style.left = "0px";
+            signUp.style.left = "-450px"
+        }
+
+        function leftToLogin() {
+            login.style.left = "0px";
+            forgetPassword.style.left = "450px";
+        }
         /*验证码获取按钮**********************************************************************************************/
        var button = document.getElementById('verificationCode');
         button.innerHTML = 'get';
