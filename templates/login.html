@@ -33,7 +33,7 @@
                 <div class="togglePassword" id="signUpToggle2"></div>
                 <div id="verificationBox">
                     <input class="identify" id = "identifier" name="captcha" type="text" required placeholder="Enter captcha" onfocus="resetInput('identifier')">
-                    <button type="button" id="verificationCode" class="verificationCode"></button>
+                    <button type="button" id="captcha-btn" class="verificationCode"></button>
                 </div>
                 <button type="submit" class = "submit" id="signUpSubmit" onmousedown="checkSignUp()">Sign Up</button>
             </form>
@@ -75,6 +75,8 @@
         <span class="copyright">Copyright@Group 12</span>
     </footer>
 
+    <script src = "{{ url_for('static', filename = 'jquery/jquery.3.6.min.js')}}"></script>
+    <script src = "{{ url_for('static', filename='js/register.js')}}"></script>
     <script>
         /*三个区域的动效**********************************************************************************************/
         var login = document.getElementById("login");
