@@ -140,11 +140,11 @@
                 e.preventDefault();
                 if (password.type === 'password'){
                     password.setAttribute('type', 'text');
-                    togglePassword.style.backgroundImage = 'url("../images/eye_close.png")';
+                    togglePassword.style.backgroundImage = 'url("{{url_for('static', filename = 'images/eye_close.png')}}")';
                     togglePassword.style.bottom = "100px";
                 }else{
                     password.setAttribute('type', 'password');
-                    togglePassword.style.backgroundImage = 'url("../images/eye_open.png")';
+                    togglePassword.style.backgroundImage = 'url("{{url_for('static', filename = 'images/eye_open.png')}}")';
                     togglePassword.style.bottom = "103px";
                 }
             })
@@ -214,7 +214,6 @@
             }
         }
     </script>
-
     <script src = "{{ url_for('static', filename = 'jquery/jquery.3.6.min.js')}}"></script>
     <script src = "{{ url_for('static', filename='js/register.js')}}"></script>
 </body>
