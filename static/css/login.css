@@ -299,18 +299,18 @@ footer{
 }
 
 #rightToLogin{
-    background-image: url("images/arrow_right.png");
+    background-image: url("../images/arrow_right.png");
 }
 
 #rightToLogin:hover {
-    background-image: url("images/arrow_right_active.png");
+    background-image: url("../images/arrow_right_active.png");
 }
 
 #leftToLogin:hover {
-    background-image: url("images/arrow_left_active.png");
+    background-image: url("../images/arrow_left_active.png");
 }
 #leftToLogin{
-    background-image: url("images/arrow_left.png");
+    background-image: url("../images/arrow_left.png");
 }
 /*所有提交按钮------------------*/
 

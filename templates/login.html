@@ -20,7 +20,7 @@
 
         <!--------signUp区域---------------------------------------------------------------------------------------->
         <div class="signUp", id="signUp">
-            <form action="{{ url_for("User.register_check") }}" method="post" class="signUpInputArea" novalidate onsubmit="checkSignUp()">
+            <form action="{{ url_for("User.register_check")}}" method="post" class="signUpInputArea" novalidate onsubmit="checkSignUp()">
                 <input class="mail" id="mailSignUp" name="user_email" type="email" required placeholder="Enter e-mail address" onblur="checkEmail('mailSignUp', 'signUpSubmit')" onfocus="resetInput('mailSignUp')">
                 <div class="letter"></div>
                 <input type="text" id = "nameSignUp" name="user_name" required onfocus="resetInput('nameSignUp')" placeholder="Enter username">
@@ -48,9 +48,9 @@
             </div>
 
             <form action="{{ url_for("User.login_check") }}" method="post" class="logInInputArea" novalidate onsubmit="checkLogin()">
-                <input id = "mailLogin" name="user_email" type="email" required onblur="checkEmail('mailLogin')" onfocus="resetInput('mailLogin')">
+                <input id = "mailLogin" name="user_email" type="email" required placeholder="{{ get_flashed_messages()[0] }}" onblur="checkEmail('mailLogin')" onfocus="resetInput('mailLogin')">
                 <div class="letter"></div>
-                <input class="password" id = "password" name="user_password" type="password" required onfocus="resetInput('password')">
+                <input class="password" id = "password" name="user_password" type="password" required placeholder="{{ get_flashed_messages()[1] }}" onfocus="resetInput('password')">
                 <div class="key"></div>
                 <div class="togglePassword" id="togglePassword"></div>
                 <button type="submit" class = "submit" id = "submitLogin" name="sign_up" value="True">Login</button>
@@ -77,8 +77,6 @@
         <span class="copyright">Copyright@Group 12</span>
     </footer>
 
-    <script src = "{{ url_for('static', filename = 'jquery/jquery.3.6.min.js')}}"></script>
-    <script src = "{{ url_for('static', filename='js/register.js')}}"></script>
     <script>
         /*三个区域的动效**********************************************************************************************/
         var login = document.getElementById("login");
@@ -105,7 +103,7 @@
             forgetPassword.style.left = "450px";
         }
         /*验证码获取按钮**********************************************************************************************/
-       var button = document.getElementById('verificationCode');
+       var button = document.getElementById('captcha-btn');
         button.innerHTML = 'get';
        button.onclick = function () {
             button.disabled = 'disabled';
@@ -142,11 +140,11 @@
                 e.preventDefault();
                 if (password.type === 'password'){
                     password.setAttribute('type', 'text');
-                    togglePassword.style.backgroundImage = 'url("images/eye_close.png")';
+                    togglePassword.style.backgroundImage = 'url("../images/eye_close.png")';
                     togglePassword.style.bottom = "100px";
                 }else{
                     password.setAttribute('type', 'password');
-                    togglePassword.style.backgroundImage = 'url("images/eye_open.png")';
+                    togglePassword.style.backgroundImage = 'url("../images/eye_open.png")';
                     togglePassword.style.bottom = "103px";
                 }
             })
@@ -216,5 +214,8 @@
             }
         }
     </script>
+
+    <script src = "{{ url_for('static', filename = 'jquery/jquery.3.6.min.js')}}"></script>
+    <script src = "{{ url_for('static', filename='js/register.js')}}"></script>
 </body>
 </html>
