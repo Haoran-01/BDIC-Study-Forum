@@ -77,7 +77,7 @@
         <span class="copyright">Copyright@Group 12</span>
     </footer>
 
-    <script>
+    <script> {% for item in get_flashed_messages() %}
         /*三个区域的动效**********************************************************************************************/
         var login = document.getElementById("login");
         var signUp = document.getElementById("signUp");
