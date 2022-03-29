@@ -29,9 +29,9 @@ def register_check():
             db.session.add(user)
             db.session.commit()
 
-            return redirect(url_for('User.login'))
+            return redirect(url_for('User.login')), jsonify({"message": "Sign up successfully!"})
         else:
-            return flash("邮箱已注册")
+            return jsonify({"message": "Mailbox has been registered!"})
     else:
         return redirect(url_for('User.login'))
 
@@ -46,10 +46,10 @@ def login_check():
         if user and check_password_hash(user.user_password, user_password):
             return redirect('/')
         else:
-            flash("邮箱或密码错误")
+            flash("Incorrect email or password.")
             return redirect(url_for("User.login"))
     else:
-        flash("邮箱或密码格式错误")
+        flash("Incorrect email or password format.")
         return redirect(url_for("User.login"))
 
 @bp.route("/captcha",methods=['POST'])
