@@ -25,6 +25,7 @@ def register_check():
         user = User(user_email=register_form.user_email.data, user_name=register_form.user_name.data, user_password=hash_password)
         db.session.add(user)
         db.session.commit()
+
         return redirect(url_for('User.login'))
     else:
         return redirect(url_for('User.login'))

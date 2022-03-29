@@ -106,7 +106,9 @@
        var button = document.getElementById('captcha-btn');
         button.innerHTML = 'get';
        button.onclick = function () {
-            button.disabled = 'disabled';
+           var result = checkEmail('mailSignUp');
+           if (result){
+               button.disabled = 'disabled';
             button.classList.remove('verificationCode');
             button.classList.add('verificationCodeDisabled');
             var time = 60;
@@ -122,6 +124,7 @@
                     button.innerHTML = time + 's';
                 }
             }, 1000)
+           }
         }
 
         /*显示隐藏密码按钮**********************************************************************************************/
@@ -158,6 +161,9 @@
                 document.getElementById(id).style.borderBottom = '1px solid #ff6d6d';
                 document.getElementById(id).style.animation = 'rock 1s 0s ease-in-out';
                 document.getElementById(id).setAttribute('placeHolder', 'Invalid email');
+                return false;
+            }else {
+                return true;
             }
         }
 
