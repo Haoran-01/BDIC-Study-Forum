@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>CyanPine</title>
     <link href="{{ url_for('static', filename = 'css/login.css') }}" rel="stylesheet" type="text/css"/>
+    <script src="register.js"></script>
 </head>
 <body>
     <header>
@@ -78,6 +79,7 @@
     </footer>
 
     <script>
+        confirm("本页面用了必要的cookie和session，禁用将导致网页无法使用，请接受");
         /*三个区域的动效**********************************************************************************************/
         var login = document.getElementById("login");
         var signUp = document.getElementById("signUp");

@@ -61,8 +61,7 @@ def my_mail():
         message = Message(
             subject="Cyan Pine 验证码",
             recipients=[email],
-
-            body=f"同学您好，\n\n您正在CyanPine进行注册验证，\n\n验证码有效期1分钟，请尽快完成注册。\n\n您的验证码为：\n\n {captcha} \n\n请勿将此验证码转发给任何人。\n\n若非本人操作，请忽略此邮件。"
+            html=render_template("email.html", email_captcha = captcha)
         )
         mail.send(message)
         captcha_model = EmailCaptchaModel.query.filter_by(email=email).first()
