@@ -36,7 +36,7 @@
                     <input class="identify" id = "identifier" name="captcha" type="text" required placeholder="Enter captcha" onfocus="resetInput('identifier')">
                     <button type="button" id="captcha-btn" class="verificationCode"></button>
                 </div>
-                <button type="submit" class = "submit" id="signUpSubmit" onmousedown="checkSignUp()">Sign Up</button>
+                <button type="submit" class = "submit" id="signUpSubmit" onmousedown="checkSignUp()" >Sign Up</button>
                 <div id="rightToLogin" class="rightArrow" onclick="rightToLogin()" title="Back to login in"></div>
             </form>
         </div>
@@ -219,6 +219,19 @@
             if (document.getElementById('forgetMail').value === ''){
                 document.getElementById('forgetMail').style.borderBottom = '1px solid #ff6d6d';
                 event.preventDefault();
+            }
+        }
+        function signUpSuccess() {
+            var buttonSub = document.getElementById('signUpSubmit');
+            buttonSub.onclick = function () {
+                $.ajax({
+                    url: "/user/register_form",
+                    method: "GET",
+                    success: function (res) {
+                        var message = res['message'];
+                        alert(message)
+                    }
+                })
             }
         }
     </script>

@@ -16,22 +16,31 @@ def login():
     if request.method == 'GET':
         return render_template('login.html')
 
-@bp.route("/register_form", methods=['POST'])
+@bp.route("/register_form", methods=['POST','GET'])
 def register_check():
     register_form = RegisterForm(request.form)
 
     if register_form.validate():
         check_register = User.query.filter_by(user_email = register_form.user_email.data).first()
-        if check_register:
-            hash_password = generate_password_hash(register_form.user_password.data)
-            user = User(user_email=register_form.user_email.data, user_name=register_form.user_name.data,
-                        user_password=hash_password)
-            db.session.add(user)
-            db.session.commit()
+        # if check_register:
+        #     hash_password = generate_password_hash(register_form.user_password.data)
+        #     user = User(user_email=register_form.user_email.data, user_name=register_form.user_name.data,
+        #                 user_password=hash_password)
+        #     db.session.add(user)
+        #     db.session.commit()
+        #
+        #     # return redirect(url_for('User.login'))
+        #     return jsonify({"message": "Sign up successfully!"})
+        # else:
+        #     # return redirect(url_for('User.login'))
+        #     return jsonify({"message": "Mailbox has been registered!"})
 
-            return redirect(url_for('User.login')), jsonify({"message": "Sign up successfully!"})
-        else:
-            return jsonify({"message": "Mailbox has been registered!"})
+        hash_password = generate_password_hash(register_form.user_password.data)
+        user = User(user_email=register_form.user_email.data, user_name=register_form.user_name.data,
+                    user_password=hash_password)
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('User.login'))
     else:
         return redirect(url_for('User.login'))
 

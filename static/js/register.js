@@ -2,7 +2,7 @@ function bindCaptchaBtnClick(){
     $("#captcha-btn").on("click",function(event){
         var email=$("input[name='user_email']").val();
         if(!email){
-            alert("请先输入邮箱b！");
+            alert("请先输入邮箱！");
             return;
         }
         //通过js发送网络请求：ajax
