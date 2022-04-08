@@ -26,6 +26,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "favourite" */ '../components/profileComponents/MyFavourite.vue')
       }
     ]
+  },
+  {
+    path: '/forum',
+    name: 'forum',
+    component: () => import(/* webpackChunkName: "forum" */ '../views/ForumView.vue')
   }
 ]
 
