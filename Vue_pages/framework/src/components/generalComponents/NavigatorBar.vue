@@ -1,27 +1,113 @@
 <template>
-<div class="navigator-main">
+<div class="navigatorMain">
   <div class="logo"></div>
-  <nav>
-    <router-link class="home" to="/"> Home </router-link>
-    <router-link class="profile" to="/profile"> Profile </router-link>
-    <router-link class="forum" to="/forum">Forum</router-link>
-  </nav>
-  <button class="userMenu"></button>
+  <div class="navOptions" id="navOptions">
+    <nav>
+      <router-link class="home" to="/"> Home </router-link>
+      <router-link class="forum" to="/forum">Forum</router-link>
+    </nav>
+  </div>
+  <button class="userMenuButton" id="userMenuButton" @click="handleUserMenu" @blur="deleteUserMenu"></button>
+  <transition>
+      <NavUserMenu class="userMenu" v-if = "userMenuVisibility"></NavUserMenu>
+  </transition>
+
+
 </div>
-  <router-view/>
+  <div class="mainView">
+    <router-view/>
+  </div>
 </template>
 
+<!--<script setup>
+import {onMounted, onUnmounted} from "vue";
+onMounted(() => {
+  window.addEventListener('scroll', this.changeOptionsVisibility, true)
+})
+onUnmounted(()=>{
+    window.removeEventListener('scroll', this.changeOptionsVisibility, true)
+})
+</script>-->
+
 <script>
+/*import {onMounted, onUnmounted} from "vue";
+onMounted(() => {
+  window.addEventListener('scroll', this.changeOptionsVisibility, true)
+})
+onUnmounted(()=>{
+  window.removeEventListener('scroll', this.changeOptionsVisibility, true)
+})*/
+import NavUserMenu from "@/components/generalComponents/NavUserMenu";
 export default {
-  name: "NavigatorBar"
+    name: "NavigatorBar",
+  components: {NavUserMenu},
+  data() {
+    return {
+      userMenuVisibility: false
+    }
+  },
+  methods: {
+        changeOptionsVisibility(){
+      const nav = document.getElementById("navOptions")
+      if (this.$store.state.mainFunctionsVisibility === false){
+        nav.style.opacity = "0";
+        nav.style.pointerEvents = "none";
+      }else {
+        nav.style.opacity = "1";
+        nav.style.pointerEvents = "auto";
+      }
+    },
+
+    handleUserMenu(){
+        if (this.$data.userMenuVisibility === false){
+          const button = document.getElementById("userMenuButton");
+          button.focus();
+        }
+        this.$data.userMenuVisibility = !this.$data.userMenuVisibility;
+    },
+
+    deleteUserMenu(){
+      this.$data.userMenuVisibility = false;
+    }
+    },
+    mounted() {
+      window.addEventListener('scroll', this.changeOptionsVisibility, true)
+    },
+    unmounted() {
+      window.removeEventListener('scroll', this.changeOptionsVisibility, true)
+    }
 }
 </script>
 
 <style scoped>
-.navigator-main{
+.v-enter-from{
+  opacity: 0;
+}
+.v-enter-active{
+  transition: opacity 0.2s ease-out;
+}
+.v-enter-to{
+  opacity: 1;
+}
+.v-leave-from{
+  opacity: 1;
+}
+.v-leave-active{
+  transition: opacity 0.2s ease-in;
+}
+.v-leave-to{
+  opacity: 0;
+}
+.navigatorMain{
   display: grid;
   grid-template-columns: 200px 270px 1fr 100px;
   grid-template-rows: 50px;
+
+  width: 100vw;
+  height: 50px;
+  position: fixed;
+  background-color: #FFFFFF;
+  box-shadow: 0 0 3px #727272;
 }
 
 .logo {
@@ -29,8 +115,16 @@ export default {
   grid-area: 1 / 1 / 2 / 2;
 }
 
-nav {
+.navOptions{
   grid-area: 1 / 2 / 2 / 3;
+  opacity: 0;
+  align-items: center;
+  display: flex;
+  transition: 0.3s;
+  pointer-events: none;
+}
+
+nav {
   display: flex;
   grid-template-rows: 100%;
   grid-template-columns: repeat(2, 100px);
@@ -48,22 +142,32 @@ nav a:link, a:visited{
   text-decoration:none;
 }
 
-.userMenu:hover{
+.userMenuButton:hover{
   transition: 0.2s;
   box-shadow: 0 0 4px #727272;
 }
 
-.userMenu{
+.userMenuButton{
   transition: 0.2s;
   z-index: 10;
   background-color: #00B8FF;
   height: 40px;
-  margin: 10px;
+  width: 80px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 20px;
   grid-area: 1 / 4 / 2 / 5;
   border: none;
   border-radius: 4px;
 }
 
-.sectorPostImage { grid-area: 1 / 3 / 2 / 4; }
-.sectorRankImage { grid-area: 1 / 4 / 2 / 5; }
+.userMenu{
+  position: fixed;
+  top: 55px;
+  left: calc(100vw - 160px - 20px);
+}
+
+.mainView{
+  padding-top: 50px;
+}
 </style>
