@@ -1,10 +1,5 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/profile">Profile</router-link> |
-    <router-link to="/forum">Forum</router-link>
-  </nav>
-  <router-view/>
+  <NavigatorBar></NavigatorBar>
 </template>
 
 
@@ -27,10 +22,18 @@ nav a {
 }
 
 nav a.router-link-exact-active {
-  color: #b9429b;
+  color: #42b983;
 }
 
 body{
   background-color: #D6E5EB;
+  padding: 0;
+  margin: 0;
 }
 </style>
+<script>
+import NavigatorBar from "@/components/generalComponents/NavigatorBar";
+export default {
+  components: {NavigatorBar}
+}
+</script>
