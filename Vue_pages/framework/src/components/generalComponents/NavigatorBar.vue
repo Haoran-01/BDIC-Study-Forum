@@ -64,6 +64,6 @@ nav a:link, a:visited{
   border-radius: 4px;
 }
 
-.div3 { grid-area: 1 / 3 / 2 / 4; }
-.div4 { grid-area: 1 / 4 / 2 / 5; }
+.sectorPostImage { grid-area: 1 / 3 / 2 / 4; }
+.sectorRankImage { grid-area: 1 / 4 / 2 / 5; }
 </style>
