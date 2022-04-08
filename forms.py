@@ -41,3 +41,7 @@ class EditProfileForm(FlaskForm):
     about_me=TextAreaField('About_me',validators=[Length(min=0,max=140)])
     submit=SubmitField('Submit')
 
+class QuestionForm(wtforms.Form):
+    title = wtforms.StringField(validators=[DataRequired("title cannot be empty"), length(min=3, max=50)])
+    content = wtforms.StringField(validators=[DataRequired("content cannot be empty"), length(min=5, max=200)])
+
