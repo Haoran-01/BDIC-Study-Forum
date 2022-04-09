@@ -1,9 +1,9 @@
 <template>
 <div class="menuMain">
-  <div class="menuItem">
+  <router-link class="menuItem" to="/profile">
     <div class="menuItemIcon"></div>
-    <router-link class="menuItemText" to="/profile"> Profile </router-link>
-  </div>
+    <div class="menuItemText"> Profile </div>
+  </router-link>
   <div class="menuItem">
     <div class="menuItemIcon"></div>
     <div class="menuItemText">Log Out</div>
@@ -34,6 +34,9 @@ export default {
   padding-right: 10px;
   align-items: center;
 }
+a{
+  text-decoration: none;
+}
 .menuItemIcon{
   width: 30px;
   height: 30px;
@@ -44,7 +47,7 @@ export default {
   font-weight: normal;
   font-size: 20px;
   margin-left: 20px;
-  text-decoration-line: none;
+  text-decoration: none;
   color: black;
 }
 </style>

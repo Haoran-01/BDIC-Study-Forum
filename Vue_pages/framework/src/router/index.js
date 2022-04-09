@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import store from '@/store/index.js'
 import HomeView from '../views/HomeView.vue'
 
 const routes = [
@@ -37,6 +38,15 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes
+})
+router.afterEach((to, from) => {
+  if (to.path === "/"){
+    store.commit("changeMainFunctionsVisible");
+  }else {
+    store.commit("changeMainFunctionsInvisible")
+  }
+
+  from.path;
 })
 
 export default router

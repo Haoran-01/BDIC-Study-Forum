@@ -29,6 +29,7 @@ export default {
   background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 4px;
+  overflow: hidden;
 }
 
 .topSectionListHead {
@@ -39,6 +40,7 @@ export default {
   display: flex;
   align-items: flex-end;
   justify-content: left;
+  border-radius: 3px 3px 0 0;
 }
 .topSectionListIntro{
   font-family: "Noto Sans", sans-serif;

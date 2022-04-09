@@ -47,14 +47,15 @@ export default {
     }
   },
   methods: {
-        changeOptionsVisibility(){
+    changeOptionsVisibility(){
       const nav = document.getElementById("navOptions")
+      console.log(this.$store.state.mainFunctionsVisibility);
       if (this.$store.state.mainFunctionsVisibility === false){
-        nav.style.opacity = "0";
-        nav.style.pointerEvents = "none";
-      }else {
         nav.style.opacity = "1";
         nav.style.pointerEvents = "auto";
+      }else {
+        nav.style.opacity = "0";
+        nav.style.pointerEvents = "none";
       }
     },
 
@@ -69,13 +70,21 @@ export default {
     deleteUserMenu(){
       this.$data.userMenuVisibility = false;
     }
-    },
-    mounted() {
-      window.addEventListener('scroll', this.changeOptionsVisibility, true)
-    },
-    unmounted() {
-      window.removeEventListener('scroll', this.changeOptionsVisibility, true)
+  },
+  watch:{
+    $route(to,from){
+      to.path;
+      from.path;
+      console.log(to.path);
+      this.changeOptionsVisibility();
     }
+  },
+  mounted() {
+    window.addEventListener('scroll', this.changeOptionsVisibility, true)
+  },
+  unmounted() {
+    window.removeEventListener('scroll', this.changeOptionsVisibility, true)
+  }
 }
 </script>
 
@@ -99,6 +108,7 @@ export default {
   opacity: 0;
 }
 .navigatorMain{
+  z-index: 1;
   display: grid;
   grid-template-columns: 200px 270px 1fr 100px;
   grid-template-rows: 50px;

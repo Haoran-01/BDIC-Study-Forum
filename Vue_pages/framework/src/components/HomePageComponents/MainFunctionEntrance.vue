@@ -1,8 +1,8 @@
 <template>
   <div class="entrances">
-    <div class="entrance" id="forum">
+    <router-link class="entrance" to="/forum">
       <div class="entranceText">Forum</div>
-    </div>
+    </router-link>
     <div class="entrance" id="courseSchedule">
       <div class="entranceText">Course<br/>Schedule</div>
     </div>
@@ -38,6 +38,7 @@ export default {
   justify-content: center;
   position: relative;
   bottom: 0;
+  text-decoration: none;
 }
 .entrance:hover{
   transition: 0.3s ease-out;
@@ -49,6 +50,7 @@ export default {
   font-size: 20px;
   font-family: "Noto Sans", sans-serif;
   font-weight: bold;
+  color: #000;
 }
 
 </style>
