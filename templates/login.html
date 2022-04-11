@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>CyanPine</title>
     <link href="{{ url_for('static', filename = 'css/login.css') }}" rel="stylesheet" type="text/css"/>
-    <script src="register.js"></script>
 </head>
 <body>
     <header>
@@ -90,6 +89,8 @@
     <footer>
         <span class="copyright">Copyright@Group 12</span>
     </footer>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script>
         /*三个区域的动效**********************************************************************************************/
@@ -243,19 +244,20 @@
                 event.preventDefault();
             }
         }
-        function signUpSuccess() {
-            var buttonSub = document.getElementById('signUpSubmit');
-            buttonSub.onclick = function () {
-                $.ajax({
-                    url: "/user/register_form",
-                    method: "GET",
-                    success: function (res) {
-                        var message = res['message'];
-                        alert(message)
-                    }
-                })
-            }
-        }
+        let signUpEmailValue = document.getElementById('mailSignUp').value;
+        axios.post('/user/captcha', {
+            email: signUpEmailValue
+        })
+            .then(function (response) {
+                var code=response['code'];
+                if (code === 200){
+                    alert("Captcha send successfully.")
+                }
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     </script>
 </body>
 </html>
