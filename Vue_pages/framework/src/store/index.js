@@ -3,7 +3,9 @@ export default createStore({
   //数据管理框架，方便数据多层级传输，创建全局唯一仓库，用来存放全局的数据
   state: {
     //  Home View States
-    mainFunctionsVisibility:true
+    mainFunctionsVisibility:true,
+    //  IndentificationCard States
+    Span:false
   },
   getters: {
   },
@@ -14,6 +16,9 @@ export default createStore({
     },
     changeMainFunctionsVisible(){
       this.state.mainFunctionsVisibility = true;
+    },
+    changeSpanState(){
+      this.Span = !this.Span;
     }
   },
   actions: {
