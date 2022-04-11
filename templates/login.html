@@ -72,6 +72,19 @@
                 <div id="leftToLogin" class="leftArrow" onclick="leftToLogin()" title="Back to login in"></div>
             </form>
         </div>
+        <!--resetPassword区域-------------------------------------------------------------------------------------->
+        <div class="resetPassword", id="resetPassword">
+            <form action="{{ url_for("User.login") }}" method="post" class="resetPasswordInputArea">
+                <div class="resetTitle">Reset your password</div>
+                <input class="password" id = "resetPass" name="user_password" type="password" required placeholder="Password" onfocus="resetInput('signUpPass')">
+                <div class="key1"></div>
+                <div class="togglePassword" id="resetToggle1"></div>
+                <input class="password" id = "resetPassRe" name="confirm" type="password" required placeholder="Confirm" onblur="checkPass()" onfocus="resetInput('signUpPassRe')">
+                <div class="key2"></div>
+                <div class="togglePassword" id="resetToggle2"></div>
+                <button type="submit" class="submit" id="resetPasswordSubmit" onclick="resetPass()">Reset</button>
+            </form>
+        </div>
 
     </div>
     <footer>
@@ -79,11 +92,11 @@
     </footer>
 
     <script>
-        confirm("本页面用了必要的cookie和session，禁用将导致网页无法使用，请接受");
         /*三个区域的动效**********************************************************************************************/
         var login = document.getElementById("login");
         var signUp = document.getElementById("signUp");
         var forgetPassword =document.getElementById("forgetPassword");
+        var resetPassword = document.getElementById("resetPassword");
 
         function register() {
             login.style.left = "450px";
@@ -104,6 +117,11 @@
             login.style.left = "0px";
             forgetPassword.style.left = "450px";
         }
+        function resetPass() {
+            forgetPassword.style.left = "-450px";
+            resetPassword.style.left = "0px";
+        }
+
         /*验证码获取按钮**********************************************************************************************/
        var button = document.getElementById('captcha-btn');
         button.innerHTML = 'get';
@@ -133,11 +151,15 @@
         let togglePassword0 = document.getElementById("togglePassword");
         let togglePassword1 = document.getElementById("signUpToggle1");
         let togglePassword2 = document.getElementById("signUpToggle2");
-        const togglePasswords = Array(togglePassword0, togglePassword1, togglePassword2);
+        let togglePassword3 = document.getElementById("resetToggle1");
+        let togglePassword4 = document.getElementById("resetToggle2");
+        const togglePasswords = Array(togglePassword0, togglePassword1, togglePassword2, togglePassword3, togglePassword4);
         let password0 = document.getElementById("password");
         let signUpPass = document.getElementById("signUpPass");
         let signUpPassRe = document.getElementById("signUpPassRe");
-        const passwords = Array(password0, signUpPass, signUpPassRe);
+        let resetPassIn = document.getElementById("resetPass");
+        let resetPassRe = document.getElementById("resetPassRe");
+        const passwords = Array(password0, signUpPass, signUpPassRe, resetPassIn, resetPassRe);
         for (var i = 0, len = passwords.length; i < len; i = i + 1){
             let password = passwords[i];
             let togglePassword = togglePasswords[i];
@@ -145,11 +167,11 @@
                 e.preventDefault();
                 if (password.type === 'password'){
                     password.setAttribute('type', 'text');
-                    togglePassword.style.backgroundImage = 'url("{{url_for('static', filename = 'images/eye_close.png')}}")';
+                    togglePassword.style.backgroundImage = 'url("../static/images/eye_close.png")';
                     togglePassword.style.bottom = "100px";
                 }else{
                     password.setAttribute('type', 'password');
-                    togglePassword.style.backgroundImage = 'url("{{url_for('static', filename = 'images/eye_open.png')}}")';
+                    togglePassword.style.backgroundImage = 'url("../static/images/eye_open.png")';
                     togglePassword.style.bottom = "103px";
                 }
             })
@@ -235,7 +257,5 @@
             }
         }
     </script>
-    <script src = "{{ url_for('static', filename = 'jquery/jquery.3.6.min.js')}}"></script>
-    <script src = "{{ url_for('static', filename='js/register.js')}}"></script>
 </body>
 </html>
