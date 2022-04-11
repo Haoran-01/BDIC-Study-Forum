@@ -34,16 +34,17 @@ export default {
 <style scoped>
 .postEntranceFrame {
   display: grid;
-  grid-template-columns: 30px 634px 30px;
+  grid-template-columns: 30px 622px 30px;
   grid-template-rows: 36px auto auto 36px;
   grid-column-gap: 0px;
   grid-row-gap: 15px;
 
-  width: 694px;
+  width: 682px;
   background-color: #FFFFFF;
   border-radius: 4px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   margin-bottom: 20px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.10);
 }
 
 .topBar {

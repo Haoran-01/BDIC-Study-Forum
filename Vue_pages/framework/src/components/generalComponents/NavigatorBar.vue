@@ -3,8 +3,8 @@
   <div class="logo"></div>
   <div class="navOptions" id="navOptions">
     <nav>
-      <router-link class="home" to="/"> Home </router-link>
-      <router-link class="forum" to="/forum">Forum</router-link>
+      <router-link class="home" to="/" Style="cursor: pointer;"> Home </router-link>
+      <router-link class="forum" to="/forum" Style="cursor: pointer;">Forum</router-link>
     </nav>
   </div>
   <button class="userMenuButton" id="userMenuButton" @click="handleUserMenu" @blur="deleteUserMenu"></button>

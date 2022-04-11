@@ -3,11 +3,12 @@
   <div class="cookieDecoration"></div>
   <div class="cookieIcon"></div>
   <div class="cookieTexts">
-    <span class="cookieText">Cookies help us to provide better service for you. By clicking "I agree", you agree to our use of cookies.</span>
-    <a href="" class="cookieProtocol">   Learn More</a>
+    <span class="cookieText">Cookies help us to provide better service for you. By clicking "Accept", you agree to our use of cookies. Check more detail about our
+      <a href="" class="cookieProtocol">cookie policy</a>.
+    </span>
   </div>
   <button class="cookieAgreeButton" @click="cookieAccepted">
-    <span class="cookieAgreeButtonText">I AGREE</span>
+    <span class="cookieAgreeButtonText">Accept</span>
   </button>
 </div>
 </template>
@@ -40,6 +41,7 @@ export default {
   align-items: center;
   justify-items: center;
   overflow: hidden;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.10)
 }
 
 .cookieDecoration {
@@ -62,14 +64,13 @@ export default {
   text-align: left;
 }
 .cookieText {
-  font-size: 20px;
+  font-size: 14px;
   font-family: "Noto Sans", sans-serif;
 }
 .cookieProtocol {
   font-family: "Noto Sans", sans-serif;
-  font-size: 20px;
-  color: black;
-  text-decoration: none;
+  font-size: 14px;
+  text-decoration: underline;
 }
 .cookieProtocol :visited{
   color: black;
@@ -90,8 +91,14 @@ export default {
   justify-content: center;
   border: none;
 }
+.cookieAgreeButton:hover{
+  transition: 0.3s ease-out;
+  bottom: 2px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
 .cookieAgreeButtonText{
-  font-size: 20px;
+  font-size: 15px;
   font-family: "Noto Sans", sans-serif;
   font-weight: bold;
   color: white;

@@ -42,6 +42,7 @@ export default {
   grid-row-gap: 0px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 4px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.10)
 }
 
 .sectorImage {

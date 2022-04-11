@@ -39,6 +39,7 @@ export default {
   position: relative;
   bottom: 0;
   text-decoration: none;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.10);
 }
 .entrance:hover{
   transition: 0.3s ease-out;

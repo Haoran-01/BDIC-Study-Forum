@@ -110,7 +110,7 @@ export default {
 
 .postList{
   float: left;
-  width: 694px;
+  width: 682px;
 }
 
 .sideBar{
