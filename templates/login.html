@@ -62,7 +62,7 @@
         </div>
         <!--------forgetPassword区域------------------------------------------------------------------------------->
         <div class="forgetPassword", id="forgetPassword">
-            <form action="{{ url_for("User.login") }}" method="post" class="forgetPassInputArea" novalidate onsubmit="checkForgetPass()">
+            <form action="{{ url_for("User.email_check") }}" method="post" class="forgetPassInputArea" novalidate onsubmit="checkForgetPass()">
                 <div class="forgetTitle">Find your account</div>
                 <div class="forgetWords">Enter your email to continue:</div>
                 <input class="mailConfig" type="email" id="forgetMail" name="user_email" placeholder='Enter e-mail address' required onblur="checkEmail('forgetMail', 'forgetPassSubmit')" onfocus="resetInput('forgetMail')">
@@ -244,12 +244,14 @@
                 event.preventDefault();
             }
         }
-        let signUpEmailValue = document.getElementById('mailSignUp').value;
+
+        document.getElementById('captcha-btn').addEventListener('click', function (){
+                    let signUpEmailValue = document.getElementById('mailSignUp').value;
         axios.post('/user/captcha', {
             email: signUpEmailValue
         })
             .then(function (response) {
-                var code=response['code'];
+                var code=response.data['code'];
                 if (code === 200){
                     alert("Captcha send successfully.")
                 }
@@ -258,6 +260,8 @@
             .catch(function (error) {
                 console.log(error);
             });
+        })
+
     </script>
 </body>
 </html>

@@ -63,9 +63,10 @@ def login_check():
         flash("Incorrect email or password format.")
         return redirect(url_for("User.login"))
 
-@bp.route("/captcha",methods=['POST'])
+@bp.route("/captcha",methods=['POST','GET'])
 def my_mail():
-    email = request.form.get("email")
+    data = request.get_json(silent=True)
+    email = data["email"]
     if email:
         letters = string.ascii_letters + string.digits
         captcha = "".join(random.sample(letters, 6))
@@ -86,10 +87,10 @@ def my_mail():
             db.session.commit()
         print("captcha", captcha)
         # code:200,成功的，正常的请求
-        return jsonify({"code": 200})
+        return {'code':200}
     else:
         # code:400,客户端错误
-        return jsonify({"code": 400, "message": "请先传递邮箱！"})
+        return {"code": 400, "message": "请先传递邮箱！"}
 
 
 @bp.route("/forget_form_email", methods=['POST','GET'])
@@ -97,9 +98,9 @@ def email_check():
     email_form = ForgetFormEmail(request.form)
     if email_form.validate():
         g = request.form.get("email")
-        return jsonify({"code":200})
+        return {"code":200}
     else:
-        return jsonify({"code":400,"message":"邮箱未注册"})
+        return {"code":400,"message":"邮箱未注册"}
 
 @bp.route("/forget_form_password",methods=['POST','GET'])
 def password_check():
@@ -110,8 +111,8 @@ def password_check():
         user_model = User.query.filter_by(user_email=email).first()
         user_model.user_password = generate_password_hash(new_password)
         db.session.commit()
-        return jsonify({"code":200})
+        return {"code":200}
     else:
-        return jsonify({"code":400,"message":"两次密码不一致"})
+        return {"code":400,"message":"两次密码不一致"}
 
 
