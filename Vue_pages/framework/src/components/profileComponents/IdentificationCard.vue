@@ -101,7 +101,7 @@ export default {
   .SpanButton{
     border-style: none;
     cursor: pointer;
-    background: url('../../assets/VectorIcon.png') no-repeat;
+/*    background: url('../../assets/VectorIcon.png') no-repeat;*/
     background-size: 100%;
     width: 25px;
     height: 25px;

@@ -136,15 +136,15 @@
         let togglePassword0 = document.getElementById("togglePassword");
         let togglePassword1 = document.getElementById("signUpToggle1");
         let togglePassword2 = document.getElementById("signUpToggle2");
-        let togglePassword3 = document.getElementById("togglePassword1");
-        let togglePassword4 = document.getElementById("togglePassword2");
+        let togglePassword3 = document.getElementById("resetToggle1");
+        let togglePassword4 = document.getElementById("resetToggle2");
         const togglePasswords = Array(togglePassword0, togglePassword1, togglePassword2, togglePassword3, togglePassword4);
         let password0 = document.getElementById("password");
         let signUpPass = document.getElementById("signUpPass");
         let signUpPassRe = document.getElementById("signUpPassRe");
-        let resetPass = document.getElementById("resetPass");
+        let resetPassIn = document.getElementById("resetPass");
         let resetPassRe = document.getElementById("resetPassRe");
-        const passwords = Array(password0, signUpPass, signUpPassRe, resetPass, resetPassRe);
+        const passwords = Array(password0, signUpPass, signUpPassRe, resetPassIn, resetPassRe);
         for (var i = 0, len = passwords.length; i < len; i = i + 1){
             let password = passwords[i];
             let togglePassword = togglePasswords[i];
@@ -152,11 +152,11 @@
                 e.preventDefault();
                 if (password.type === 'password'){
                     password.setAttribute('type', 'text');
-                    togglePassword.style.backgroundImage = 'url("images/eye_close.png")';
+                    togglePassword.style.backgroundImage = 'url("../static/images/eye_close.png")';
                     togglePassword.style.bottom = "100px";
                 }else{
                     password.setAttribute('type', 'password');
-                    togglePassword.style.backgroundImage = 'url("images/eye_open.png")';
+                    togglePassword.style.backgroundImage = 'url("../static/images/eye_open.png")';
                     togglePassword.style.bottom = "103px";
                 }
             })
