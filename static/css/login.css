@@ -53,6 +53,11 @@ input:valid{
     z-index:100;
 }
 
+.invalidEmailTip{
+    position: relative;
+    bottom: 55px;
+}
+
 @keyframes rock {
     0% {
         -webkit-transform: translateX(-20px);

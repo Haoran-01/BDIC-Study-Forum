@@ -244,22 +244,47 @@
                 event.preventDefault();
             }
         }
-
+        let invalidEmailTip = document.createElement("div");
+        invalidEmailTip.setAttribute('class', 'invalidEmailTip');
+        invalidEmailTip.innerText = 'Email address not registered';
+        /*提交验证码************************************************************************************************/
         document.getElementById('captcha-btn').addEventListener('click', function (){
-                    let signUpEmailValue = document.getElementById('mailSignUp').value;
-        axios.post('/user/captcha', {
-            email: signUpEmailValue
-        })
-            .then(function (response) {
-                var code=response.data['code'];
-                if (code === 200){
-                    alert("Captcha send successfully.")
-                }
-                console.log(response);
+            let signUpEmailValue = document.getElementById('mailSignUp').value;
+            axios.post('/user/captcha', {
+                email: signUpEmailValue
             })
-            .catch(function (error) {
-                console.log(error);
-            });
+                .then(function (response) {
+                    var code=response.data['code'];
+                    if (code === 200){
+                        alert("Captcha send successfully.");
+                    }else if (code === 400){
+                        let parentDiv = document.getElementById('forgetPassword');
+                        parentDiv.insertBefore(invalidEmailTip, document.getElementById('forgetPassSubmit'));
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        })
+
+        document.getElementById('forgetPassSubmit').addEventListener('click', function (){
+            axios.get('/forget_form_email')
+                .then(function (response) {
+                    // 处理成功情况
+                    var code=response.data['code'];
+                    if (code === 200){
+                        resetPass();
+                    }else {
+                        alert("")
+                    }
+                })
+                .catch(function (error) {
+                    // 处理错误情况
+                    console.log(error);
+                })
+                .then(function () {
+                    // 总是会执行
+                });
         })
 
     </script>
