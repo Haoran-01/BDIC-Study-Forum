@@ -1,17 +1,18 @@
 import random
 import string
 
-from flask import Blueprint,request,render_template,redirect,url_for,flash,jsonify
+from flask import Blueprint, request, render_template, redirect, url_for, flash, jsonify
 from forms import LoginFrom, RegisterForm, EmailCaptchaModel
 from models import User
 from exts import db, mail
 from flask_mail import Message
 from datetime import datetime
-from werkzeug.security import generate_password_hash,check_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 
-bp = Blueprint("User",__name__,url_prefix="/user")
+bp = Blueprint("User", __name__, url_prefix="/user")
 
-@bp.route("/login", methods=['GET','POST'])
+
+@bp.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
         return render_template('login.html')
@@ -45,7 +46,7 @@ def register_check():
         return redirect(url_for('User.login'))
 
 
-@bp.route("/login_form",methods=['POST'])
+@bp.route("/login_form", methods=['POST'])
 def login_check():
     login_form = LoginFrom(request.form)
     if login_form.validate():
@@ -61,7 +62,8 @@ def login_check():
         flash("Incorrect email or password format.")
         return redirect(url_for("User.login"))
 
-@bp.route("/captcha",methods=['POST'])
+
+@bp.route("/captcha", methods=['POST'])
 def my_mail():
     email = request.form.get("email")
     if email:
@@ -70,7 +72,7 @@ def my_mail():
         message = Message(
             subject="Cyan Pine 验证码",
             recipients=[email],
-            html=render_template("email.html", email_captcha = captcha)
+            html=render_template("email.html", email_captcha=captcha)
         )
         mail.send(message)
         captcha_model = EmailCaptchaModel.query.filter_by(email=email).first()
@@ -79,14 +81,14 @@ def my_mail():
             captcha_model.create_time = datetime.now
             db.session.commit()
         else:
-            captcha_model = EmailCaptchaModel(email=email, captcha =captcha)
+            captcha_model = EmailCaptchaModel(email=email, captcha=captcha)
             db.session.add(captcha_model)
             db.session.commit()
-        print("captcha",captcha)
-        #code:200,成功的，正常的请求
-        return jsonify({"code":200})
+        print("captcha", captcha)
+        # code:200,成功的，正常的请求
+        return jsonify({"code": 200})
     else:
-        #code:400,客户端错误
-        return jsonify({"code":400,"message":"请先传递邮箱！"})
+        # code:400,客户端错误
+        return jsonify({"code": 400, "message": "请先传递邮箱！"})
 
 

@@ -1,5 +1,7 @@
 import wtforms
-from wtforms.validators import length,DataRequired,EqualTo,email
+from flask_wtf import FlaskForm
+from wtforms import TextAreaField, StringField, SubmitField
+from wtforms.validators import length, DataRequired, EqualTo, email, Length
 from models import EmailCaptchaModel,User
 
 class LoginFrom(wtforms.Form):
@@ -34,4 +36,12 @@ class RegisterForm(wtforms.Form):
         if user_model:
             raise wtforms.ValidationError("邮箱已注册")
 
+class EditProfileForm(FlaskForm):
+    username=StringField('Username',validators=[DataRequired()])
+    about_me=TextAreaField('About_me',validators=[Length(min=0,max=140)])
+    submit=SubmitField('Submit')
+
+class QuestionForm(wtforms.Form):
+    title = wtforms.StringField(validators=[DataRequired("title cannot be empty"), length(min=3, max=50)])
+    content = wtforms.StringField(validators=[DataRequired("content cannot be empty"), length(min=5, max=200)])
 
