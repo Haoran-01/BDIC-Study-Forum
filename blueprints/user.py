@@ -1,8 +1,9 @@
 import random
 import string
 
-from flask import Blueprint, request, render_template, redirect, url_for, flash, jsonify
-from forms import LoginFrom, RegisterForm, EmailCaptchaModel
+import wtforms
+from flask import Blueprint,request,render_template,redirect,url_for,flash,jsonify,g
+from forms import LoginFrom, RegisterForm, EmailCaptchaModel,ForgetFormEmail,ForgetFormPassword
 from models import User
 from exts import db, mail
 from flask_mail import Message
@@ -62,8 +63,7 @@ def login_check():
         flash("Incorrect email or password format.")
         return redirect(url_for("User.login"))
 
-
-@bp.route("/captcha", methods=['POST'])
+@bp.route("/captcha",methods=['POST'])
 def my_mail():
     email = request.form.get("email")
     if email:
@@ -90,5 +90,28 @@ def my_mail():
     else:
         # code:400,客户端错误
         return jsonify({"code": 400, "message": "请先传递邮箱！"})
+
+
+@bp.route("/forget_form_email", methods=['POST','GET'])
+def email_check():
+    email_form = ForgetFormEmail(request.form)
+    if email_form.validate():
+        g = request.form.get("email")
+        return jsonify({"code":200})
+    else:
+        return jsonify({"code":400,"message":"邮箱未注册"})
+
+@bp.route("/forget_form_password",methods=['POST','GET'])
+def password_check():
+    email = g
+    password_form = ForgetFormPassword(request.form)
+    if password_form.validate():
+        new_password = password_form.user_password.data
+        user_model = User.query.filter_by(user_email=email).first()
+        user_model.user_password = generate_password_hash(new_password)
+        db.session.commit()
+        return jsonify({"code":200})
+    else:
+        return jsonify({"code":400,"message":"两次密码不一致"})
 
 
