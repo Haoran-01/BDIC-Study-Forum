@@ -18,7 +18,6 @@
       <div class="part1">
         <button :class="animateButton" class="SpanButton" @click="HandleClick"></button>
       </div>
-      <div class="part2"></div>
     </div>
   </div>
 </template>
@@ -73,7 +72,7 @@ export default {
   }
 
   .transition{
-    transition: 1s height ease;
+    transition: 1s height ease-in-out;
   }
 
   .frame{
@@ -121,14 +120,6 @@ export default {
   }
 
 
-  .directionBar{
-    grid-area: 1 / 3 / 2 / 4;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(2, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-  }
 
   .SpanButton{
     border-style: none;
@@ -140,23 +131,20 @@ export default {
     border-radius: 50%;
   }
 
+
   .part1{
-    grid-area: 1 / 1 / 2 / 2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: 70px auto;
+
   }
 
-  .part2{
-    grid-area: 2 / 1 / 3 / 2;
-  }
+
 
   .v-enter-from{
     opacity: 0;
   }
 
   .v-enter-active{
-    transition: opacity 2s ease-out;
+    transition: opacity 1.5s ease-out;
   }
 
   .v-enter-to{
