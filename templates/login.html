@@ -31,7 +31,7 @@
                 <input class="password" id = "signUpPassRe" name="confirm" type="password" required placeholder="Confirm" onblur="checkPass()" onfocus="resetInput('signUpPassRe')">
                 <div class="key2"></div>
                 <div class="togglePassword" id="signUpToggle2"></div>
-                <div id="verificationBox">
+                <div class="verificationBox">
                     <input class="identify" id = "identifier" name="captcha" type="text" required placeholder="Enter captcha" onfocus="resetInput('identifier')">
                     <button type="button" id="captcha-btn" class="verificationCode"></button>
                 </div>
@@ -67,13 +67,17 @@
                 <div class="forgetWords">Enter your email to continue:</div>
                 <input class="mailConfig" type="email" id="forgetMail" name="user_email" placeholder='Enter e-mail address' required onblur="checkEmail('forgetMail', 'forgetPassSubmit')" onfocus="resetInput('forgetMail')">
                 <div class="letter"></div>
+                <div class="verificationBox">
+                    <input class="identify2" id = "identifier2" name="captcha" type="text" required placeholder="Enter captcha" onfocus="resetInput('identifier')">
+                    <button type="button" id="captcha-btn2" class="verificationCode2"></button>
+                </div>
                 <button type="submit" class = "submit" id = "forgetPassSubmit">Next</button>
                 <div id="leftToLogin" class="leftArrow" onclick="leftToLogin()" title="Back to login in"></div>
             </form>
         </div>
         <!--resetPassword区域-------------------------------------------------------------------------------------->
         <div class="resetPassword", id="resetPassword">
-            <form action="{{ url_for("User.login") }}" method="post" class="resetPasswordInputArea">
+            <form action="{{ url_for("User.password_check") }}" method="post" class="resetPasswordInputArea">
                 <div class="resetTitle">Reset your password</div>
                 <input class="password" id = "resetPass" name="user_password" type="password" required placeholder="Password" onfocus="resetInput('signUpPass')">
                 <div class="key1"></div>
@@ -81,7 +85,7 @@
                 <input class="password" id = "resetPassRe" name="confirm" type="password" required placeholder="Confirm" onblur="checkPass()" onfocus="resetInput('signUpPassRe')">
                 <div class="key2"></div>
                 <div class="togglePassword" id="resetToggle2"></div>
-                <button type="submit" class="submit" id="resetPasswordSubmit" onclick="resetPass()">Reset</button>
+                <button type="submit" class="submit" id="resetPasswordSubmit">Reset</button>
             </form>
         </div>
 
@@ -146,6 +150,31 @@
                 }
             }, 1000)
            }
+        }
+
+        /*验证码获取按钮2**********************************************************************************************/
+        var button2 = document.getElementById('captcha-btn2');
+        button2.innerHTML = 'get';
+        button2.onclick = function () {
+            var result = checkEmail('forgetMail');
+            if (result){
+                button2.disabled = 'disabled';
+                button2.classList.remove('verificationCode2');
+                button2.classList.add('verificationCodeDisabled2');
+                var time = 60;
+                var timer = setInterval(function () {
+                    if (time === 0) {
+                        clearInterval(timer)
+                        button2.disabled = '';
+                        button2.innerHTML = 'get';
+                        button2.classList.remove('verificationCodeDisabled2');
+                        button2.classList.add('verificationCode2');
+                    } else {
+                        time--;
+                        button2.innerHTML = time + 's';
+                    }
+                }, 1000)
+            }
         }
 
         /*显示隐藏密码按钮**********************************************************************************************/
@@ -247,7 +276,9 @@
         let invalidEmailTip = document.createElement("div");
         invalidEmailTip.setAttribute('class', 'invalidEmailTip');
         invalidEmailTip.innerText = 'Email address not registered';
-        /*提交验证码************************************************************************************************/
+        /*axios************************************************************************************************/
+
+        /*获取验证码********************************************/
         document.getElementById('captcha-btn').addEventListener('click', function (){
             let signUpEmailValue = document.getElementById('mailSignUp').value;
             axios.post('/user/captcha', {
@@ -265,6 +296,25 @@
                 });
         })
 
+        /*获取验证码********************************************/
+        document.getElementById('captcha-btn2').addEventListener('click', function (){
+            let signUpEmailValue = document.getElementById('mailConfig').value;
+            axios.post('/user/captcha', {
+                email: signUpEmailValue
+            })
+                .then(function (response) {
+                    var code=response.data['code'];
+                    if (code === 200){
+                        alert("Captcha send successfully.");
+                    }else if (code === 400){
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        })
+
+        /*提交验证码********************************************/
         document.getElementById('forgetPassSubmit').addEventListener('click', function (){
             event.preventDefault();
             let forgetPassEmailValue = document.getElementById('forgetMail').value;
@@ -275,7 +325,6 @@
                     // 处理成功情况
                     var code=response.data['code'];
                     if (code === 200){
-                        console.log("huyhui")
                         resetPass();
                     }else {
                         let parentDiv = document.getElementById('forgetPassword');
