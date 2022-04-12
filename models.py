@@ -27,5 +27,9 @@ class QuestionModel(db.Model):
 
 class QuestionType(db.Model):
     __tablename__ = 'questiontype'
-    type = db.Column(db.Integer, primary_key=True, nullable=False)
-    logo = db.Column(db.CHAR(100), nullable=False)
+    type_name = db.Column(db.CHAR(40), primary_key=True, nullable=False)
+    type_number = db.Column(db.Integer, nullable=False, unique=True, autoincrement=True)
+    total_post = db.Column(db.Integer, nullable=False)
+    today_post = db.Column(db.Integer, nullable=False)
+    today_comment = db.Column(db.Integer, nullable=False)
+    rank = db.Column(db.Integer, nullable=False)

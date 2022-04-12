@@ -43,8 +43,20 @@ class EditProfileForm(FlaskForm):
     submit=SubmitField('Submit')
 
 class QuestionForm(wtforms.Form):
+    def __init__(
+            self,
+            formdata=None,
+            obj=None,
+            prefix="",
+            data=None,
+            meta=None,
+            **kwargs,
+    ):
+        super().__init__(formdata, obj, prefix, data, meta, kwargs)
+
     title = wtforms.StringField(validators=[DataRequired("title cannot be empty"), length(min=3, max=50)])
     content = wtforms.StringField(validators=[DataRequired("content cannot be empty"), length(min=5, max=200)])
+
 
 class ForgetFormEmail(wtforms.Form):
     user_email = wtforms.StringField(validators=[email()])
