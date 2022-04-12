@@ -18,6 +18,7 @@ def login():
     if request.method == 'GET':
         return render_template('login.html')
 
+
 @bp.route("/register_form", methods=['POST','GET'])
 def register_check():
     register_form = RegisterForm(request.form)
@@ -95,9 +96,11 @@ def my_mail():
 
 @bp.route("/forget_form_email", methods=['POST','GET'])
 def email_check():
-    email_form = ForgetFormEmail(request.form)
-    if email_form.validate():
-        g = request.form.get("email")
+    data = request.get_json(silent=True)
+    email = data["email"]
+    email_model = EmailCaptchaModel.query.filter_by(email = email).first()
+    if email_model:
+        g = email_model.email
         return {"code":200}
     else:
         return {"code":400,"message":"邮箱未注册"}

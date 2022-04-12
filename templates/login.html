@@ -120,7 +120,7 @@
         }
         function resetPass() {
             forgetPassword.style.left = "-450px";
-            resetPassword.style.left = "0px";
+            resetPassword.style.left = "40px";
         }
 
         /*验证码获取按钮**********************************************************************************************/
@@ -258,8 +258,6 @@
                     if (code === 200){
                         alert("Captcha send successfully.");
                     }else if (code === 400){
-                        let parentDiv = document.getElementById('forgetPassword');
-                        parentDiv.insertBefore(invalidEmailTip, document.getElementById('forgetPassSubmit'));
                     }
                 })
                 .catch(function (error) {
@@ -268,23 +266,26 @@
         })
 
         document.getElementById('forgetPassSubmit').addEventListener('click', function (){
-            axios.get('/forget_form_email')
+            event.preventDefault();
+            let forgetPassEmailValue = document.getElementById('forgetMail').value;
+            axios.post('/user/forget_form_email', {
+                email: forgetPassEmailValue
+            })
                 .then(function (response) {
                     // 处理成功情况
                     var code=response.data['code'];
                     if (code === 200){
+                        console.log("huyhui")
                         resetPass();
                     }else {
-                        alert("")
+                        let parentDiv = document.getElementById('forgetPassword');
+                        parentDiv.insertBefore(invalidEmailTip, document.getElementById('forgetPassSubmit'));
                     }
                 })
                 .catch(function (error) {
                     // 处理错误情况
                     console.log(error);
                 })
-                .then(function () {
-                    // 总是会执行
-                });
         })
 
     </script>
