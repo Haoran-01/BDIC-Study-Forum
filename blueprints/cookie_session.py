@@ -30,7 +30,7 @@ def get_session():
     user_email= session.get('user_email')
 
     """
-    if (user_id == None | | user_email == null)
+    if (user_id == None or user_email == null)
         response = Response("请先登录")
         return response
     return "get_session"

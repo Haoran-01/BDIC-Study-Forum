@@ -20,7 +20,7 @@
 
         <!--------signUp区域---------------------------------------------------------------------------------------->
         <div class="signUp", id="signUp">
-            <form action="{{ url_for("User.register_check")}}" method="post" class="signUpInputArea" novalidate onsubmit="checkSignUp()">
+            <form action= "{{ url_for("User.register_check") }}" method = "post" class="signUpInputArea" novalidate onsubmit="checkSignUp()">
                 <input class="mail" id="mailSignUp" name="user_email" type="email" required placeholder="Enter e-mail address" onblur="checkEmail('mailSignUp', 'signUpSubmit')" onfocus="resetInput('mailSignUp')">
                 <div class="letter"></div>
                 <input type="text" id = "nameSignUp" name="user_name" required onfocus="resetInput('nameSignUp')" placeholder="Enter username">
@@ -31,7 +31,7 @@
                 <input class="password" id = "signUpPassRe" name="confirm" type="password" required placeholder="Confirm" onblur="checkPass()" onfocus="resetInput('signUpPassRe')">
                 <div class="key2"></div>
                 <div class="togglePassword" id="signUpToggle2"></div>
-                <div id="verificationBox">
+                <div class="verificationBox">
                     <input class="identify" id = "identifier" name="captcha" type="text" required placeholder="Enter captcha" onfocus="resetInput('identifier')">
                     <button type="button" id="captcha-btn" class="verificationCode"></button>
                 </div>
@@ -47,7 +47,7 @@
                 <div>BDICers to collect information</div>
             </div>
 
-            <form action="{{ url_for("User.login_check") }}" method="post" class="logInInputArea" novalidate onsubmit="checkLogin()">
+            <form action = "{{ url_for("User.login_check") }}" method = "post" class="logInInputArea" novalidate onsubmit="checkLogin()">
                 <input id = "mailLogin" name="user_email" type="email" required placeholder="{{ get_flashed_messages()[0] }}" onblur="checkEmail('mailLogin')" onfocus="resetInput('mailLogin')">
                 <div class="letter"></div>
                 <input class="password" id = "password" name="user_password" type="password" required placeholder="{{ get_flashed_messages()[1] }}" onfocus="resetInput('password')">
@@ -62,18 +62,22 @@
         </div>
         <!--------forgetPassword区域------------------------------------------------------------------------------->
         <div class="forgetPassword", id="forgetPassword">
-            <form action="{{ url_for("User.email_check") }}" method="post" class="forgetPassInputArea" novalidate onsubmit="checkForgetPass()">
+            <form class="forgetPassInputArea" id = "forgetPassInputArea" novalidate onsubmit="checkForgetPass()">
                 <div class="forgetTitle">Find your account</div>
                 <div class="forgetWords">Enter your email to continue:</div>
                 <input class="mailConfig" type="email" id="forgetMail" name="user_email" placeholder='Enter e-mail address' required onblur="checkEmail('forgetMail', 'forgetPassSubmit')" onfocus="resetInput('forgetMail')">
                 <div class="letter"></div>
+                <div class="verificationBox">
+                    <input class="identify2" id = "identifier2" name="captcha" type="text" required placeholder="Enter captcha" onfocus="resetInput('identifier')">
+                    <button type="button" id="captcha-btn2" class="verificationCode2"></button>
+                </div>
                 <button type="submit" class = "submit" id = "forgetPassSubmit">Next</button>
                 <div id="leftToLogin" class="leftArrow" onclick="leftToLogin()" title="Back to login in"></div>
             </form>
         </div>
         <!--resetPassword区域-------------------------------------------------------------------------------------->
         <div class="resetPassword", id="resetPassword">
-            <form action="{{ url_for("User.login") }}" method="post" class="resetPasswordInputArea">
+            <form action="{{ url_for("User.password_check") }}" method="post" class="resetPasswordInputArea">
                 <div class="resetTitle">Reset your password</div>
                 <input class="password" id = "resetPass" name="user_password" type="password" required placeholder="Password" onfocus="resetInput('signUpPass')">
                 <div class="key1"></div>
@@ -81,7 +85,7 @@
                 <input class="password" id = "resetPassRe" name="confirm" type="password" required placeholder="Confirm" onblur="checkPass()" onfocus="resetInput('signUpPassRe')">
                 <div class="key2"></div>
                 <div class="togglePassword" id="resetToggle2"></div>
-                <button type="submit" class="submit" id="resetPasswordSubmit" onclick="resetPass()">Reset</button>
+                <button type="submit" class="submit" id="resetPasswordSubmit">Reset</button>
             </form>
         </div>
 
@@ -120,7 +124,7 @@
         }
         function resetPass() {
             forgetPassword.style.left = "-450px";
-            resetPassword.style.left = "0px";
+            resetPassword.style.left = "40px";
         }
 
         /*验证码获取按钮**********************************************************************************************/
@@ -146,6 +150,31 @@
                 }
             }, 1000)
            }
+        }
+
+        /*验证码获取按钮2**********************************************************************************************/
+        var button2 = document.getElementById('captcha-btn2');
+        button2.innerHTML = 'get';
+        button2.onclick = function () {
+            var result = checkEmail('forgetMail');
+            if (result){
+                button2.disabled = 'disabled';
+                button2.classList.remove('verificationCode2');
+                button2.classList.add('verificationCodeDisabled2');
+                var time = 60;
+                var timer = setInterval(function () {
+                    if (time === 0) {
+                        clearInterval(timer)
+                        button2.disabled = '';
+                        button2.innerHTML = 'get';
+                        button2.classList.remove('verificationCodeDisabled2');
+                        button2.classList.add('verificationCode2');
+                    } else {
+                        time--;
+                        button2.innerHTML = time + 's';
+                    }
+                }, 1000)
+            }
         }
 
         /*显示隐藏密码按钮**********************************************************************************************/
@@ -214,7 +243,8 @@
             }
         }
 
-        function checkSignUp(){
+{#        function checkSignUp(){
+            event.preventDefault();
             let idList = ['mailSignUp', 'nameSignUp', 'signUpPass', 'signUpPassRe', 'identifier'];
             for (var i = 0; i < idList.length; i++){
                 if (document.getElementById(idList[i]).value === ''){
@@ -222,9 +252,70 @@
                 }
             }
             if (document.getElementById('mailSignUp').value === '' || document.getElementById('nameSignUp').value === '' || signUpPass.value === '' || signUpPassRe.value === '' || document.getElementById('identifier').value === ''){
-                event.preventDefault();
+            }else {
+                axios.post('/user/register_form', {
+                    email: document.getElementById('mailSignUp').value,
+                    userName: document.getElementById('nameSignUp').value,
+                    password: signUpPass.value,
+                    captcha: document.getElementById('identifier').value
+                })
+                    .then(function (response) {
+                        var code=response.data['code'];
+                        if (code === 200){
+                            //重定向
+                        }else if (code === 400){
+
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
+        }#}
+
+
+        function checkSignUp(){
+            event.preventDefault();
+            let idList = ['mailSignUp', 'nameSignUp', 'signUpPass', 'signUpPassRe', 'identifier'];
+            for (var i = 0; i < idList.length; i++){
+                if (document.getElementById(idList[i]).value === ''){
+                    document.getElementById(idList[i]).style.borderBottom = '1px solid #ff6d6d';
+                }
+            }
+            if (document.getElementById('mailSignUp').value === '' || document.getElementById('nameSignUp').value === '' || signUpPass.value === '' || signUpPassRe.value === '' || document.getElementById('identifier').value === ''){
+            event.preventDefault();
             }
         }
+
+{#        function checkLogin(){
+            event.preventDefault();
+            if (document.getElementById('mailLogin').value === ''){
+                document.getElementById('mailLogin').style.borderBottom = '1px solid #ff6d6d';
+            }
+            if (document.getElementById('password').value === ''){
+                document.getElementById('password').style.borderBottom = '1px solid #ff6d6d';
+            }
+            if (document.getElementById('mailLogin').value === '' || document.getElementById('password').value === ''){
+            }else {
+                let loginEmailValue = document.getElementById('mailLogin').value;
+                let loginPassword = document.getElementById('password').value;
+                axios.post('/user/login_form', {
+                    email: loginEmailValue,
+                    password: loginPassword
+                })
+                    .then(function (response) {
+                        var code=response.data['code'];
+                        if (code === 200){
+                            //重定向
+                        }else if (code === 400){
+
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
+        }#}
 
         function checkLogin(){
             if (document.getElementById('mailLogin').value === ''){
@@ -244,10 +335,17 @@
                 event.preventDefault();
             }
         }
+
+        /*axios************************************************************************************************/
         let invalidEmailTip = document.createElement("div");
         invalidEmailTip.setAttribute('class', 'invalidEmailTip');
         invalidEmailTip.innerText = 'Email address not registered';
-        /*提交验证码************************************************************************************************/
+
+        let invalidCaptcha = document.createElement("div");
+        invalidCaptcha.setAttribute('class', 'invalidEmailTip');
+        invalidCaptcha.innerText = 'Invalid Validation Code'
+
+        /*获取验证码********************************************/
         document.getElementById('captcha-btn').addEventListener('click', function (){
             let signUpEmailValue = document.getElementById('mailSignUp').value;
             axios.post('/user/captcha', {
@@ -258,8 +356,6 @@
                     if (code === 200){
                         alert("Captcha send successfully.");
                     }else if (code === 400){
-                        let parentDiv = document.getElementById('forgetPassword');
-                        parentDiv.insertBefore(invalidEmailTip, document.getElementById('forgetPassSubmit'));
                     }
                 })
                 .catch(function (error) {
@@ -267,24 +363,51 @@
                 });
         })
 
+        /*获取验证码********************************************/
+        document.getElementById('captcha-btn2').addEventListener('click', function (){
+            let forgetEmailValue = document.getElementById('forgetMail').value;
+            axios.post('/user/captcha', {
+                email: forgetEmailValue
+            })
+                .then(function (response) {
+                    var code=response.data['code'];
+                    if (code === 200){
+                        alert("Captcha send successfully.");
+                    }else if (code === 400){
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        })
+
+        /*提交验证码********************************************/
         document.getElementById('forgetPassSubmit').addEventListener('click', function (){
-            axios.get('/forget_form_email')
+            event.preventDefault();
+            let forgetPassEmailValue = document.getElementById('forgetMail').value;
+            let forgetCaptcha = document.getElementById('identifier2').value;
+            axios.post('/user/forget_form_email', {
+                email: forgetPassEmailValue,
+                captcha: forgetCaptcha
+            })
                 .then(function (response) {
                     // 处理成功情况
                     var code=response.data['code'];
+                    var message=response.data['message']
                     if (code === 200){
                         resetPass();
-                    }else {
-                        alert("")
+                    }else if (code === 400 && message === 'email'){
+                        let parentDiv = document.getElementById('forgetPassInputArea');
+                        parentDiv.insertBefore(invalidEmailTip, document.getElementById('forgetPassSubmit'));
+                    }else if (code === 400 && message === 'captcha'){
+                        let parentDiv = document.getElementById('forgetPassInputArea');
+                        parentDiv.insertBefore(invalidCaptcha, document.getElementById('forgetPassSubmit'));
                     }
                 })
                 .catch(function (error) {
                     // 处理错误情况
                     console.log(error);
                 })
-                .then(function () {
-                    // 总是会执行
-                });
         })
 
     </script>

@@ -25,24 +25,23 @@ def register_check():
 
     if register_form.validate():
         check_register = User.query.filter_by(user_email = register_form.user_email.data).first()
-        if check_register:
-            hash_password = generate_password_hash(register_form.user_password.data)
-            user = User(user_email=register_form.user_email.data, user_name=register_form.user_name.data,
-                        user_password=hash_password)
-            db.session.add(user)
-            db.session.commit()
+    #     if check_register:
+    #         hash_password = generate_password_hash(register_form.user_password.data)
+    #         user = User(user_email=register_form.user_email.data, user_name=register_form.user_name.data,
+    #                     user_password=hash_password)
+    #         db.session.add(user)
+    #         db.session.commit()
+    #         # return redirect(url_for('User.login'))
+    #         return {"code": 200, "message": "Sign up successfully!"}
+    #     else:
+    #         # return redirect(url_for('User.login'))
+    #         return {"code": 400, "message": "Mailbox has been registered!"}
 
-            # return redirect(url_for('User.login'))
-            return {"message": "Sign up successfully!"}
-        else:
-            # return redirect(url_for('User.login'))
-            return {"message": "Mailbox has been registered!"}
-        #
-        # hash_password = generate_password_hash(register_form.user_password.data)
-        # user = User(user_email=register_form.user_email.data, user_name=register_form.user_name.data,
-        #             user_password=hash_password)
-        # db.session.add(user)
-        # db.session.commit()
+        hash_password = generate_password_hash(register_form.user_password.data)
+        user = User(user_email=register_form.user_email.data, user_name=register_form.user_name.data,
+                    user_password=hash_password)
+        db.session.add(user)
+        db.session.commit()
         return redirect(url_for('User.login'))
     else:
         return redirect(url_for('User.login'))
