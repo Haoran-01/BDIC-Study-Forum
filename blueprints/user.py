@@ -25,24 +25,24 @@ def register_check():
 
     if register_form.validate():
         check_register = User.query.filter_by(user_email = register_form.user_email.data).first()
-        # if check_register:
-        #     hash_password = generate_password_hash(register_form.user_password.data)
-        #     user = User(user_email=register_form.user_email.data, user_name=register_form.user_name.data,
-        #                 user_password=hash_password)
-        #     db.session.add(user)
-        #     db.session.commit()
-        #
-        #     # return redirect(url_for('User.login'))
-        #     return jsonify({"message": "Sign up successfully!"})
-        # else:
-        #     # return redirect(url_for('User.login'))
-        #     return jsonify({"message": "Mailbox has been registered!"})
+        if check_register:
+            hash_password = generate_password_hash(register_form.user_password.data)
+            user = User(user_email=register_form.user_email.data, user_name=register_form.user_name.data,
+                        user_password=hash_password)
+            db.session.add(user)
+            db.session.commit()
 
-        hash_password = generate_password_hash(register_form.user_password.data)
-        user = User(user_email=register_form.user_email.data, user_name=register_form.user_name.data,
-                    user_password=hash_password)
-        db.session.add(user)
-        db.session.commit()
+            # return redirect(url_for('User.login'))
+            return {"message": "Sign up successfully!"}
+        else:
+            # return redirect(url_for('User.login'))
+            return {"message": "Mailbox has been registered!"}
+        #
+        # hash_password = generate_password_hash(register_form.user_password.data)
+        # user = User(user_email=register_form.user_email.data, user_name=register_form.user_name.data,
+        #             user_password=hash_password)
+        # db.session.add(user)
+        # db.session.commit()
         return redirect(url_for('User.login'))
     else:
         return redirect(url_for('User.login'))
@@ -98,24 +98,34 @@ def my_mail():
 def email_check():
     data = request.get_json(silent=True)
     email = data["email"]
+    captcha = data["captcha"]
     email_model = EmailCaptchaModel.query.filter_by(email = email).first()
+    captcha_model = EmailCaptchaModel.query.filter_by(email=email).first()
     if email_model:
-        g = email_model.email
-        return {"code":200}
+        if captcha_model.captcha.lower() == captcha:
+            global theEmail
+            theEmail = email_model.email
+            return {"code":200}
+        else:
+            return {"code": 400, "message": "captcha"}
     else:
-        return {"code":400,"message":"邮箱未注册"}
+        return {"code":400,"message":"email"}
 
 @bp.route("/forget_form_password",methods=['POST','GET'])
 def password_check():
-    email = g
+    global theEmail
+    email = theEmail
     password_form = ForgetFormPassword(request.form)
     if password_form.validate():
         new_password = password_form.user_password.data
         user_model = User.query.filter_by(user_email=email).first()
         user_model.user_password = generate_password_hash(new_password)
         db.session.commit()
-        return {"code":200}
+        print("success")
+        return redirect(url_for("User.login"))
     else:
-        return {"code":400,"message":"两次密码不一致"}
+        return redirect(url_for("User.login"))
+
+
 
 

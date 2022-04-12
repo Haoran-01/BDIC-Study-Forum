@@ -43,17 +43,37 @@ class EditProfileForm(FlaskForm):
     submit=SubmitField('Submit')
 
 class QuestionForm(wtforms.Form):
+    def __init__(
+            self,
+            formdata=None,
+            obj=None,
+            prefix="",
+            data=None,
+            meta=None,
+            **kwargs,
+    ):
+        super().__init__(formdata, obj, prefix, data, meta, kwargs)
+
     title = wtforms.StringField(validators=[DataRequired("title cannot be empty"), length(min=3, max=50)])
     content = wtforms.StringField(validators=[DataRequired("content cannot be empty"), length(min=5, max=200)])
 
+
 class ForgetFormEmail(wtforms.Form):
     user_email = wtforms.StringField(validators=[email()])
+    captcha = wtforms.StringField(validators=[length(min=6, max=6)])
 
     def validate_user_email(self, field):
         email = field.data
         user_model = User.query.filter_by(user_email=email).first()
         if not user_model:
             raise wtforms.ValidationError("邮箱未注册")
+
+    def validate_captcha(self, field):
+        captcha = field.data
+        email = self.user_email.data
+        captcha_model = EmailCaptchaModel.query.filter_by(email=email).first()
+        if not captcha_model and captcha_model.captcha.lower() != captcha:
+            raise wtforms.ValidationError("验证码错误")
 
 
 class ForgetFormPassword(wtforms.Form):

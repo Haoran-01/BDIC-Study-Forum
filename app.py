@@ -3,7 +3,7 @@ import config
 from flask_migrate import Migrate
 from exts import db, mail
 
-from blueprints import page_bp,user_bp,cs_bp
+from blueprints import page_bp,user_bp,cs_bp,forum_bp
 
 # 创建一个app对象
 app = Flask(__name__)
@@ -18,6 +18,7 @@ migrate = Migrate(app, db)
 app.register_blueprint(user_bp)
 app.register_blueprint(page_bp)
 app.register_blueprint(cs_bp)
+app.register_blueprint(forum_bp)
 
 if __name__ == '__main__':
     app.run()
