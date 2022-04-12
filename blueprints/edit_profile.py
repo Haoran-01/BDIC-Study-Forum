@@ -7,9 +7,20 @@ from wtforms.validators import DataRequired,ValidationError,Email,EqualTo,Length
 from exts import db
 from flask import request
 from flask import flash
-
+#from flask import Flask-Login
 
 bp = Blueprint("edit_profile",__name__,url_prefix="/")
+
+@bp.route('/user/<username>')
+@bp.login_required
+def user(username):
+    user=User.query.filter_by(username=username).first_or_404()
+    posts=[
+        {'author':user,'body':'Test post #1'},
+        {'author':user,'body':'Test post #2'}
+    ]
+    return render_template('user.html',user=user,posts=posts)
+
 
 
 @bp.route('/edit_profile',methods=['GET','POST'])
