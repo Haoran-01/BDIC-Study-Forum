@@ -51,12 +51,9 @@ export default {
     },
     checkMainFunctionsPosition() {
       const mainFunctions = document.getElementById("mainFunctions");
-      console.log(mainFunctions.getBoundingClientRect().bottom);
       if (mainFunctions.getBoundingClientRect().bottom > 0){
-        console.log(">0")
         this.$store.commit("changeMainFunctionsVisible");
       }else {
-        console.log("<0")
         this.$store.commit("changeMainFunctionsInvisible");
       }
     }

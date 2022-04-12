@@ -55,7 +55,7 @@ input:valid{
 
 .invalidEmailTip{
     position: relative;
-    bottom: 55px;
+    bottom: 15px;
 }
 
 @keyframes rock {

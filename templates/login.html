@@ -20,7 +20,7 @@
 
         <!--------signUp区域---------------------------------------------------------------------------------------->
         <div class="signUp", id="signUp">
-            <form action="{{ url_for("User.register_check")}}" method="post" class="signUpInputArea" novalidate onsubmit="checkSignUp()">
+            <form class="signUpInputArea" novalidate onsubmit="checkSignUp()">
                 <input class="mail" id="mailSignUp" name="user_email" type="email" required placeholder="Enter e-mail address" onblur="checkEmail('mailSignUp', 'signUpSubmit')" onfocus="resetInput('mailSignUp')">
                 <div class="letter"></div>
                 <input type="text" id = "nameSignUp" name="user_name" required onfocus="resetInput('nameSignUp')" placeholder="Enter username">
@@ -47,7 +47,7 @@
                 <div>BDICers to collect information</div>
             </div>
 
-            <form action="{{ url_for("User.login_check") }}" method="post" class="logInInputArea" novalidate onsubmit="checkLogin()">
+            <form class="logInInputArea" novalidate onsubmit="checkLogin()">
                 <input id = "mailLogin" name="user_email" type="email" required placeholder="{{ get_flashed_messages()[0] }}" onblur="checkEmail('mailLogin')" onfocus="resetInput('mailLogin')">
                 <div class="letter"></div>
                 <input class="password" id = "password" name="user_password" type="password" required placeholder="{{ get_flashed_messages()[1] }}" onfocus="resetInput('password')">
@@ -62,7 +62,7 @@
         </div>
         <!--------forgetPassword区域------------------------------------------------------------------------------->
         <div class="forgetPassword", id="forgetPassword">
-            <form action="{{ url_for("User.email_check") }}" method="post" class="forgetPassInputArea" novalidate onsubmit="checkForgetPass()">
+            <form class="forgetPassInputArea" novalidate onsubmit="checkForgetPass()">
                 <div class="forgetTitle">Find your account</div>
                 <div class="forgetWords">Enter your email to continue:</div>
                 <input class="mailConfig" type="email" id="forgetMail" name="user_email" placeholder='Enter e-mail address' required onblur="checkEmail('forgetMail', 'forgetPassSubmit')" onfocus="resetInput('forgetMail')">
@@ -244,6 +244,7 @@
         }
 
         function checkSignUp(){
+            event.preventDefault();
             let idList = ['mailSignUp', 'nameSignUp', 'signUpPass', 'signUpPassRe', 'identifier'];
             for (var i = 0; i < idList.length; i++){
                 if (document.getElementById(idList[i]).value === ''){
@@ -251,11 +252,29 @@
                 }
             }
             if (document.getElementById('mailSignUp').value === '' || document.getElementById('nameSignUp').value === '' || signUpPass.value === '' || signUpPassRe.value === '' || document.getElementById('identifier').value === ''){
-                event.preventDefault();
+            }else {
+                axios.post('', {
+                    email: document.getElementById('mailSignUp').value,
+                    userName: document.getElementById('nameSignUp').value,
+                    password: signUpPass.value,
+                    captcha: document.getElementById('identifier').value
+                })
+                    .then(function (response) {
+                        var code=response.data['code'];
+                        if (code === 200){
+                            //重定向
+                        }else if (code === 400){
+
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             }
         }
 
         function checkLogin(){
+            event.preventDefault();
             if (document.getElementById('mailLogin').value === ''){
                 document.getElementById('mailLogin').style.borderBottom = '1px solid #ff6d6d';
             }
@@ -263,7 +282,24 @@
                 document.getElementById('password').style.borderBottom = '1px solid #ff6d6d';
             }
             if (document.getElementById('mailLogin').value === '' || document.getElementById('password').value === ''){
-                event.preventDefault();
+            }else {
+                let loginEmailValue = document.getElementById('mailLogin').value;
+                let loginPassword = document.getElementById('password').value;
+                axios.post('', {
+                    email: loginEmailValue,
+                    password: loginPassword
+                })
+                    .then(function (response) {
+                        var code=response.data['code'];
+                        if (code === 200){
+                            //重定向
+                        }else if (code === 400){
+
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             }
         }
 
@@ -273,10 +309,11 @@
                 event.preventDefault();
             }
         }
+
+        /*axios************************************************************************************************/
         let invalidEmailTip = document.createElement("div");
         invalidEmailTip.setAttribute('class', 'invalidEmailTip');
         invalidEmailTip.innerText = 'Email address not registered';
-        /*axios************************************************************************************************/
 
         /*获取验证码********************************************/
         document.getElementById('captcha-btn').addEventListener('click', function (){
@@ -318,8 +355,10 @@
         document.getElementById('forgetPassSubmit').addEventListener('click', function (){
             event.preventDefault();
             let forgetPassEmailValue = document.getElementById('forgetMail').value;
+            let forgetCaptcha = document.getElementById('identifier2').value;
             axios.post('/user/forget_form_email', {
-                email: forgetPassEmailValue
+                email: forgetPassEmailValue,
+                captcha: forgetCaptcha
             })
                 .then(function (response) {
                     // 处理成功情况

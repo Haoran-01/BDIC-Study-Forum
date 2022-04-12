@@ -49,7 +49,6 @@ export default {
   methods: {
     changeOptionsVisibility(){
       const nav = document.getElementById("navOptions")
-      console.log(this.$store.state.mainFunctionsVisibility);
       if (this.$store.state.mainFunctionsVisibility === false){
         nav.style.opacity = "1";
         nav.style.pointerEvents = "auto";
@@ -75,7 +74,6 @@ export default {
     $route(to,from){
       to.path;
       from.path;
-      console.log(to.path);
       this.changeOptionsVisibility();
     }
   },
