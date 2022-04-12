@@ -101,7 +101,7 @@ def email_check():
     email_model = EmailCaptchaModel.query.filter_by(email = email).first()
     captcha_model = EmailCaptchaModel.query.filter_by(email=email).first()
     if email_model:
-        if captcha_model.captcha.lower() == captcha:
+        if captcha_model.captcha == captcha:
             global theEmail
             theEmail = email_model.email
             return {"code":200}
