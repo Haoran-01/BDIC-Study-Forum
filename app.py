@@ -8,7 +8,7 @@ from blueprints import page_bp,user_bp,cs_bp,forum_bp
 from models import User
 
 # 创建一个app对象
-app = Flask(__name__)
+app = Flask(__name__, template_folder="templates/dist", static_folder="templates/dist", static_url_path="")
 
 #app.config[] 配置 配置项全部放到config里
 app.config.from_object(config)

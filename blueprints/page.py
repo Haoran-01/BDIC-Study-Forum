@@ -6,7 +6,7 @@ bp = Blueprint("Page",__name__,url_prefix="/")
 
 @bp.route("/")
 def login():
-    return "论坛首页"
+    return render_template("index.html")
 
 # @bp.route("/index")
 # def index():

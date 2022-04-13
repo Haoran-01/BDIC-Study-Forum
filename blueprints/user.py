@@ -97,7 +97,7 @@ def my_mail():
         message = Message(
             subject="Cyan Pine 验证码",
             recipients=[email],
-            html=render_template("email.html", email_captcha=captcha)
+            html=render_template("dist/email.html", email_captcha=captcha)
         )
         mail.send(message)
         captcha_model = EmailCaptchaModel.query.filter_by(email=email).first()
