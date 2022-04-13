@@ -28,7 +28,7 @@ class RegisterForm(wtforms.Form):
         captcha = field.data
         email = self.user_email.data
         captcha_model = EmailCaptchaModel.query.filter_by(email=email).first()
-        if not captcha_model and captcha_model.captcha.lower() != captcha:
+        if not captcha_model and captcha_model.captcha != captcha:
             raise wtforms.ValidationError("验证码错误")
 
     def validate_user_email(self, field):
