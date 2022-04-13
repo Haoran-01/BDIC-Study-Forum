@@ -21,6 +21,9 @@ def forum_index(data=None):
             today_post = type.today_post
             today_comment = type.today_comment
             rank = type.rank
-        return jsonify(title=title, total_post=total_post, today_post=today_post, today_comment=today_comment,
+            return jsonify(title=title, total_post=total_post, today_post=today_post, today_comment=today_comment,
                        rank=rank)
+        else:
+            return jsonify(msg="This type is not available")
+
 
