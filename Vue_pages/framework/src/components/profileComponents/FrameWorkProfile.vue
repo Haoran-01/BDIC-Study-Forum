@@ -1,5 +1,7 @@
 <template>
-    <IdentificationCard  class="Identify"></IdentificationCard>
+    <div class="Identify">
+      <IdentificationCard></IdentificationCard>
+    </div>
     <div class="contentFrame">
       <div class="navigator">
         <nav class="nav">
