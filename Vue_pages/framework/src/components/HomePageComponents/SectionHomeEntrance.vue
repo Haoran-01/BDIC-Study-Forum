@@ -1,7 +1,7 @@
 <template>
   <div class="sectionCard">
     <div class="sectionRank">{{ rank }}</div>
-    <div class="sectionImage"></div>
+    <img :src=sectionCoverImageURL class="sectionImage">
     <div class="sectionName">{{ sectionTitle }}</div>
     <div class="newComments"> {{ commentNumber }} Comments</div>
   </div>
@@ -10,7 +10,7 @@
 <script>
 export default {
   name: "SectionEntrance",
-  props:['sectionTitle', 'commentNumber', 'rank']
+  props:['sectionTitle', 'commentNumber', 'rank', 'sectionCoverImageURL']
 }
 </script>
 
@@ -37,7 +37,6 @@ export default {
     grid-area: 2 / 3 / 4 / 4;
     width: 30px;
     height: 30px;
-    background-color: #00B8FF;
     margin: auto;
     border-radius: 50%;
   }

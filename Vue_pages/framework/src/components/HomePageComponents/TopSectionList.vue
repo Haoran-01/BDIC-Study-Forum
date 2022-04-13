@@ -22,17 +22,20 @@ export default {
         {
           sectionTitle: 'Lecture Question',
           commentNumber: 26,
-          rank: 1
+          rank: 1,
+          sectionCoverImageURL: require('../../../../../static/images/R&Q.jpeg')
         },
         {
           sectionTitle: 'Lost and Found',
           commentNumber: 14,
-          rank: 2
+          rank: 2,
+          sectionCoverImageURL: require('../../../../../static/images/Lost&Found.jpeg')
         },
         {
           sectionTitle: 'Transaction',
           commentNumber: 8,
-          rank: 3
+          rank: 3,
+          sectionCoverImageURL: require('../../../../../static/images/transaction.jpeg')
         }
       ]
     }

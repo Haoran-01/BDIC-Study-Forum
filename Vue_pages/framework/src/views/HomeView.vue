@@ -50,70 +50,81 @@ export default {
             sectionName: 'Lecture Question',
             title: 'The problem about binary tree',
             introduction: 'What is the difference between a binary search tree and a binary tree?',
-            commentNumber: 6
+            commentNumber: 6,
+            userImageURL: require('../../../../static/images/Jerry.jpg')
           },
           {
             userName: 'Jerry',
             sectionName: 'Lecture Question',
             title: 'About AVL tree',
             introduction: 'After inserting in the AVL tree, why will one restructuring (if necessary) be enough to rebalance the whole tree? While for deletion, we must continue checking for balance until the root of T is reached.',
-            commentNumber: 4
+            commentNumber: 4,
+            userImageURL: require('../../../../static/images/Jerry.jpg')
           },
           {
             userName: 'Jerry',
             sectionName: 'Lecture Question',
             title: 'Heap exercise',
             introduction: 'When restructuring a tree, what if the children of y have the same height, and either one can be x?',
-            commentNumber: 4
+            commentNumber: 4,
+            userImageURL: require('../../../../static/images/Jerry.jpg')
           },
           {
             userName: 'Jerry',
             sectionName: 'Lecture Question',
             title: 'Movement of an external node in Splay Tree',
             introduction: 'In these slides, if I switch between the right(external) and left(8) child of node x(10), would it get a different result after Zig-Zig?',
-            commentNumber: 3
+            commentNumber: 3,
+            userImageURL: require('../../../../static/images/Jerry.jpg')
           },
           {
-            userName: 'Mike',
+            userName: 'Winfred',
             sectionName: 'Lecture Question',
             title: 'remove operation of binary tree',
             introduction: 'after we have removed 3, can we continue to remove 6 (the root), which will change the root of the tree to 2?',
-            commentNumber: 3
+            commentNumber: 3,
+            userImageURL: require('../../../../static/images/winfred.jpg')
+
           },
           {
-            userName: 'Mike',
+            userName: 'Winfred',
             sectionName: 'Lost and Found',
             title: 'Black Watch',
             introduction: 'I lost a watch apple at the entry to the teaching building 4. If anyone finds it, please contact me. I will really appreciate it if you could help.',
-            commentNumber: 2
+            commentNumber: 2,
+            userImageURL: require('../../../../static/images/winfred.jpg')
           },
           {
-            userName: 'John',
+            userName: 'Grey',
             sectionName: 'Lost and Found',
             title: 'Black Watch',
             introduction: 'I lost a wallet with a student card (203721) in it. I will really appreciate it if you could help',
-            commentNumber: 2
+            commentNumber: 2,
+            userImageURL: require('../../../../static/images/grey.jpg')
           },
           {
-            userName: 'John',
+            userName: 'Grey',
             sectionName: 'Transaction',
             title: 'MacBook Pro',
             introduction: 'If you want to buy a second-hand MacBook Pro 2021 16 inches, please contact me.',
-            commentNumber: 1
+            commentNumber: 1,
+            userImageURL: require('../../../../static/images/grey.jpg')
           },
           {
-            userName: 'John',
+            userName: 'Grey',
             sectionName: 'Transaction',
             title: 'iPhone 8',
             introduction: 'Anyone who would like to buy a second-hand iPhone 8 could email me directly.',
-            commentNumber: 1
+            commentNumber: 1,
+            userImageURL: require('../../../../static/images/grey.jpg')
           },
           {
-            userName: 'John',
+            userName: 'Grey',
             sectionName: 'Transaction',
             title: 'Java Learning Material',
             introduction: 'If you want some java learning material, please contact me. I could sell them in a low price. Don’t hesitate!!!',
-            commentNumber: 1
+            commentNumber: 1,
+            userImageURL: require('../../../../static/images/grey.jpg')
           },
         ]
       }

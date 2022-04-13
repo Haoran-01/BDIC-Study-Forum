@@ -28,7 +28,7 @@ export default {
           sectorDetail: "This section is used for solving lecture question. You can post your questions encountered in class, and others may help you. You can also assist other if you like.",
           totalPost: 20,
           newPost: 3,
-          todayNewComment: 15,
+          todayNewComment: 26,
           rank: 1
         },
         {
@@ -37,7 +37,7 @@ export default {
           sectorDetail: "This section is used for Lost and Found. If you lost or found something, you can post its details, thus others may get it and contact you.",
           totalPost: 12,
           newPost: 1,
-          todayNewComment: 11,
+          todayNewComment: 14,
           rank: 2
         },
         {
@@ -46,8 +46,8 @@ export default {
           sectorDetail: "This section is used for trading used products. If you need something or want to sell something, just post you requirement and waiting others who need contact you.",
           totalPost: 44,
           newPost: 5,
-          todayNewComment: 32,
-          rank: 4
+          todayNewComment: 8,
+          rank: 3
         }
       ]
     }

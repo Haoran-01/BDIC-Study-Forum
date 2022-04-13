@@ -1,7 +1,7 @@
 <template>
 <div class="postEntranceFrame">
   <div class="topBar">
-    <div class="headImage"></div>
+    <img :src=userImageURL class="headImage">
     <span class="userName">{{ userName }}</span>
     <span class="point">·</span>
     <span class="section">{{ sectionName }}</span>
@@ -28,7 +28,7 @@
 <script>
 export default {
   name: "PostEntrance",
-  props: ['userName', 'sectionName', 'title', 'introduction', 'commentNumber']
+  props: ['userName', 'sectionName', 'title', 'introduction', 'commentNumber', 'userImageURL']
 }
 </script>
 

@@ -72,7 +72,7 @@ export default {
   }
 
   .transition{
-    transition: 1s height ease-in-out;
+    transition: .5s height ease-in-out;
   }
 
   .frame{
