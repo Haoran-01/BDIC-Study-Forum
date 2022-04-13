@@ -2,8 +2,9 @@ import random
 import string
 
 import wtforms
-from flask import Blueprint,request,render_template,redirect,url_for,flash,jsonify,g
+from flask import Blueprint,request,render_template,redirect,url_for,flash,session
 from forms import LoginFrom, RegisterForm, EmailCaptchaModel,ForgetFormEmail,ForgetFormPassword
+from flask_login import login_user,logout_user,login_required
 from models import User
 from exts import db, mail
 from flask_mail import Message
@@ -17,6 +18,17 @@ bp = Blueprint("User", __name__, url_prefix="/user")
 def login():
     if request.method == 'GET':
         return render_template('login.html')
+
+# 用户登出
+
+
+@bp.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return "Logged out successfully!"
+
+# 注册功能
 
 
 @bp.route("/register_form", methods=['POST','GET'])
@@ -38,13 +50,17 @@ def register_check():
     #         return {"code": 400, "message": "Mailbox has been registered!"}
 
         hash_password = generate_password_hash(register_form.user_password.data)
-        user = User(user_email=register_form.user_email.data, user_name=register_form.user_name.data,
-                    user_password=hash_password)
+        user = User()
+        user.user_email = register_form.user_email.data
+        user.user_name = register_form.user_name.data
+        user.user_password = register_form.user_password
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('User.login'))
     else:
         return redirect(url_for('User.login'))
+
+# 登录功能
 
 
 @bp.route("/login_form", methods=['POST'])
@@ -55,6 +71,13 @@ def login_check():
         user_password = login_form.user_password.data
         user = User.query.filter_by(user_email=user_email).first()
         if user and check_password_hash(user.user_password, user_password):
+            # response = redirect("/")
+            # response.set_cookie("user_email",user_email)
+            # session["user_email"] = user_email
+            # session['logged_in'] = True
+
+            # 通过flask-login登录
+            login_user(user)
             return redirect('/')
         else:
             flash("Incorrect email or password.")
@@ -62,6 +85,7 @@ def login_check():
     else:
         flash("Incorrect email or password format.")
         return redirect(url_for("User.login"))
+
 
 @bp.route("/captcha",methods=['POST','GET'])
 def my_mail():
@@ -110,10 +134,11 @@ def email_check():
     else:
         return {"code":400,"message":"email"}
 
+
 @bp.route("/forget_form_password",methods=['POST','GET'])
 def password_check():
-    global theEmail
-    email = theEmail
+    global the_email
+    email = the_email
     password_form = ForgetFormPassword(request.form)
     if password_form.validate():
         new_password = password_form.user_password.data
