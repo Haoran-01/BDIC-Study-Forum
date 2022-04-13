@@ -1,34 +1,70 @@
 <template>
   <div class="Sector">
     <div class="sectorImage">
-      <img src="../../../../../static/images/letter.png" height="80" width="80"/>
+      <img :src=sectorCoverImageURL height="80" width="80"/>
     </div>
     <div class="sectorContent">
-      <div class="sectorTitle" Style="font-size:20px; font-weight: bold; text-align:left">Title of this Sector</div>
-      <div class="sectorDetail" Style="text-align:left">
-          The detail of this sector.The detail of this sector.The detail of this sector.The detail of this sector.The detail of this sector.The detail of this sector.The detail of this sector.The detail of this sector.
+      <div class="sectorTitle" Style="font-size:20px; font-weight: bold; text-align:left">{{ sectorTitle }}</div>
+      <div class="sectorDetail" Style="text-align:left; position: relative; top: 15px;">
+        {{ sectorDetail }}
       </div>
     </div>
     <div class="sectorPostImage">
-      <img src="../../../../../static/images/letter.png" height="40" width="40"/>
+      <img src="../../../../../static/images/sectorPostImage.png" height="40" width="40"/>
     </div>
     <div class="sectorRankImage">
-      <img src="../../../../../static/images/letter.png" height="40" width="40"/>
+      <img src="../../../../../static/images/sectorRankImage.png" height="40" width="40"/>
     </div>
-    <div class="sectorPostDetail" Style="font-size: 12px; text-align:left">
-      Total Post: ???<br/>
-      New Post: ???
+    <div class="sectorPostDetail" >
+      <div class="sectorPostOrRankDetail">
+        Total Post: {{ totalPost }}<br/>
+        New Post: {{ newPost }}
+      </div>
     </div>
-    <div class="sectorRankDetail" Style="font-size: 12px; text-align:left">
-      Today New Comment: ???<br/>
-      Rank: ???
+    <div class="sectorRankDetail">
+      <div class="sectorPostOrRankDetail">
+        Today New Comment: {{ todayNewComment }}<br/>
+        Rank: {{ rank }}
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "SectionEntrance"
+  name: "SectionEntrance",
+  props: [
+    // sectionContain: {
+    //   type: Object
+    // }
+      "sectorCoverImageURL",
+      "sectorTitle",
+      "sectorDetail",
+      "totalPost",
+      "newPost",
+      "todayNewComment",
+      "rank"
+  ],
+
+  // data() {
+  //   return {
+  //     /*sectorTitle: this.sectionContent.sectorTitle,
+  //     sectorDetail: this.sectionContent.sectorDetail,
+  //     sectorPostImageURL: this.sectionContent.sectorPostImageURL,
+  //     sectorRankImageURL: this.sectionContent.sectorRankImageURL,
+  //     totalPost: this.sectionContent.totalPost,
+  //     newPost: this.sectionContent.newPost,
+  //     todayNewComment: this.sectionContent.todayNewComment,
+  //     rank: this.sectionContent.rank,*/
+  //     sectionContent
+  //   }
+  // },
+  //
+  // watch:{
+  //   'sectionContain': function (val){
+  //     this.sectionContent = val;
+  //   }
+  // }
 }
 </script>
 
@@ -46,7 +82,6 @@ export default {
 
 .sectorImage {
   grid-area: 3 / 2 / 6 / 3;
-  background-color: pink; /*测试图片范围使用，最后删掉*/
 }
 .sectorContent {
   grid-area: 3 / 3 / 6 / 4;
@@ -54,13 +89,23 @@ export default {
 }
 .sectorPostImage {
   grid-area: 2 / 4 / 4 / 5;
-  background-color: pink; /*测试图片范围使用，最后删掉*/
 }
 .sectorRankImage {
   grid-area: 5 / 4 / 7 / 5;
-  background-color: pink; /*测试图片范围使用，最后删掉*/
 }
-.sectorPostDetail { grid-area: 2 / 5 / 4 / 6; }
-.sectorRankDetail { grid-area: 5 / 5 / 7 / 6; }
+.sectorPostDetail {
+  grid-area: 2 / 5 / 4 / 6;
+  font-size: 12px;
+  text-align:left;
+  display: flex;
+  align-items: center;
+}
+.sectorRankDetail {
+  grid-area: 5 / 5 / 7 / 6;
+  font-size: 12px;
+  text-align:left;
+  display: flex;
+  align-items: center;
+}
 
 </style>
