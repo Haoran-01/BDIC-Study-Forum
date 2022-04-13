@@ -126,8 +126,8 @@ def email_check():
     captcha_model = EmailCaptchaModel.query.filter_by(email=email).first()
     if email_model:
         if captcha_model.captcha == captcha:
-            global theEmail
-            theEmail = email_model.email
+            global the_email
+            the_email = email_model.email
             return {"code":200}
         else:
             return {"code": 400, "message": "captcha"}
