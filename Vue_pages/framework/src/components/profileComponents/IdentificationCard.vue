@@ -1,21 +1,36 @@
 <template>
   <div :class="animate" class="Frame">
     <div class="rightBar"></div>
-    <div class="informationArea"></div>
+    <div class="informationArea">
+      <div class="pictureUpload"></div>
+      <div class="selfie">
+        <transition>
+          <InforCollectionSpan v-show="animate.frameSpan"></InforCollectionSpan>
+        </transition>
+      </div>
+      <div class="selfie">
+        <transition>
+          <InforCollection v-show="animate.frame"></InforCollection>
+        </transition>
+      </div>
+    </div>
     <div class="directionBar">
-      <div class="part1"></div>
-      <div class="part2">
+      <div class="part1">
         <button :class="animateButton" class="SpanButton" @click="HandleClick"></button>
       </div>
-      <div class="part3"></div>
     </div>
   </div>
 </template>
 
 <script>
-
+import InforCollection from "@/components/profileComponents/InforCollection";
+import InforCollectionSpan from "@/components/profileComponents/InforCollectionSpan";
 export default {
   name: "IdentificationCard",
+  components:{
+    InforCollectionSpan,
+    InforCollection
+  },
   data(){
     return{
       animate:{
@@ -32,6 +47,7 @@ export default {
   methods:{
     HandleClick(){
       this.$store.commit("changeSpanState");
+      console.log(this.$store.Span);
       this.animate.frame = !this.animate.frame;
       this.animate.frameSpan = !this.animate.frameSpan;
       this.animateButton.Rotate = !this.animateButton.Rotate;
@@ -50,13 +66,13 @@ export default {
     display: grid;
     grid-template-columns: 40px 1fr 40px;
     grid-template-rows: 1fr;
-    grid-column-gap: 0px;
+    grid-column-gap: 0;
     grid-row-gap: 15px;
     overflow: hidden;
   }
 
   .transition{
-    transition: 1s height ease;
+    transition: 1s height ease-in-out;
   }
 
   .frame{
@@ -87,35 +103,53 @@ export default {
 
   .informationArea{
     grid-area: 1 / 2 / 2 / 3;
+    display: grid;
+    grid-template-columns: 155px 1fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
   }
 
-  .directionBar{
-    grid-area: 1 / 3 / 2 / 4;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(3, 1fr);
-    grid-column-gap: 0;
-    grid-row-gap: 0;
+  .pictureUpload{
+    grid-area: 1 / 1 / 2 / 2;
   }
+
+  .selfie{
+    grid-area: 1 / 2 / 2 / 3;
+    transition: 2s ease-in-out;
+  }
+
+
 
   .SpanButton{
     border-style: none;
     cursor: pointer;
-/*    background: url('../../assets/VectorIcon.png') no-repeat;*/
+    background: url('../../assets/VectorIcon.png') no-repeat;
     background-size: 100%;
     width: 25px;
     height: 25px;
     border-radius: 50%;
   }
 
-  .part2{
-    grid-area: 2 / 1 / 3 / 2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+  .part1{
+    margin: 70px auto;
+
   }
 
-  .part3{
-    grid-area: 3 / 1 / 4 / 2;
+
+
+  .v-enter-from{
+    opacity: 0;
   }
+
+  .v-enter-active{
+    transition: opacity 1.5s ease-out;
+  }
+
+  .v-enter-to{
+    opacity: 1;
+  }
+
+
 </style>
