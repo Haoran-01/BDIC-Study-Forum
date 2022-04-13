@@ -1,30 +1,35 @@
 from flask import Blueprint, redirect, url_for, render_template
 from sqlalchemy.sql.functions import current_user
+
+import app
 from forms import EditProfileForm
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, TextAreaField, SubmitField
 from wtforms.validators import DataRequired,ValidationError,Email,EqualTo,Length
 from exts import db
-from flask import request
+from flask import request,session
 from flask import flash
-#from flask import Flask-Login
+from models import User
+from flask_login import login_required
+
 
 bp = Blueprint("edit_profile",__name__,url_prefix="/")
 
-@bp.route('/user/<username>')
-@bp.login_required
-def user(username):
-    user=User.query.filter_by(username=username).first_or_404()
-    posts=[
-        {'author':user,'body':'Test post #1'},
-        {'author':user,'body':'Test post #2'}
-    ]
-    return render_template('user.html',user=user,posts=posts)
+@bp.route('/user/<user_email>')
+@login_required
+def user(user_email):
+    user = User.query.filter_by(user_email = user_email).first_or_404()
+
+    # posts=[
+    #     {'author':user,'body':'Test post #1'},
+    #     {'author':user,'body':'Test post #2'}
+    # ]
+    return render_template('user.html',user_email = session.get("user_email"))
 
 
 
 @bp.route('/edit_profile',methods=['GET','POST'])
-
+@login_required
 def edit_profile():
     form = EditProfileForm()
     if form.validate_on_submit():

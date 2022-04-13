@@ -1,6 +1,8 @@
-from flask import Blueprint,request,render_template
+from flask import Blueprint,request,render_template,session
+from flask_login import login_required
 
 bp = Blueprint("Page",__name__,url_prefix="/")
+
 
 @bp.route("/")
 def login():
