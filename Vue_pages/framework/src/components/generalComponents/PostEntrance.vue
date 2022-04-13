@@ -2,22 +2,22 @@
 <div class="postEntranceFrame">
   <div class="topBar">
     <div class="headImage"></div>
-    <span class="userName">name</span>
+    <span class="userName">{{ userName }}</span>
     <span class="point">·</span>
-    <span class="section">section</span>
+    <span class="section">{{ sectionName }}</span>
   </div>
-  <div class="postTitle">TitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitle</div>
-  <div class="postImage">TitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitle</div>
+  <div class="postTitle">{{title}}</div>
+  <div class="postImage">{{introduction}}</div>
   <div class="postToolBar">
-    <div class="comment">
+    <div class="toolButton" id="comment">
       <div class="postIcon" id="commentIcon"></div>
-      <span class="toolText" id="commentNumber">13 Comments</span>
+      <span class="toolText" id="commentNumber">{{ commentNumber }} Comments</span>
     </div>
-    <div class="share">
+    <div class="toolButton" id="share">
       <div class="postIcon" id="shareIcon"></div>
       <span class="toolText" id="shareText">Share</span>
     </div>
-    <div class="favorite">
+    <div class="toolButton" id="favorite">
       <div class="postIcon" id="favoriteIcon"></div>
       <span class="toolText" id="favoriteText">Favorite</span>
     </div>
@@ -27,7 +27,8 @@
 
 <script>
 export default {
-  name: "PostEntrance"
+  name: "PostEntrance",
+  props: ['userName', 'sectionName', 'title', 'introduction', 'commentNumber']
 }
 </script>
 
@@ -89,7 +90,10 @@ export default {
   font-family: "Noto Sans", sans-serif;
   text-align: left;
 }
-.postImage { grid-area: 3 / 2 / 4 / 3; }
+.postImage {
+  grid-area: 3 / 2 / 4 / 3;
+  text-align: left;
+}
 .postToolBar {
   grid-area: 4 / 1 / 5 / 4;
   height: 100%;
@@ -104,18 +108,39 @@ export default {
   justify-content: space-around;
 }
 
+.toolButton {
+  cursor: pointer;
+}
 .postIcon{
-  width: 30px;
-  height: 30px;
-  background-color: #00B8FF;
   display: inline-block;
   margin-right: 10px;
   margin-left: 10px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#commentIcon{
+  background-image: url("../../../../../static/images/message.png");
+  width: 30px;
+  height: 30px;
+}
+
+#shareIcon{
+  background-image: url("../../../../../static/images/link.png");
+  width: 30px;
+  height: 30px;
+}
+
+#favoriteIcon{
+  background-image: url("../../../../../static/images/star.png");
+  width: 35px;
+  height: 35px;
 }
 
 .toolText{
   font-family: "Noto Sans", sans-serif;
   margin-right: 10px;
   margin-left: 10px;
+  cursor: pointer;
 }
 </style>

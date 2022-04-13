@@ -1,22 +1,23 @@
 <template>
   <div class="sectionCard">
-    <div class="sectionRank">1</div>
+    <div class="sectionRank">{{ rank }}</div>
     <div class="sectionImage"></div>
-    <div class="sectionName">Campus News</div>
-    <div class="newComments"> 12 Comments</div>
+    <div class="sectionName">{{ sectionTitle }}</div>
+    <div class="newComments"> {{ commentNumber }} Comments</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "SectionEntrance"
+  name: "SectionEntrance",
+  props:['sectionTitle', 'commentNumber', 'rank']
 }
 </script>
 
 <style scoped>
   .sectionCard {
     display: grid;
-    grid-template-columns: 20px repeat(3, auto) 20px;
+    grid-template-columns: 20px repeat(2, auto) 147px 20px;
     grid-template-rows: 1fr repeat(2, auto) 1fr;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
@@ -45,6 +46,7 @@ export default {
     text-align: left;
     font-family: "Noto Sans", sans-serif;
     font-size: 14px;
+    font-weight: bold;
   }
   .newComments {
     grid-area: 3 / 4 / 4 / 5;

@@ -3,8 +3,10 @@
     <div class="topSectionListHead">
       <div class="topSectionListIntro">Today’s Top Forum Sections</div>
     </div>
-    <div class="topSections">
-      <SectionHomeEntrance></SectionHomeEntrance>
+    <div class="topSectionsFrame">
+      <div class="topSectionsLogic" v-for="(item, index) in sectionData" :key="index">
+        <SectionHomeEntrance v-bind="item"></SectionHomeEntrance>
+      </div>
     </div>
   </div>
 </template>
@@ -13,7 +15,28 @@
 import SectionHomeEntrance from "@/components/HomePageComponents/SectionHomeEntrance";
 export default {
   name: "TopSectionList",
-  components: {SectionHomeEntrance}
+  components: {SectionHomeEntrance},
+  data(){
+    return{
+      sectionData:[
+        {
+          sectionTitle: 'Lecture Question',
+          commentNumber: 26,
+          rank: 1
+        },
+        {
+          sectionTitle: 'Lost and Found',
+          commentNumber: 14,
+          rank: 2
+        },
+        {
+          sectionTitle: 'Transaction',
+          commentNumber: 8,
+          rank: 3
+        }
+      ]
+    }
+  }
 }
 </script>
 
@@ -35,23 +58,29 @@ export default {
 
 .topSectionListHead {
   grid-area: 1 / 1 / 2 / 2;
-  height: 100%;
-  width: 100%;
-  background-color: #00B8FF;
+  width: 296px;
+  height: 80px;
+  background-image: url("../../../../../static/images/top_section_head.png");
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
   align-items: flex-end;
   justify-content: left;
+  position: absolute;
   border-radius: 3px 3px 0 0;
 }
+
 .topSectionListIntro{
   font-family: "Noto Sans", sans-serif;
   font-weight: bold;
   font-size: 16px;
   margin-bottom: 10px;
   margin-left: 10px;
+  z-index: 2;
+  color: white;
 }
 
-.topSections { grid-area: 2 / 1 / 3 / 2; }
+.topSectionsFrame { grid-area: 2 / 1 / 3 / 2; }
 
 
 </style>

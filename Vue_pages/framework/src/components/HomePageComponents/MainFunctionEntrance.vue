@@ -1,6 +1,6 @@
 <template>
   <div class="entrances">
-    <router-link class="entrance" to="/forum">
+    <router-link class="entrance" id = "forum" to="/forum">
       <div class="entranceText">Forum</div>
     </router-link>
     <div class="entrance" id="courseSchedule">
@@ -32,7 +32,7 @@ export default {
   display: flex;
   width: calc(694px *0.25);
   height: 100%;
-  background-color: #00B8FF;
+  background-color: rgba(0, 0, 0, 0.5);
   border-radius: 15px;
   align-items: center;
   justify-content: center;
@@ -40,6 +40,8 @@ export default {
   bottom: 0;
   text-decoration: none;
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.10);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .entrance:hover{
   transition: 0.3s ease-out;
@@ -51,7 +53,28 @@ export default {
   font-size: 20px;
   font-family: "Noto Sans", sans-serif;
   font-weight: bold;
-  color: #000;
+  color: #ffffff;
+  z-index: 2;
+}
+
+.entrance::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, .5);
+  z-index: 1;
+  border-radius: 15px;
+}
+
+#forum{
+  background-image: url("../../../../../static/images/forum_entrance.png");
+}
+
+#courseSchedule{
+  background-image: url("../../../../../static/images/course_schedule_entrance.png");
 }
 
 </style>

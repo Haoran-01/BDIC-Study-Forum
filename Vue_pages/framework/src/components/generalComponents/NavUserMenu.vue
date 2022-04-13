@@ -1,11 +1,11 @@
 <template>
 <div class="menuMain">
   <router-link class="menuItem" to="/profile">
-    <div class="menuItemIcon"></div>
+    <div class="menuItemIcon" id="profileIcon"></div>
     <div class="menuItemText"> Profile </div>
   </router-link>
   <div class="menuItem">
-    <div class="menuItemIcon"></div>
+    <div class="menuItemIcon" id="logoutIcon"></div>
     <div class="menuItemText">Log Out</div>
   </div>
 </div>
@@ -40,7 +40,14 @@ a{
 .menuItemIcon{
   width: 30px;
   height: 30px;
-  background-color: #00B8FF;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+#profileIcon{
+  background-image: url("../../../../../static/images/profile.png");
+}
+#logoutIcon{
+  background-image: url("../../../../../static/images/door_out.png");
 }
 .menuItemText, .menuItemText:visited{
   font-family: "Noto Sans", sans-serif;

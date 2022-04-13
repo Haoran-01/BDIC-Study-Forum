@@ -119,8 +119,10 @@ export default {
 }
 
 .logo {
-  background-color: #2c3e50;
+  background-image: url("../../../../../static/images/logo_full.png");
   grid-area: 1 / 1 / 2 / 2;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .navOptions{
@@ -158,7 +160,9 @@ nav a:link, a:visited{
 .userMenuButton{
   transition: 0.2s;
   z-index: 10;
-  background-color: #00B8FF;
+  background-image: url("../../../../../static/images/user_menu_temp.png");
+  background-size: contain;
+  background-repeat: no-repeat;
   height: 40px;
   width: 80px;
   margin-top: 5px;
