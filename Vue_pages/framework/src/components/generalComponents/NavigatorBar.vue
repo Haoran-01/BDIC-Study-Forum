@@ -106,7 +106,7 @@ export default {
   opacity: 0;
 }
 .navigatorMain{
-  z-index: 1;
+  z-index: 3;
   display: grid;
   grid-template-columns: 200px 270px 1fr 100px;
   grid-template-rows: 50px;

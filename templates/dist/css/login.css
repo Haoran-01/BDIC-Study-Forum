@@ -53,7 +53,34 @@ input:valid{
     z-index:100;
 }
 
-.invalidEmailTip{
+.captchaSentTip{
+/*    background-image: url("");*/
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+    position: relative;
+}
+
+#signUpCaptchaSent{
+    left: 0;
+}
+
+#forgetCaptchaSent{
+    left: 0;
+}
+
+.loginInvalidTip{
+    position: relative;
+    bottom: 15px;
+}
+
+.signUpInvalidTip{
+    position: relative;
+    bottom: 15px;
+}
+
+.forgetPassInvalidTip{
     position: relative;
     bottom: 15px;
 }
