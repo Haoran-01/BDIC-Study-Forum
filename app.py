@@ -4,11 +4,12 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 from exts import db, mail
 import os
-from blueprints import page_bp,user_bp,cs_bp,forum_bp
+from blueprints import user_bp,cs_bp,forum_bp,index_bp
 from models import User
 
 # 创建一个app对象
 app = Flask(__name__, template_folder="templates/dist", static_folder="templates/dist", static_url_path="")
+
 
 #app.config[] 配置 配置项全部放到config里
 app.config.from_object(config)
@@ -18,9 +19,9 @@ mail.init_app(app)
 migrate = Migrate(app, db)
 # 配置项目蓝图
 app.register_blueprint(user_bp)
-app.register_blueprint(page_bp)
 app.register_blueprint(cs_bp)
 app.register_blueprint(forum_bp)
+app.register_blueprint(index_bp)
 
 # 配置session secret_key
 app.secret_key = os.getenv("SECRET_KEY","dskjfwqienkehyr1")

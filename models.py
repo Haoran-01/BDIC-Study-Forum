@@ -13,6 +13,7 @@ class User(UserMixin, db.Model):
     def get_id(self):
         return self.user_email
 
+
 class EmailCaptchaModel(db.Model):
     __tablename__ = "email_captcha"
     id = db.Column(db.Integer, primary_key=True, autoincrement= True)
@@ -20,7 +21,10 @@ class EmailCaptchaModel(db.Model):
     captcha = db.Column(db.CHAR(10), nullable=False)
     creat_time = db.Column(db.DateTime, default=datetime.now)
 
-class QuestionModel(db.Model):
+# 帖子模型
+
+
+class PostModel(db.Model):
     __tablename__ = 'question'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.CHAR(200), nullable=False)
@@ -28,6 +32,9 @@ class QuestionModel(db.Model):
     author_email = db.Column(db.CHAR(200), db.ForeignKey("user.user_email"))
     post_type = db.Column(db.Integer, nullable=False)
     author = db.relationship("User", backref="questions")
+
+# 帖子类别
+
 
 class QuestionType(db.Model):
     __tablename__ = 'questiontype'
