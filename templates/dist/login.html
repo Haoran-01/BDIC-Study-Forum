@@ -94,6 +94,8 @@
         <span class="copyright">Copyright@Group 12</span>
     </footer>
 
+    <script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
+
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script> //四个区域的动效
@@ -272,12 +274,13 @@
             }
             if (document.getElementById('mailSignUp').value === '' || document.getElementById('nameSignUp').value === '' || signUpPass.value === '' || signUpPassRe.value === '' || document.getElementById('identifier').value === ''){
             }else {
-                axios.post('/user/register_form', {
+                import qs from 'qs';
+                axios.post('/user/register_form', qs.stringify({
                     email: document.getElementById('mailSignUp').value,
                     userName: document.getElementById('nameSignUp').value,
                     password: signUpPass.value,
                     captcha: document.getElementById('identifier').value
-                })
+                }))
                     .then(function (response) {
                         var code=response.data['code'];
                         if (code === 200){
@@ -325,10 +328,11 @@
             }else {
                 let loginEmailValue = document.getElementById('mailLogin').value;
                 let loginPassword = document.getElementById('password').value;
-                axios.post('/user/login_form', {
+                import qs from 'qs';
+                axios.post('/user/login_form', qs.stringify({
                     email: loginEmailValue,
                     password: loginPassword
-                })
+                }))
                     .then(function (response) {
                         var code=response.data['code'];
                         if (code === 200){
