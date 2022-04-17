@@ -1,28 +1,30 @@
 <template>
   <div class="Span">
     <div class="header">
-      <div class="Username">UserName</div>
+      <ProfileForm EditName="Edit your user name"></ProfileForm>
       <div class="title">Introduction</div>
       <div class="line"></div>
     </div>
     <div class="content">
-      <div class="intro contentText">SelfIntro</div>
+      <ProfileForm EditName="Add your personalities"></ProfileForm>
       <div class="Ti contentText">E-mail</div>
       <div class="line"></div>
       <div class="e-mail contentText">2639230771@qq.com</div>
       <div class="Ti contentText">Grade</div>
       <div class="line"></div>
-      <div class="grade contentText">2020</div>
+      <ProfileForm EditName="Edit your grade"></ProfileForm>
       <div class="Ti contentText">Department</div>
       <div class="line"></div>
-      <div class="department contentText">BDIC</div>
+      <ProfileForm EditName="Edit your department"></ProfileForm>
     </div>
   </div>
 </template>
 
 <script>
+import ProfileForm from "@/components/profileComponents/ProfileForm";
 export default {
-  name: "InforCollectionSpan"
+  name: "InforCollectionSpan",
+  components: {ProfileForm}
 }
 </script>
 
@@ -50,11 +52,6 @@ export default {
     background-color: #929497;
   }
 
-  .Username{
-    font-size: 23px;
-    display: flex;
-    margin: 30px 0;
-  }
 
   .title{
     font-size: 13px;
