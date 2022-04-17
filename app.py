@@ -1,4 +1,5 @@
-from flask import Flask, session
+from flask import Flask,jsonify
+from wtforms import ValidationError
 import config
 from flask_login import LoginManager
 from flask_migrate import Migrate
@@ -10,8 +11,7 @@ from models import User,UserProfile
 # 创建一个app对象
 app = Flask(__name__, template_folder="templates/dist", static_folder="templates/dist", static_url_path="")
 
-
-#app.config[] 配置 配置项全部放到config里
+# app.config[] 配置 配置项全部放到config里
 app.config.from_object(config)
 db.init_app(app)
 mail.init_app(app)
@@ -25,7 +25,7 @@ app.register_blueprint(index_bp)
 app.register_blueprint(userprofile_bp)
 
 # 配置session secret_key
-app.secret_key = os.getenv("SECRET_KEY","dskjfwqienkehyr1")
+app.secret_key = os.getenv("SECRET_KEY", "dskjfwqienkehyr1")
 
 # 配置LoginManager
 login_manager = LoginManager()
@@ -42,10 +42,16 @@ login_manager.init_app(app)
 
 @login_manager.user_loader
 def load_user(user_email):
-    if User.query.filter_by(user_email = user_email).first() is not None:
+    if User.query.filter_by(user_email=user_email).first() is not None:
         curr_user = User()
         curr_user.user_email = user_email
         return curr_user
+
+
+@app.errorhandler(ValidationError)
+def validation_error(e):
+    return jsonify({"code": 400, "message": e.args})
+
 
 
 if __name__ == '__main__':
