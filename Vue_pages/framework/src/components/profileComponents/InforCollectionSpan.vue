@@ -16,6 +16,9 @@
       <div class="Ti contentText">Department</div>
       <div class="line"></div>
       <ProfileForm EditName="Edit your department"></ProfileForm>
+      <div class="Ti contentText">Major</div>
+      <div class="line"></div>
+      <ProfileForm EditName="Edit your major"></ProfileForm>
     </div>
   </div>
 </template>
