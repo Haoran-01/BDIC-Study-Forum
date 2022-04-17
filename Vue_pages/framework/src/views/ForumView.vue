@@ -23,7 +23,7 @@ export default {
     return {
       items: [
         {
-          sectorCoverImageURL: require('../../../../static/images/R&Q.jpeg'),
+          sectorCoverImageURL: require('../../../../templates/dist/images/R&Q.jpeg'),
           sectorTitle: "Lecture Question",
           sectorDetail: "This section is used for solving lecture question. You can post your questions encountered in class, and others may help you. You can also assist other if you like.",
           totalPost: 20,
@@ -32,7 +32,7 @@ export default {
           rank: 1
         },
         {
-          sectorCoverImageURL: require('../../../../static/images/Lost&Found.jpeg'),
+          sectorCoverImageURL: require('../../../../templates/dist/images/Lost&Found.jpeg'),
           sectorTitle: "Lost And Found",
           sectorDetail: "This section is used for Lost and Found. If you lost or found something, you can post its details, thus others may get it and contact you.",
           totalPost: 12,
@@ -41,7 +41,7 @@ export default {
           rank: 2
         },
         {
-          sectorCoverImageURL: require('../../../../static/images/transaction.jpeg'),
+          sectorCoverImageURL: require('../../../../templates/dist/images/transaction.jpeg'),
           sectorTitle: "Transaction",
           sectorDetail: "This section is used for trading used products. If you need something or want to sell something, just post you requirement and waiting others who need contact you.",
           totalPost: 44,
@@ -85,7 +85,7 @@ export default {
   flex-direction: column;
   width: 1000px;
   height: 100px;
-  background-image: url("../../../../static/images/forumCover.png")
+  background-image: url("../../../../templates/dist/images/forumCover.png")
 }
 #coverTitle {
   position: absolute;

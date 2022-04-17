@@ -10,10 +10,10 @@
       </div>
     </div>
     <div class="sectorPostImage">
-      <img src="../../../../../static/images/sectorPostImage.png" height="40" width="40"/>
+      <img src="../../../../../templates/dist/images/sectorPostImage.png" height="40" width="40"/>
     </div>
     <div class="sectorRankImage">
-      <img src="../../../../../static/images/sectorRankImage.png" height="40" width="40"/>
+      <img src="../../../../../templates/dist/images/sectorRankImage.png" height="40" width="40"/>
     </div>
     <div class="sectorPostDetail" >
       <div class="sectorPostOrRankDetail">

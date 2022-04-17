@@ -55,7 +55,7 @@ export default {
 }
 .cookieIcon {
   grid-area: 1 / 2 / 2 / 3;
-  background-image: url("../../../../../static/images/cookie.png");
+  background-image: url("../../../../../templates/dist/images/cookie.png");
   background-repeat: no-repeat;
   background-size: cover;
   width: 50px;

@@ -331,19 +331,19 @@
                 })
                     .then(function (response) {
                         let code=response.data['code'];
-                        let message = response.data['message']
+                        let message=response.data['message'];
                         if (code === 200){
                             document.getElementById('main').innerHTML = '';
                             let welcome = document.createElement('div');
                             welcome.setAttribute('class', 'welcome');
-                            {#document.getElementById('main').appendChild(welcome);#}
+                            document.getElementById('main').appendChild(welcome);
                             setTimeout(()=>{}, 1000);
-                            window.location.assign(window.location.origin + '/')
+                            window.location.assign(window.location.origin + '/');
                         }else if (code === 400){
                             if (message === 'email'){
-                                addInfoElement('loginInvalidTip', 'invalidLoginUser', 'Email address not registered', 'logInInputArea', 'submitLogin')
+                                addInfoElement('loginInvalidTip', 'invalidLoginUser', 'Email address not registered', 'logInInputArea', 'submitLogin');
                             }else if (message === 'password'){
-                                addInfoElement('loginInvalidTip', 'invalidLoginPassword', 'Wrong password', 'logInInputArea', 'submitLogin')
+                                addInfoElement('loginInvalidTip', 'invalidLoginPassword', 'Wrong password', 'logInInputArea', 'submitLogin');
                             }
                         }
                     })

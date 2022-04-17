@@ -23,19 +23,19 @@ export default {
           sectionTitle: 'Lecture Question',
           commentNumber: 26,
           rank: 1,
-          sectionCoverImageURL: require('../../../../../static/images/R&Q.jpeg')
+          sectionCoverImageURL: require('../../../../../templates/dist/images/R&Q.jpeg')
         },
         {
           sectionTitle: 'Lost and Found',
           commentNumber: 14,
           rank: 2,
-          sectionCoverImageURL: require('../../../../../static/images/Lost&Found.jpeg')
+          sectionCoverImageURL: require('../../../../../templates/dist/images/Lost&Found.jpeg')
         },
         {
           sectionTitle: 'Transaction',
           commentNumber: 8,
           rank: 3,
-          sectionCoverImageURL: require('../../../../../static/images/transaction.jpeg')
+          sectionCoverImageURL: require('../../../../../templates/dist/images/transaction.jpeg')
         }
       ]
     }
@@ -63,7 +63,7 @@ export default {
   grid-area: 1 / 1 / 2 / 2;
   width: 296px;
   height: 80px;
-  background-image: url("../../../../../static/images/top_section_head.png");
+  background-image: url("../../../../../templates/dist/images/top_section_head.png");
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;

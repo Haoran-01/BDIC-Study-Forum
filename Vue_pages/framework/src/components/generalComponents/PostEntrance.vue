@@ -120,19 +120,19 @@ export default {
 }
 
 #commentIcon{
-  background-image: url("../../../../../static/images/message.png");
+  background-image: url("../../../../../templates/dist/images/message.png");
   width: 30px;
   height: 30px;
 }
 
 #shareIcon{
-  background-image: url("../../../../../static/images/link.png");
+  background-image: url("../../../../../templates/dist/images/link.png");
   width: 30px;
   height: 30px;
 }
 
 #favoriteIcon{
-  background-image: url("../../../../../static/images/star.png");
+  background-image: url("../../../../../templates/dist/images/star.png");
   width: 35px;
   height: 35px;
 }
