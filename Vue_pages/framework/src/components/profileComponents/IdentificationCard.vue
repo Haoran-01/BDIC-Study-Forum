@@ -2,13 +2,12 @@
   <div :class="animate" class="Frame">
     <div class="rightBar"></div>
     <div class="informationArea">
-      <div class="pictureUpload"></div>
+      <div class="pictureUpload">
+      </div>
       <div class="selfie">
         <transition>
           <InforCollectionSpan v-show="animate.frameSpan"></InforCollectionSpan>
         </transition>
-      </div>
-      <div class="selfie">
         <transition>
           <InforCollection v-show="animate.frame"></InforCollection>
         </transition>
@@ -29,7 +28,7 @@ export default {
   name: "IdentificationCard",
   components:{
     InforCollectionSpan,
-    InforCollection
+    InforCollection,
   },
   data(){
     return{
@@ -47,7 +46,6 @@ export default {
   methods:{
     HandleClick(){
       this.$store.commit("changeSpanState");
-      console.log(this.$store.Span);
       this.animate.frame = !this.animate.frame;
       this.animate.frameSpan = !this.animate.frameSpan;
       this.animateButton.Rotate = !this.animateButton.Rotate;
@@ -116,10 +114,7 @@ export default {
 
   .selfie{
     grid-area: 1 / 2 / 2 / 3;
-    transition: 2s ease-in-out;
   }
-
-
 
   .SpanButton{
     border-style: none;
@@ -131,13 +126,9 @@ export default {
     border-radius: 50%;
   }
 
-
   .part1{
     margin: 70px auto;
-
   }
-
-
 
   .v-enter-from{
     opacity: 0;
