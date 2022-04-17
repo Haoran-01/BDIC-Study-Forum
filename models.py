@@ -7,7 +7,7 @@ from flask_login import UserMixin
 class User(UserMixin, db.Model):
     __tablename__ = 'user'
     user_email = db.Column(db.CHAR(200), primary_key = True, nullable=False, unique=True)
-    user_name = db.Column(db.CHAR(200), nullable = False, unique=True)
+    user_name = db.Column(db.CHAR(200), nullable = False, unique=False)
     user_password = db.Column(db.CHAR(200), nullable = False)
 
     def get_id(self):
@@ -44,3 +44,13 @@ class QuestionType(db.Model):
     today_post = db.Column(db.Integer, nullable=False)
     today_comment = db.Column(db.Integer, nullable=False)
     rank = db.Column(db.Integer, nullable=False)
+
+#用户个人主页
+class UserProfile(db.Model):
+    __tablename__ = 'userprofile'
+    user_name = db.Column(db.VARCHAR(200), nullable = False, unique=False)
+    introduction = db.Column(db.VARCHAR(500), nullable = False, unique=False)
+    user_email = db.Column(db.VARCHAR(200), primary_key = True, nullable=False, unique=True)
+    grade = db.Column(db.Integer, nullable=False)
+    department = db.Column(db.VARCHAR(200), nullable = False, unique=False)
+    major = db.Column(db.VARCHAR(200), nullable = False, unique=False)
