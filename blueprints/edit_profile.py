@@ -31,13 +31,13 @@ def user(user_email):
 @bp.route('/profile',methods=['GET','POST'])
 #@login_required
 def edit_profile():
-    print('begin edit')
+    #print('begin edit')
 
-    user_name=request.get("UserName")
-    introduction=request.get("Introduction")
-    user_email = request.get("E-mail")
-    grade=request.get("Grade")
-    department =request.get("Department")
+    user_name=request.form["UserName"]
+    introduction=request.form["Introduction"]
+    user_email = request.form["E-mail"]
+    grade=request.form["Grade"]
+    department =request.form["Department"]
     #major=request.get()
 
     #userprofile = UserProfile(user_name="SQ",introduction="aaaaa",user_email="d1@dfa",grade=2020,department="BDIC",major="SE")
