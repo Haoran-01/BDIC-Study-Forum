@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>CyanPine</title>
+    <link href="../dist/css/login.css" rel="stylesheet" type="text/css"/>
     <link href="{{ url_for('static', filename = 'css/login.css') }}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
@@ -71,6 +72,7 @@
                     <input class="identify2" id = "identifier2" name="captcha" type="text" required placeholder="Enter captcha" onfocus="resetInput('identifier2')">
                     <button type="button" id="captcha-btn2" class="verificationCode2" onclick="removeGivenNodes(['forgetCaptchaSent'], 'forgetPassInputArea')"></button>
                 </div>
+                <div class="forgetPassInvalidTip">Wrong PAss</div>
                 <button type="submit" class = "submit" id = "forgetPassSubmit">Next</button>
                 <div id="leftToLogin" class="leftArrow" onclick="leftToLogin()" title="Back to login in"></div>
             </form>
@@ -280,16 +282,17 @@
                 })
                     .then(function (response) {
                         var code=response.data['code'];
+                        let message=response.data['message'];
                         if (code === 200){
                             //重定向
                         }else if (code === 400){
-                            if (true){
+                            if (message === 'invalidSignUpEmail'){
                                 addInfoElement('signUpInvalidTip', 'invalidSignUpEmail', 'Email address has been registered', 'signUpInputArea', 'signUpSubmit');
-                            }else if (true){
+                            }else if (message === 'invalidSignUpPassword'){
                                 addInfoElement('signUpInvalidTip', 'invalidSignUpPassword', 'Password must contain 6 to 20 digits or letters', 'signUpInputArea', 'signUpSubmit');
-                            }else if (true){
+                            }else if (message === 'invalidSignUpUserName'){
                                 addInfoElement('signUpInvalidTip', 'invalidSignUpUserName', 'Username must less than 20 digits or letters', 'signUpInputArea', 'signUpSubmit');
-                            }else if (true){
+                            }else if (message === 'invalidSignUpCaptcha'){
                                 addInfoElement('signUpInvalidTip', 'invalidSignUpCaptcha', 'Invalid Validation Code', 'signUpInputArea', 'signUpCaptchaBox');
                             }
                         }
