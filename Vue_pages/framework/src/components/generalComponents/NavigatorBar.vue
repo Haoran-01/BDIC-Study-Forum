@@ -119,7 +119,7 @@ export default {
 }
 
 .logo {
-  background-image: url("../../../../../static/images/logo_full.png");
+  background-image: url("../../../../../templates/dist/images/logo_full.png");
   grid-area: 1 / 1 / 2 / 2;
   background-size: contain;
   background-repeat: no-repeat;
@@ -160,7 +160,7 @@ nav a:link, a:visited{
 .userMenuButton{
   transition: 0.2s;
   z-index: 10;
-  background-image: url("../../../../../static/images/user_menu_temp.png");
+  background-image: url("../../../../../templates/dist/images/user_menu_temp.png");
   background-size: contain;
   background-repeat: no-repeat;
   height: 40px;
