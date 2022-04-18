@@ -13,6 +13,7 @@
 
 <script>
 import SectionHomeEntrance from "@/components/HomePageComponents/SectionHomeEntrance";
+import axios from "axios";
 export default {
   name: "TopSectionList",
   components: {SectionHomeEntrance},
@@ -39,7 +40,18 @@ export default {
         }
       ]
     }
-  }
+  },
+  created() {
+    let data;
+    axios.get('http://127.0.0.1:4523/mock/831624/index/get_popular_type')
+        .then((response) => {
+          this.sectionData = response.data.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+    console.log(data);
+  },
 }
 </script>
 

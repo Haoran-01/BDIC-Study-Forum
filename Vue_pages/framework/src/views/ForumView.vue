@@ -5,7 +5,7 @@
         <div id="coverTitle">FORUM</div>
       </div>
       <span v-for="(item, index) in items" :key="index">
-      <SectionEntrance :sectorCoverImageURL="item.sectorCoverImageURL" :sectorTitle="item.sectorTitle" :sectorDetail="item.sectorDetail" :totalPost="item.totalPost" :newPost="item.newPost" :todayNewComment="item.todayNewComment" :rank="item.rank"/>
+        <SectionEntrance v-bind="item"></SectionEntrance>
     </span>
     </div>
 
@@ -14,12 +14,10 @@
 
 <script>
 import SectionEntrance from "@/components/forumComponents/SectionEntrance";
-// import axios from "axios";
+import axios from "axios";
 export default {
   components: { SectionEntrance },
   data() {
-    // let msg = {
-    // }
     return {
       items: [
         {
@@ -52,24 +50,18 @@ export default {
       ]
     }
   },
+  created() {
+    axios.get('http://127.0.0.1:4523/mock/831624/forum/sections')
+        .then((response) => {
+          this.items = response.data.data;
+          console.log(response);
+          console.log(this.items);
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+  },
 }
-// axios.post('/sections', {
-//   firstName: 'Fred',
-//   lastName: 'Flintstone'
-// })
-//     .then(function (response) {
-//       console.log(response);
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     });
-// axios.get('/sections')
-//     .then(function (response) {
-//       console.log(response);
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     });
 </script>
 
 <style scoped>
@@ -94,7 +86,7 @@ export default {
   left: 631px;
   top: 74px;
 
-  font-family: 'Inter';
+  font-family: 'Inter', Sans-Serif;
   font-style: normal;
   font-weight: 700;
   font-size: 34px;

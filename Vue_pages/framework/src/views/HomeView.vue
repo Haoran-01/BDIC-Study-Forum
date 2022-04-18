@@ -27,6 +27,7 @@ import CookieWindow from "@/components/HomePageComponents/CookieWindow";
 import MainFunctionEntrance from "@/components/HomePageComponents/MainFunctionEntrance";
 import PostEntrance from "@/components/generalComponents/PostEntrance";
 import TopSectionList from "@/components/HomePageComponents/TopSectionList";
+import axios from "axios";
 
 /*import {onMounted, onUnmounted} from "vue";
 onMounted(() =>{
@@ -61,71 +62,71 @@ export default {
             commentNumber: 4,
             userImageURL: require('../../../../templates/dist/images/Jerry.jpg')
           },
-          {
-            userName: 'Jerry',
-            sectionName: 'Lecture Question',
-            title: 'Heap exercise',
-            introduction: 'When restructuring a tree, what if the children of y have the same height, and either one can be x?',
-            commentNumber: 4,
-            userImageURL: require('../../../../templates/dist/images/Jerry.jpg')
-          },
-          {
-            userName: 'Jerry',
-            sectionName: 'Lecture Question',
-            title: 'Movement of an external node in Splay Tree',
-            introduction: 'In these slides, if I switch between the right(external) and left(8) child of node x(10), would it get a different result after Zig-Zig?',
-            commentNumber: 3,
-            userImageURL: require('../../../../templates/dist/images/Jerry.jpg')
-          },
-          {
-            userName: 'Winfred',
-            sectionName: 'Lecture Question',
-            title: 'remove operation of binary tree',
-            introduction: 'after we have removed 3, can we continue to remove 6 (the root), which will change the root of the tree to 2?',
-            commentNumber: 3,
-            userImageURL: require('../../../../templates/dist/images/winfred.jpg')
-
-          },
-          {
-            userName: 'Winfred',
-            sectionName: 'Lost and Found',
-            title: 'Black Watch',
-            introduction: 'I lost a watch apple at the entry to the teaching building 4. If anyone finds it, please contact me. I will really appreciate it if you could help.',
-            commentNumber: 2,
-            userImageURL: require('../../../../templates/dist/images/winfred.jpg')
-          },
-          {
-            userName: 'Grey',
-            sectionName: 'Lost and Found',
-            title: 'Black Watch',
-            introduction: 'I lost a wallet with a student card (203721) in it. I will really appreciate it if you could help',
-            commentNumber: 2,
-            userImageURL: require('../../../../templates/dist/images/grey.jpg')
-          },
-          {
-            userName: 'Grey',
-            sectionName: 'Transaction',
-            title: 'MacBook Pro',
-            introduction: 'If you want to buy a second-hand MacBook Pro 2021 16 inches, please contact me.',
-            commentNumber: 1,
-            userImageURL: require('../../../../templates/dist/images/grey.jpg')
-          },
-          {
-            userName: 'Grey',
-            sectionName: 'Transaction',
-            title: 'iPhone 8',
-            introduction: 'Anyone who would like to buy a second-hand iPhone 8 could email me directly.',
-            commentNumber: 1,
-            userImageURL: require('../../../../templates/dist/images/grey.jpg')
-          },
-          {
-            userName: 'Grey',
-            sectionName: 'Transaction',
-            title: 'Java Learning Material',
-            introduction: 'If you want some java learning material, please contact me. I could sell them in a low price. Don’t hesitate!!!',
-            commentNumber: 1,
-            userImageURL: require('../../../../templates/dist/images/grey.jpg')
-          },
+          // {
+          //   userName: 'Jerry',
+          //   sectionName: 'Lecture Question',
+          //   title: 'Heap exercise',
+          //   introduction: 'When restructuring a tree, what if the children of y have the same height, and either one can be x?',
+          //   commentNumber: 4,
+          //   userImageURL: require('../../../../static/images/Jerry.jpg')
+          // },
+          // {
+          //   userName: 'Jerry',
+          //   sectionName: 'Lecture Question',
+          //   title: 'Movement of an external node in Splay Tree',
+          //   introduction: 'In these slides, if I switch between the right(external) and left(8) child of node x(10), would it get a different result after Zig-Zig?',
+          //   commentNumber: 3,
+          //   userImageURL: require('../../../../static/images/Jerry.jpg')
+          // },
+          // {
+          //   userName: 'Winfred',
+          //   sectionName: 'Lecture Question',
+          //   title: 'remove operation of binary tree',
+          //   introduction: 'after we have removed 3, can we continue to remove 6 (the root), which will change the root of the tree to 2?',
+          //   commentNumber: 3,
+          //   userImageURL: require('../../../../static/images/winfred.jpg')
+          //
+          // },
+          // {
+          //   userName: 'Winfred',
+          //   sectionName: 'Lost and Found',
+          //   title: 'Black Watch',
+          //   introduction: 'I lost a watch apple at the entry to the teaching building 4. If anyone finds it, please contact me. I will really appreciate it if you could help.',
+          //   commentNumber: 2,
+          //   userImageURL: require('../../../../static/images/winfred.jpg')
+          // },
+          // {
+          //   userName: 'Grey',
+          //   sectionName: 'Lost and Found',
+          //   title: 'Black Watch',
+          //   introduction: 'I lost a wallet with a student card (203721) in it. I will really appreciate it if you could help',
+          //   commentNumber: 2,
+          //   userImageURL: require('../../../../static/images/grey.jpg')
+          // },
+          // {
+          //   userName: 'Grey',
+          //   sectionName: 'Transaction',
+          //   title: 'MacBook Pro',
+          //   introduction: 'If you want to buy a second-hand MacBook Pro 2021 16 inches, please contact me.',
+          //   commentNumber: 1,
+          //   userImageURL: require('../../../../static/images/grey.jpg')
+          // },
+          // {
+          //   userName: 'Grey',
+          //   sectionName: 'Transaction',
+          //   title: 'iPhone 8',
+          //   introduction: 'Anyone who would like to buy a second-hand iPhone 8 could email me directly.',
+          //   commentNumber: 1,
+          //   userImageURL: require('../../../../static/images/grey.jpg')
+          // },
+          // {
+          //   userName: 'Grey',
+          //   sectionName: 'Transaction',
+          //   title: 'Java Learning Material',
+          //   introduction: 'If you want some java learning material, please contact me. I could sell them in a low price. Don’t hesitate!!!',
+          //   commentNumber: 1,
+          //   userImageURL: require('../../../../static/images/grey.jpg')
+          // },
         ]
       }
     },
@@ -141,6 +142,15 @@ export default {
         this.$store.commit("changeMainFunctionsInvisible");
       }
     }
+  },
+  created() {
+    axios.get('http://127.0.0.1:4523/mock/831624/index/get_post')
+        .then((response) => {
+          this.postData = response.data.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
   },
   mounted() {
     window.addEventListener('scroll', this.checkMainFunctionsPosition, true)

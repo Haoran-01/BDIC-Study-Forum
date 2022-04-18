@@ -1,16 +1,16 @@
 <template>
   <div class="sectionCard">
     <div class="sectionRank">{{ rank }}</div>
-    <img :src=sectionCoverImageURL class="sectionImage">
-    <div class="sectionName">{{ sectionTitle }}</div>
-    <div class="newComments"> {{ commentNumber }} Comments</div>
+    <img :src=type_picture class="sectionImage">
+    <div class="sectionName">{{ type_name }}</div>
+    <div class="newComments"> {{ today_comment }} Comments</div>
   </div>
 </template>
 
 <script>
 export default {
   name: "SectionEntrance",
-  props:['sectionTitle', 'commentNumber', 'rank', 'sectionCoverImageURL']
+  props:['type_name', 'today_comment', 'type_picture', 'rank']
 }
 </script>
 
