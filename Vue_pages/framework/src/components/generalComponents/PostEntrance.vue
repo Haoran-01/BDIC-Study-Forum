@@ -1,17 +1,17 @@
 <template>
 <div class="postEntranceFrame">
   <div class="topBar">
-    <img :src=userImageURL class="headImage">
-    <span class="userName">{{ userName }}</span>
+    <img :src=picture_url class="headImage">
+    <span class="userName">{{ author }}</span>
     <span class="point">·</span>
-    <span class="section">{{ sectionName }}</span>
+    <span class="section">{{ post_type_name }}</span>
   </div>
   <div class="postTitle">{{title}}</div>
-  <div class="postImage">{{introduction}}</div>
+  <div class="postImage">{{content}}</div>
   <div class="postToolBar">
     <div class="toolButton" id="comment">
       <div class="postIcon" id="commentIcon"></div>
-      <span class="toolText" id="commentNumber">{{ commentNumber }} Comments</span>
+      <span class="toolText" id="commentNumber">{{ comments_number }} Comments</span>
     </div>
     <div class="toolButton" id="share">
       <div class="postIcon" id="shareIcon"></div>
@@ -28,7 +28,7 @@
 <script>
 export default {
   name: "PostEntrance",
-  props: ['userName', 'sectionName', 'title', 'introduction', 'commentNumber', 'userImageURL']
+  props: ['content', 'comments_number', 'post_type_name', 'author', 'picture_url', 'title']
 }
 </script>
 
@@ -120,19 +120,19 @@ export default {
 }
 
 #commentIcon{
-  background-image: url("../../../../../static/images/message.png");
+  background-image: url("../../../../../templates/dist/images/message.png");
   width: 30px;
   height: 30px;
 }
 
 #shareIcon{
-  background-image: url("../../../../../static/images/link.png");
+  background-image: url("../../../../../templates/dist/images/link.png");
   width: 30px;
   height: 30px;
 }
 
 #favoriteIcon{
-  background-image: url("../../../../../static/images/star.png");
+  background-image: url("../../../../../templates/dist/images/star.png");
   width: 35px;
   height: 35px;
 }

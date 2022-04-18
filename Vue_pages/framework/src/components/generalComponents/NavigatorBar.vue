@@ -7,7 +7,10 @@
       <router-link class="forum" to="/forum" Style="cursor: pointer;">Forum</router-link>
     </nav>
   </div>
-  <button class="userMenuButton" id="userMenuButton" @click="handleUserMenu" @blur="deleteUserMenu"></button>
+  <button class="userMenuButton" id="userMenuButton" v-if="userLogined" @click="handleUserMenu" @blur="deleteUserMenu"></button>
+  <button class="loginButton" id="loginButton" v-else @click="jumpToLogin">
+    <span class="loginText">Login</span>
+  </button>
   <transition>
       <NavUserMenu class="userMenu" v-if = "userMenuVisibility"></NavUserMenu>
   </transition>
@@ -38,12 +41,14 @@ onUnmounted(()=>{
   window.removeEventListener('scroll', this.changeOptionsVisibility, true)
 })*/
 import NavUserMenu from "@/components/generalComponents/NavUserMenu";
+import axios from "axios";
 export default {
     name: "NavigatorBar",
   components: {NavUserMenu},
   data() {
     return {
-      userMenuVisibility: false
+      userMenuVisibility: false,
+      userLogined: true
     }
   },
   methods: {
@@ -68,6 +73,9 @@ export default {
 
     deleteUserMenu(){
       this.$data.userMenuVisibility = false;
+    },
+    jumpToLogin(){
+      window.location.assign(window.location.origin + '/user/login');
     }
   },
   watch:{
@@ -76,6 +84,19 @@ export default {
       from.path;
       this.changeOptionsVisibility();
     }
+  },
+  created() {
+      axios.get('/get_session')
+    .then(function (response){
+      let code = response.data['code'];
+      if (code === 200){
+        this.data().userLogined = true;
+        let email = response.data['message'];
+        this.$store.commit("userLogin", email);
+      }else if (code === 400){
+        this.data().userLogined = false;
+      }
+    })
   },
   mounted() {
     window.addEventListener('scroll', this.changeOptionsVisibility, true)
@@ -106,7 +127,7 @@ export default {
   opacity: 0;
 }
 .navigatorMain{
-  z-index: 1;
+  z-index: 3;
   display: grid;
   grid-template-columns: 200px 270px 1fr 100px;
   grid-template-rows: 50px;
@@ -119,7 +140,7 @@ export default {
 }
 
 .logo {
-  background-image: url("../../../../../static/images/logo_full.png");
+  background-image: url("../../../../../templates/dist/images/logo_full.png");
   grid-area: 1 / 1 / 2 / 2;
   background-size: contain;
   background-repeat: no-repeat;
@@ -152,6 +173,35 @@ nav a:link, a:visited{
   text-decoration:none;
 }
 
+.loginButton{
+  transition: 0.2s;
+  z-index: 10;
+  background-color: #00B8FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 80px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 20px;
+  grid-area: 1 / 4 / 2 / 5;
+  border: none;
+  border-radius: 4px;
+}
+
+.loginButton:hover{
+  transition: 0.2s;
+  box-shadow: 0 0 4px #727272;
+}
+
+.loginText{
+  font-family: "Noto Sans", sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+}
+
 .userMenuButton:hover{
   transition: 0.2s;
   box-shadow: 0 0 4px #727272;
@@ -160,7 +210,7 @@ nav a:link, a:visited{
 .userMenuButton{
   transition: 0.2s;
   z-index: 10;
-  background-image: url("../../../../../static/images/user_menu_temp.png");
+  background-image: url("../../../../../templates/dist/images/user_menu_temp.png");
   background-size: contain;
   background-repeat: no-repeat;
   height: 40px;

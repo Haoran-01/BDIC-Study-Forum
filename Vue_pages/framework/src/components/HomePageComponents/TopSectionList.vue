@@ -13,6 +13,7 @@
 
 <script>
 import SectionHomeEntrance from "@/components/HomePageComponents/SectionHomeEntrance";
+import axios from "axios";
 export default {
   name: "TopSectionList",
   components: {SectionHomeEntrance},
@@ -23,23 +24,34 @@ export default {
           sectionTitle: 'Lecture Question',
           commentNumber: 26,
           rank: 1,
-          sectionCoverImageURL: require('../../../../../static/images/R&Q.jpeg')
+          sectionCoverImageURL: require('../../../../../templates/dist/images/R&Q.jpeg')
         },
         {
           sectionTitle: 'Lost and Found',
           commentNumber: 14,
           rank: 2,
-          sectionCoverImageURL: require('../../../../../static/images/Lost&Found.jpeg')
+          sectionCoverImageURL: require('../../../../../templates/dist/images/Lost&Found.jpeg')
         },
         {
           sectionTitle: 'Transaction',
           commentNumber: 8,
           rank: 3,
-          sectionCoverImageURL: require('../../../../../static/images/transaction.jpeg')
+          sectionCoverImageURL: require('../../../../../templates/dist/images/transaction.jpeg')
         }
       ]
     }
-  }
+  },
+  created() {
+    let data;
+    axios.get('http://127.0.0.1:4523/mock/831624/index/get_popular_type')
+        .then((response) => {
+          this.sectionData = response.data.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+    console.log(data);
+  },
 }
 </script>
 
@@ -63,7 +75,7 @@ export default {
   grid-area: 1 / 1 / 2 / 2;
   width: 296px;
   height: 80px;
-  background-image: url("../../../../../static/images/top_section_head.png");
+  background-image: url("../../../../../templates/dist/images/top_section_head.png");
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;

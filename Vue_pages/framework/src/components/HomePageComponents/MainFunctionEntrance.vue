@@ -70,11 +70,11 @@ export default {
 }
 
 #forum{
-  background-image: url("../../../../../static/images/forum_entrance.png");
+  background-image: url("../../../../../templates/dist/images/forum_entrance.png");
 }
 
 #courseSchedule{
-  background-image: url("../../../../../static/images/course_schedule_entrance.png");
+  background-image: url("../../../../../templates/dist/images/course_schedule_entrance.png");
 }
 
 </style>

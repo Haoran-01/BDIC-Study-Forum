@@ -53,9 +53,52 @@ input:valid{
     z-index:100;
 }
 
-.invalidEmailTip{
+.welcome{
+    width: 370px;
     position: relative;
-    bottom: 15px;
+    background-image: url("../images/welcome.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 150px;
+    left: 15px;
+    top: calc( (647px - 150px)/2);
+}
+
+.captchaSentTip{
+    background-image: url("../images/pass.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+}
+
+#signUpCaptchaSent{
+    left: 340px;
+    bottom: 107px;
+}
+
+#forgetCaptchaSent{
+    left: 340px;
+    bottom: 107px;
+}
+
+.loginInvalidTip{
+    position: absolute;
+    bottom: 75px;
+    left: 55px;
+}
+
+.signUpInvalidTip{
+    position: absolute;
+    bottom: 75px;
+    left: 70px;
+}
+
+.forgetPassInvalidTip{
+    position: absolute;
+    bottom: 75px;
+    left: 70px;
 }
 
 @keyframes rock {
@@ -136,7 +179,7 @@ footer{
     border-radius: 2px;
     width: 400px;
     height: 647px;
-    overflow: hidden;
+    overflow: visible;
     position: relative;
     /*将main块元素设置成position:relative*/
 }

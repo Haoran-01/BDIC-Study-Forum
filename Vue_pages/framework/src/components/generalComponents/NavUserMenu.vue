@@ -44,10 +44,10 @@ a{
   background-repeat: no-repeat;
 }
 #profileIcon{
-  background-image: url("../../../../../static/images/profile.png");
+  background-image: url("../../../../../templates/dist/images/profile.png");
 }
 #logoutIcon{
-  background-image: url("../../../../../static/images/door_out.png");
+  background-image: url("../../../../../templates/dist/images/door_out.png");
 }
 .menuItemText, .menuItemText:visited{
   font-family: "Noto Sans", sans-serif;

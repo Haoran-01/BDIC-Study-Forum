@@ -1,29 +1,29 @@
 <template>
   <div class="Sector">
     <div class="sectorImage">
-      <img :src=sectorCoverImageURL height="80" width="80"/>
+      <img :src=sector_image_url height="80" width="80"/>
     </div>
     <div class="sectorContent">
-      <div class="sectorTitle" Style="font-size:20px; font-weight: bold; text-align:left">{{ sectorTitle }}</div>
+      <div class="sectorTitle" Style="font-size:20px; font-weight: bold; text-align:left">{{ type_name }}</div>
       <div class="sectorDetail" Style="text-align:left; position: relative; top: 15px;">
-        {{ sectorDetail }}
+        {{ sector_detail }}
       </div>
     </div>
     <div class="sectorPostImage">
-      <img src="../../../../../static/images/sectorPostImage.png" height="40" width="40"/>
+      <img src="../../../../../templates/dist/images/sectorPostImage.png" height="40" width="40"/>
     </div>
     <div class="sectorRankImage">
-      <img src="../../../../../static/images/sectorRankImage.png" height="40" width="40"/>
+      <img src="../../../../../templates/dist/images/sectorRankImage.png" height="40" width="40"/>
     </div>
     <div class="sectorPostDetail" >
       <div class="sectorPostOrRankDetail">
-        Total Post: {{ totalPost }}<br/>
-        New Post: {{ newPost }}
+        Total Post: {{ total_post }}<br/>
+        New Post: {{ today_post }}
       </div>
     </div>
     <div class="sectorRankDetail">
       <div class="sectorPostOrRankDetail">
-        Today New Comment: {{ todayNewComment }}<br/>
+        Today New Comment: {{ today_comment }}<br/>
         Rank: {{ rank }}
       </div>
     </div>
@@ -31,40 +31,18 @@
 </template>
 
 <script>
+
 export default {
   name: "SectionEntrance",
   props: [
-    // sectionContain: {
-    //   type: Object
-    // }
-      "sectorCoverImageURL",
-      "sectorTitle",
-      "sectorDetail",
-      "totalPost",
-      "newPost",
-      "todayNewComment",
-      "rank"
+    "type_name",
+    "total_post",
+    "today_post",
+    "today_comment",
+    "rank",
+    "sector_image_url",
+    "sector_detail"
   ],
-
-  // data() {
-  //   return {
-  //     /*sectorTitle: this.sectionContent.sectorTitle,
-  //     sectorDetail: this.sectionContent.sectorDetail,
-  //     sectorPostImageURL: this.sectionContent.sectorPostImageURL,
-  //     sectorRankImageURL: this.sectionContent.sectorRankImageURL,
-  //     totalPost: this.sectionContent.totalPost,
-  //     newPost: this.sectionContent.newPost,
-  //     todayNewComment: this.sectionContent.todayNewComment,
-  //     rank: this.sectionContent.rank,*/
-  //     sectionContent
-  //   }
-  // },
-  //
-  // watch:{
-  //   'sectionContain': function (val){
-  //     this.sectionContent = val;
-  //   }
-  // }
 }
 </script>
 
