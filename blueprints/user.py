@@ -52,9 +52,14 @@ def register_check():
         return jsonify({"code": 200, "message": "Sign up successfully!"})
     else:
         if register_form.errors.get("user_email"):
-            return jsonify({"code":400,"message": "email"})
+            return jsonify({"code":400,"message": "invalidSignUpEmail"})
         elif register_form.errors.get("captcha"):
-            return jsonify({"code":400, "message": "captcha"})
+            return jsonify({"code":400, "message": "invalidSignUpCaptcha"})
+        elif register_form.errors.get("user_name"):
+            return jsonify({"code":400,"message":"invalidSignUpUserName"})
+        else:
+            return jsonify({"code":400,"message":"invalidSignUpPassword"})
+
 
 
 # 登录功能

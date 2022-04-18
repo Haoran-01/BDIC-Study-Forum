@@ -46,6 +46,10 @@ class RegisterForm(wtforms.Form):
         if not captcha_model and captcha_model.captcha != captcha:
             raise ValidationError("captcha")
 
+    # def validate_user_name(self, field):
+    #     user_name = field.data
+    #     if length(user_name)
+
 
 
 
