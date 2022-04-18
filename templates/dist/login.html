@@ -132,11 +132,13 @@
 
     <script> //全局可复用代码
     function addInfoElement(newClass, newID, innerText, parentID, brotherID){
-        let element = document.createElement('div');
-        element.setAttribute('class', newClass);
-        element.setAttribute('id', newID);
-        element.innerText = innerText;
-        document.getElementById(parentID).insertBefore(element, document.getElementById(brotherID));
+        if (!document.getElementById(newID)){
+            let element = document.createElement('div');
+            element.setAttribute('class', newClass);
+            element.setAttribute('id', newID);
+            element.innerText = innerText;
+            document.getElementById(parentID).insertBefore(element, document.getElementById(brotherID));
+        }
     }
 
     function removeGivenNodes(targetIDs, targetParentID){

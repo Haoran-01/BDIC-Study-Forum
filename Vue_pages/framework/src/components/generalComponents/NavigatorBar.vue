@@ -7,7 +7,10 @@
       <router-link class="forum" to="/forum" Style="cursor: pointer;">Forum</router-link>
     </nav>
   </div>
-  <button class="userMenuButton" id="userMenuButton" @click="handleUserMenu" @blur="deleteUserMenu"></button>
+  <button class="userMenuButton" id="userMenuButton" v-if="userLogined" @click="handleUserMenu" @blur="deleteUserMenu"></button>
+  <button class="loginButton" id="loginButton" v-else @click="jumpToLogin">
+    <span class="loginText">Login</span>
+  </button>
   <transition>
       <NavUserMenu class="userMenu" v-if = "userMenuVisibility"></NavUserMenu>
   </transition>
@@ -38,12 +41,14 @@ onUnmounted(()=>{
   window.removeEventListener('scroll', this.changeOptionsVisibility, true)
 })*/
 import NavUserMenu from "@/components/generalComponents/NavUserMenu";
+import axios from "axios";
 export default {
     name: "NavigatorBar",
   components: {NavUserMenu},
   data() {
     return {
-      userMenuVisibility: false
+      userMenuVisibility: false,
+      userLogined: true
     }
   },
   methods: {
@@ -68,6 +73,9 @@ export default {
 
     deleteUserMenu(){
       this.$data.userMenuVisibility = false;
+    },
+    jumpToLogin(){
+      window.location.assign(window.location.origin + '/user/login');
     }
   },
   watch:{
@@ -76,6 +84,19 @@ export default {
       from.path;
       this.changeOptionsVisibility();
     }
+  },
+  created() {
+      axios.get('/get_session')
+    .then(function (response){
+      let code = response.data['code'];
+      if (code === 200){
+        this.data().userLogined = true;
+        let email = response.data['message'];
+        this.$store.commit("userLogin", email);
+      }else if (code === 400){
+        this.data().userLogined = false;
+      }
+    })
   },
   mounted() {
     window.addEventListener('scroll', this.changeOptionsVisibility, true)
@@ -150,6 +171,35 @@ nav a:link, a:visited{
   width: 100px;
   color: #000000;
   text-decoration:none;
+}
+
+.loginButton{
+  transition: 0.2s;
+  z-index: 10;
+  background-color: #00B8FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 80px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 20px;
+  grid-area: 1 / 4 / 2 / 5;
+  border: none;
+  border-radius: 4px;
+}
+
+.loginButton:hover{
+  transition: 0.2s;
+  box-shadow: 0 0 4px #727272;
+}
+
+.loginText{
+  font-family: "Noto Sans", sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
 }
 
 .userMenuButton:hover{

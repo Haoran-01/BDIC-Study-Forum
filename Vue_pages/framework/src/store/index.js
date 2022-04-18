@@ -5,7 +5,10 @@ export default createStore({
     //  Home View States
     mainFunctionsVisibility:true,
     //  IndentificationCard States
-    Span:false
+    Span:false,
+    // User Login States
+    loginState: false,
+    userEmail: null
   },
   getters: {
   },
@@ -19,6 +22,14 @@ export default createStore({
     },
     changeSpanState(){
       this.Span = !this.Span;
+    },
+    userLogin(email){
+      this.state.loginState = true;
+      this.state.userEmail = email;
+    },
+    userLogout(){
+      this.state.loginState = false;
+      this.state.userEmail = null;
     }
   },
   actions: {
