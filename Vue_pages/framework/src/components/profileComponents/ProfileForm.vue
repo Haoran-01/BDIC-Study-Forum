@@ -12,11 +12,11 @@
       </div>
       <div class="Input" v-show="flagEdit">
         <div class="InputArea">
-          <input type="text">
+          <input id="UserInput" type="text" v-model="Content">
         </div>
         <div class="ButtonArea">
-          <button type="submit" class="ButtonChoice">Save</button>
-          <button type="button" class="ButtonChoice"  @click="edit">Back</button>
+          <button type="submit" class="ButtonChoice" @click="SubmitProfile">Save</button>
+          <button type="button" class="ButtonChoice" @click="edit">Back</button>
         </div>
       </div>
     </div>
@@ -24,21 +24,32 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "ProfileForm",
   props:['EditName'],
   data(){
     return{
       flag:true,
-      flagEdit:false
+      flagEdit:false,
+      Content: ""
     }
   },
   methods:{
     edit(){
       this.flag=!this.flag;
       this.flagEdit=!this.flagEdit;
+    },
+    SubmitProfile(){
+      event.preventDefault();
+      axios.post('http://127.0.0.1:4523/mock2/831624/16988564',{
+        content: this.Content
+      }).then((response) => {
+        console.log(response);
+      }).catch(function (error){
+        console.log(error);
+      })
     }
-
   }
 }
 </script>
