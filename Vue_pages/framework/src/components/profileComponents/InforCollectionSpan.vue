@@ -27,7 +27,12 @@
 import ProfileForm from "@/components/profileComponents/ProfileForm";
 export default {
   name: "InforCollectionSpan",
-  components: {ProfileForm}
+  components: {ProfileForm},
+  data(){
+    return{
+      Email:''
+    }
+  }
 }
 </script>
 

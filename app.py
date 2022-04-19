@@ -1,4 +1,4 @@
-from flask import Flask,jsonify
+from flask import Flask,jsonify,session,request
 from wtforms import ValidationError
 import config
 from flask_login import LoginManager
@@ -38,14 +38,13 @@ login_manager.init_app(app)
 
 
 # 登录的回调函数
-
-
 @login_manager.user_loader
 def load_user(user_email):
     if User.query.filter_by(user_email=user_email).first() is not None:
         curr_user = User()
         curr_user.user_email = user_email
         return curr_user
+
 
 
 @app.errorhandler(ValidationError)

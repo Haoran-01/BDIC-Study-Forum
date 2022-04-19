@@ -44,6 +44,8 @@ class QuestionType(db.Model):
     today_post = db.Column(db.Integer, nullable=False)
     today_comment = db.Column(db.Integer, nullable=False)
     rank = db.Column(db.Integer, nullable=False)
+    sector_image_url = db.Column(db.CHAR(100), nullable=False)
+    sector_detail = db.Column(db.Text, nullable=False)
 
 #用户个人主页
 class UserProfile(db.Model):
