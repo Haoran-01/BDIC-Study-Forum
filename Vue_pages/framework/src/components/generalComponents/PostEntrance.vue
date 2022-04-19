@@ -117,6 +117,7 @@ export default {
   margin-left: 10px;
   background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
 }
 
 #commentIcon{

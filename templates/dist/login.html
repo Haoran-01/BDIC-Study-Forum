@@ -286,7 +286,7 @@
                         var code=response.data['code'];
                         let message=response.data['message'];
                         if (code === 200){
-                            //重定向
+                            window.location.assign(window.location.origin + '/user/login');
                         }else if (code === 400){
                             if (message === 'invalidSignUpEmail'){
                                 addInfoElement('signUpInvalidTip', 'invalidSignUpEmail', 'Email address has been registered', 'signUpInputArea', 'signUpSubmit');

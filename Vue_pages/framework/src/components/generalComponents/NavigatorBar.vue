@@ -1,6 +1,6 @@
 <template>
 <div class="navigatorMain">
-  <div class="logo"></div>
+  <router-link class="logo" to="/"></router-link>
   <div class="navOptions" id="navOptions">
     <nav>
       <router-link class="home" to="/" Style="cursor: pointer;"> Home </router-link>
@@ -144,6 +144,9 @@ export default {
   grid-area: 1 / 1 / 2 / 2;
   background-size: contain;
   background-repeat: no-repeat;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 10px;
 }
 
 .navOptions{
@@ -175,7 +178,7 @@ nav a:link, a:visited{
 
 .loginButton{
   transition: 0.2s;
-  z-index: 10;
+  z-index: 5;
   background-color: #00B8FF;
   display: flex;
   align-items: center;

@@ -32,6 +32,11 @@ const routes = [
     path: '/forum',
     name: 'forum',
     component: () => import(/* webpackChunkName: "forum" */ '../views/ForumView.vue')
+  },
+  {
+    path: '/create_post',
+    name: 'createPost',
+    component: () => import(/* webpackChunkName: "forum" */ '../views/CreatePostView.vue')
   }
 ]
 
