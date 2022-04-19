@@ -1,4 +1,4 @@
-from flask import Flask,Response,request,session,Blueprint
+from flask import Flask,Response,request,session,Blueprint,jsonify
 
 bp = Blueprint("Cookie_Session",__name__,url_prefix="/")
 
@@ -26,12 +26,8 @@ def set_session():
 
 @bp.route('/get_session')
 def get_session():
-    user_name = session.get('user_id')
-    user_email= session.get('user_email')
-
-    """
-    if (user_id == None or user_email == null)
-        response = Response("请先登录")
-        return response
-    return "get_session"
-    """
+    if session.get("_user_id"):
+        user_email = session.get('_user_id')
+        return jsonify({"code":200,"message":user_email})
+    else:
+        return jsonify({"code":400})
