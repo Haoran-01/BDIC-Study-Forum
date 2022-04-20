@@ -1,36 +1,117 @@
 <template>
   <div class="Span">
     <div class="header">
-      <ProfileForm EditName="Edit your user name"></ProfileForm>
+      <UsernameForm :infor-msg="Username" EditName="Edit your user name" @SubmitUsername="handleUsername"></UsernameForm>
       <div class="title">Introduction</div>
       <div class="line"></div>
     </div>
     <div class="content">
-      <ProfileForm EditName="Add your personalities"></ProfileForm>
+      <IntroForm :infor-msg="Intro" EditName="Add your personalities" @SubmitIntro="handleIntro"></IntroForm>
       <div class="Ti contentText">E-mail</div>
       <div class="line"></div>
       <div class="e-mail contentText">2639230771@qq.com</div>
       <div class="Ti contentText">Grade</div>
       <div class="line"></div>
-      <ProfileForm EditName="Edit your grade"></ProfileForm>
+      <GradeForm :infor-msg="Grade" EditName="Edit your grade" @SubmitGrade="handleGrade"></GradeForm>
       <div class="Ti contentText">Department</div>
       <div class="line"></div>
-      <ProfileForm EditName="Edit your department"></ProfileForm>
+      <DepartmentForm :infor-msg="Department" EditName="Edit your department" @SubmitDepartment="handleDepartment"></DepartmentForm>
       <div class="Ti contentText">Major</div>
       <div class="line"></div>
-      <ProfileForm EditName="Edit your major"></ProfileForm>
+      <MajorForm :infor-msg="Major" EditName="Edit your major" @SubmitMajor="handleMajor"></MajorForm>
     </div>
   </div>
 </template>
 
 <script>
-import ProfileForm from "@/components/profileComponents/ProfileForm";
+import UsernameForm from "@/components/profileComponents/profileForms/UsernameForm";
+import IntroForm from "@/components/profileComponents/profileForms/IntroForm";
+import GradeForm from "@/components/profileComponents/profileForms/GradeForm";
+import DepartmentForm from "@/components/profileComponents/profileForms/DepartmentForm";
+import MajorForm from "@/components/profileComponents/profileForms/MajorForm";
+import axios from "axios";
 export default {
   name: "InforCollectionSpan",
-  components: {ProfileForm},
+  components: {UsernameForm,IntroForm,GradeForm,DepartmentForm,MajorForm},
   data(){
     return{
-      Email:''
+      Username:'',
+      Intro:'',
+      Grade:'',
+      Department:'',
+      Major:''
+    }
+  },
+  methods:{
+    handleUsername(Submit){
+      this.Username = Submit;
+      axios.post('http://127.0.0.1:4523/mock/831624/profile',{
+        user_name:this.Username,
+        introduction:this.Intro,
+        grade:this.Grade,
+        major:this.Major,
+        department:this.Department
+      }).then((response) => {
+        console.log(response);
+      }).catch((error) => {
+        console.log(error);
+      })
+    },
+    handleIntro(Submit){
+      this.Intro = Submit;
+      axios.post('http://127.0.0.1:4523/mock/831624/profile',{
+        user_name:this.Username,
+        introduction:this.Intro,
+        grade:this.Grade,
+        major:this.Major,
+        department:this.Department
+      }).then((response) => {
+        console.log(response);
+      }).catch((error) => {
+        console.log(error);
+      })
+    },
+    handleGrade(Submit){
+      this.Grade = Submit;
+      axios.post('http://127.0.0.1:4523/mock/831624/profile',{
+        user_name:this.Username,
+        introduction:this.Intro,
+        grade:this.Grade,
+        major:this.Major,
+        department:this.Department
+      }).then((response) => {
+        console.log(response);
+      }).catch((error) => {
+        console.log(error);
+      })
+    },
+    handleDepartment(Submit){
+      this.Department = Submit;
+      axios.post('http://127.0.0.1:4523/mock/831624/profile',{
+        user_name:this.Username,
+        introduction:this.Intro,
+        grade:this.Grade,
+        major:this.Major,
+        department:this.Department
+      }).then((response) => {
+        console.log(response);
+      }).catch((error) => {
+        console.log(error);
+      })
+    },
+    handleMajor(Submit){
+      this.Major = Submit;
+      axios.post('http://127.0.0.1:4523/mock/831624/profile',{
+        user_name:this.Username,
+        introduction:this.Intro,
+        grade:this.Grade,
+        major:this.Major,
+        department:this.Department
+      }).then((response) => {
+        console.log(response);
+      }).catch((error) => {
+        console.log(error);
+      })
     }
   }
 }

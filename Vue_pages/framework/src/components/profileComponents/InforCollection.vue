@@ -1,7 +1,7 @@
 <template>
   <div class="Shorten">
     <div class="header">
-      <div class="Username">UserName</div>
+      <div class="Username">Username</div>
       <div class="title">Introduction</div>
       <div class="line"></div>
     </div>

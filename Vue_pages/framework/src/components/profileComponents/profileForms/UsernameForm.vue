@@ -1,21 +1,21 @@
 <template>
-  <form class="Field">
+  <form class="Field" @submit.prevent>
     <div class="Field-Content">
       <div class="UserContent" v-show="flag">
-        <!--<div>用户信息显示</div>        -->
+        <div>{{inforMsg}}</div>
         <button type="button" class="ButtonEdit"  @click="edit">
           <span class="imgShow">
-            <img src="../../assets/EditIcon.png">
+            <img src="../../../assets/EditIcon.png">
           </span>
           {{EditName}}
         </button>
       </div>
       <div class="Input" v-show="flagEdit">
         <div class="InputArea">
-          <input id="UserInput" type="text" v-model="Content">
+          <input id="UserInput" type="text" v-model="Submit">
         </div>
         <div class="ButtonArea">
-          <button type="submit" class="ButtonChoice" @click="SubmitProfile">Save</button>
+          <button type="submit" class="ButtonChoice" @click="submitContent">Save</button>
           <button type="button" class="ButtonChoice" @click="edit">Back</button>
         </div>
       </div>
@@ -24,15 +24,15 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
-  name: "ProfileForm",
-  props:['EditName'],
+  name: "UsernameForm",
+  props:['EditName', 'inforMsg'],
+  emits:['SubmitUsername'],
   data(){
     return{
       flag:true,
       flagEdit:false,
-      Content: ""
+      Submit: ""
     }
   },
   methods:{
@@ -40,15 +40,10 @@ export default {
       this.flag=!this.flag;
       this.flagEdit=!this.flagEdit;
     },
-    SubmitProfile(){
-      event.preventDefault();
-      axios.post('http://127.0.0.1:4523/mock2/831624/16988564',{
-        content: this.Content
-      }).then((response) => {
-        console.log(response);
-      }).catch(function (error){
-        console.log(error);
-      })
+    submitContent(){
+      this.$emit('SubmitUsername', this.Submit);
+      this.flag=!this.flag;
+      this.flagEdit=!this.flagEdit;
     }
   }
 }
