@@ -56,3 +56,13 @@ class UserProfile(db.Model):
     grade = db.Column(db.Integer, nullable=False)
     department = db.Column(db.VARCHAR(200), nullable = False, unique=False)
     major = db.Column(db.VARCHAR(200), nullable = False, unique=False)
+
+class Comment(db.Model):
+    __tablename__ = 'comment'
+    cmt_id = db.Column(db.Integer, nullable=False, primary_key=True, autoincrement=True)
+    post_id = db.Column(db.Integer, db.ForeignKey("question.id"))
+    user_email = db.Column(db.CHAR(200), db.ForeignKey("user.user_email"))
+    content = content = db.Column(db.Text, nullable=False)
+    author = db.relationship("User", backref="comments")
+    post = db.relationship("QuestionType", backref="comments")
+
