@@ -1,14 +1,14 @@
 <template>
   <div class="Shorten">
     <div class="header">
-      <div class="Username">Username</div>
+      <div class="Username">{{currentName}}</div>
       <div class="title">Introduction</div>
       <div class="line"></div>
     </div>
     <div class="content">
       <div class="e-mail contentText">
         <span>E-mail:</span>
-        <span>2639230771@qq.com</span>
+        <span>{{currentEmail}}</span>
       </div>
     </div>
   </div>
@@ -17,8 +17,28 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
-  name: "InforCollection"
+  name: "InforCollection",
+  data(){
+    return{
+      currentEmail:'',
+      currentName:''
+    }
+  },
+  created() {
+    this.currentEmail=this.$route.params.email;
+
+    axios.get('http://127.0.0.1:4523/mock/831624/profile', {
+      user_email:this.currentEmail
+    }).then((response) => {
+      this.currentName=response.data.user_name;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 }
 </script>
 
