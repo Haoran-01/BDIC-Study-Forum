@@ -4,7 +4,10 @@
     <div class="informationArea">
       <div class="pictureUpload">
       </div>
-      <div class="selfie">
+      <div class="Otherselfie" v-if="!IsHost">
+        <InforCollection></InforCollection>
+      </div>
+      <div class="selfie" v-else>
         <transition>
           <InforCollectionSpan v-show="animate.frameSpan"></InforCollectionSpan>
         </transition>
@@ -13,7 +16,7 @@
         </transition>
       </div>
     </div>
-    <div class="directionBar">
+    <div class="directionBar" v-show="IsHost">
       <div class="part1">
         <button :class="animateButton" class="SpanButton" @click="HandleClick"></button>
       </div>
@@ -24,6 +27,7 @@
 <script>
 import InforCollection from "@/components/profileComponents/InforCollection";
 import InforCollectionSpan from "@/components/profileComponents/InforCollectionSpan";
+import axios from "axios";
 export default {
   name: "IdentificationCard",
   components:{
@@ -40,7 +44,10 @@ export default {
       animateButton:{
         Rotate:false,
         RotateBack:true
-      }
+      },
+      IsHost:true,
+      accessEmail:'',
+      hostEmail:''
     }
   },
   methods:{
@@ -51,6 +58,17 @@ export default {
       this.animateButton.Rotate = !this.animateButton.Rotate;
       this.animateButton.RotateBack = !this.animateButton.RotateBack;
     }
+  },
+  created() {
+    this.hostEmail=this.$route.params.email;
+    axios.get('http://127.0.0.1:4523/mock/831624/get_session')
+        .then((response) => {
+          this.accessEmail=response.data.message;
+          this.IsHost = this.hostEmail === this.accessEmail;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
   }
 }
 </script>

@@ -9,7 +9,7 @@
       <IntroForm :infor-msg="Intro" EditName="Add your personalities" @SubmitIntro="handleIntro"></IntroForm>
       <div class="Ti contentText">E-mail</div>
       <div class="line"></div>
-      <div class="e-mail contentText">2639230771@qq.com</div>
+      <div class="e-mail contentText">{{UserEmail}}</div>
       <div class="Ti contentText">Grade</div>
       <div class="line"></div>
       <GradeForm :infor-msg="Grade" EditName="Edit your grade" @SubmitGrade="handleGrade"></GradeForm>
@@ -39,7 +39,8 @@ export default {
       Intro:'',
       Grade:'',
       Department:'',
-      Major:''
+      Major:'',
+      UserEmail:''
     }
   },
   methods:{
@@ -50,7 +51,8 @@ export default {
         introduction:this.Intro,
         grade:this.Grade,
         major:this.Major,
-        department:this.Department
+        department:this.Department,
+        user_email:this.UserEmail
       }).then((response) => {
         console.log(response);
       }).catch((error) => {
@@ -64,7 +66,8 @@ export default {
         introduction:this.Intro,
         grade:this.Grade,
         major:this.Major,
-        department:this.Department
+        department:this.Department,
+        user_email:this.UserEmail
       }).then((response) => {
         console.log(response);
       }).catch((error) => {
@@ -78,7 +81,8 @@ export default {
         introduction:this.Intro,
         grade:this.Grade,
         major:this.Major,
-        department:this.Department
+        department:this.Department,
+        user_email:this.UserEmail
       }).then((response) => {
         console.log(response);
       }).catch((error) => {
@@ -92,7 +96,8 @@ export default {
         introduction:this.Intro,
         grade:this.Grade,
         major:this.Major,
-        department:this.Department
+        department:this.Department,
+        user_email:this.UserEmail
       }).then((response) => {
         console.log(response);
       }).catch((error) => {
@@ -106,13 +111,37 @@ export default {
         introduction:this.Intro,
         grade:this.Grade,
         major:this.Major,
-        department:this.Department
+        department:this.Department,
+        user_email:this.UserEmail
       }).then((response) => {
         console.log(response);
       }).catch((error) => {
         console.log(error);
       })
     }
+  },
+  created() {
+    axios.get('http://127.0.0.1:4523/mock/831624/get_session')
+      .then((response) => {
+        this.UserEmail=response.data.message;
+      })
+      .catch(function (error) {
+      console.log(error);
+    });
+
+    axios.get('http://127.0.0.1:4523/mock/831624/profile', {
+      user_email:this.UserEmail
+    })
+      .then((response) => {
+        this.Username=response.data.user_name;
+        this.Intro=response.data.introduction;
+        this.Grade=response.data.grade;
+        this.Major=response.data.major;
+        this.Department=response.data.department;
+      })
+      .catch(function (error) {
+      console.log(error);
+    });
   }
 }
 </script>
