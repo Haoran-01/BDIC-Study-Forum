@@ -3,9 +3,9 @@
     <router-link class="entrance" id = "forum" to="/forum">
       <div class="entranceText">Forum</div>
     </router-link>
-    <div class="entrance" id="courseSchedule">
+    <router-link class="entrance" id="courseSchedule" to="/course_schedule">
       <div class="entranceText">Course<br/>Schedule</div>
-    </div>
+    </router-link>
     <div class="entrance" id="comingSoon">
       <div class="entranceText">Coming<br/>Soon</div>
     </div>

@@ -5,6 +5,7 @@
     <nav>
       <router-link class="home" to="/" Style="cursor: pointer;"> Home </router-link>
       <router-link class="forum" to="/forum" Style="cursor: pointer;">Forum</router-link>
+      <router-link class="courseSchedule" to="/course_schedule" Style="cursor:pointer;">Course</router-link>
     </nav>
   </div>
   <button class="userMenuButton" id="userMenuButton" v-if="userLogined" @click="handleUserMenu" @blur="deleteUserMenu"></button>

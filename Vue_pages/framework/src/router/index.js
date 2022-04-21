@@ -37,6 +37,11 @@ const routes = [
     path: '/create_post',
     name: 'createPost',
     component: () => import(/* webpackChunkName: "forum" */ '../views/CreatePostView.vue')
+  },
+  {
+    path: '/course_schedule',
+    name: 'courseSchedule',
+    component: () => import(/* webpackChunkName: "forum" */ '../views/CourseScheduleView')
   }
 ]
 
