@@ -4,7 +4,7 @@
     <div class="menuItemIcon" id="createPostIcon"></div>
     <div class="menuItemText"> New Post </div>
   </router-link>
-  <router-link class="menuItem" to="/profile">
+  <router-link class="menuItem" :to="{name:'profile',params:{email:this.emailId}}">
     <div class="menuItemIcon" id="profileIcon"></div>
     <div class="menuItemText"> Profile </div>
   </router-link>
@@ -16,9 +16,15 @@
 </template>
 
 <script>
-// import axios from 'axios';
+import axios from 'axios';
+
 export default {
   name: "NavUserMenu",
+  data(){
+    return{
+      emailId:''
+    }
+  },
   methods:{
     logOut(){
 /*      axios.post('', {
@@ -29,6 +35,15 @@ export default {
       })*/
       window.location.assign(window.location.origin + '/user/login');
     }
+  },
+  created() {
+    axios.get('http://127.0.0.1:4523/mock/831624/get_session')
+      .then((response) => {
+        this.emailId=response.data.message;
+      })
+      .catch(function (error){
+        console.log(error)
+      })
   }
 }
 </script>

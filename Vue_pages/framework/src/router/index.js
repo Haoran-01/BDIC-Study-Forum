@@ -9,7 +9,7 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/profile',
+    path: '/profile/:email',
     name: 'profile',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -44,6 +44,7 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes
 })
+
 router.afterEach((to, from) => {
   if (to.path === "/"){
     store.commit("changeMainFunctionsVisible");
@@ -53,5 +54,7 @@ router.afterEach((to, from) => {
 
   from.path;
 })
+
+
 
 export default router
