@@ -6,9 +6,10 @@ from flask_login import UserMixin
 
 class User(UserMixin, db.Model):
     __tablename__ = 'user'
-    user_email = db.Column(db.CHAR(200), primary_key = True, nullable=False, unique=True)
-    user_name = db.Column(db.CHAR(200), nullable = False, unique=False)
-    user_password = db.Column(db.CHAR(200), nullable = False)
+    user_email = db.Column(db.CHAR(200), primary_key=True, nullable=False, unique=True)
+    user_name = db.Column(db.CHAR(200), nullable=False, unique=False)
+    user_password = db.Column(db.CHAR(200), nullable=False)
+    profile = db.Column(db.CHAR(200), nullable=False)
 
     def get_id(self):
         return self.user_email
