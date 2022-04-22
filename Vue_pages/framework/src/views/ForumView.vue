@@ -55,7 +55,6 @@ export default {
         .then((response) => {
           this.items = response.data.data;
           console.log(response);
-          console.log(this.items);
         })
         .catch(function (error) {
           console.log(error);
@@ -77,14 +76,15 @@ export default {
   flex-direction: column;
   width: 1000px;
   height: 100px;
-  background-image: url("../../../../templates/dist/images/forumCover.png")
+  background-image: url("../../../../templates/dist/images/forumCover.png");
+  position: relative;
 }
 #coverTitle {
   position: absolute;
   width: 177px;
   height: 58px;
-  left: 631px;
-  top: 74px;
+  left: calc(500px - 177px/2);
+  top: calc(50px - 48px/2);
 
   font-family: 'Inter', Sans-Serif;
   font-style: normal;

@@ -1,24 +1,24 @@
 <template>
 <div class="postEntranceFrame">
   <div class="topBar">
-    <img :src=picture_url class="headImage">
-    <span class="userName">{{ author }}</span>
+    <img :src=item.picture_url class="headImage">
+    <span class="userName">{{ item.author }}</span>
     <span class="point">·</span>
-    <span class="section">{{ post_type_name }}</span>
+    <span class="section">{{ item.post_type_name }}</span>
   </div>
-  <div class="postTitle">{{title}}</div>
-  <div class="postImage">{{content}}</div>
+  <div class="postTitle">{{item.title}}</div>
+  <div class="postImage">{{item.content}}</div>
   <div class="postToolBar">
     <div class="toolButton" id="comment">
       <div class="postIcon" id="commentIcon"></div>
-      <span class="toolText" id="commentNumber">{{ comments_number }} Comments</span>
+      <span class="toolText" id="commentNumber">{{ item.comments_number }} Comments</span>
     </div>
-    <div class="toolButton" id="share">
+    <div class="toolButton" id="share" @click="handleShare">
       <div class="postIcon" id="shareIcon"></div>
       <span class="toolText" id="shareText">Share</span>
     </div>
-    <div class="toolButton" id="favorite">
-      <div class="postIcon" id="favoriteIcon"></div>
+    <div class="toolButton" id="favorite" @click="handleFavorite">
+      <div class="favoriteIcon" :id="index"></div>
       <span class="toolText" id="favoriteText">Favorite</span>
     </div>
   </div>
@@ -26,9 +26,28 @@
 </template>
 
 <script>
+// import axios from "axios";
+
 export default {
   name: "PostEntrance",
-  props: ['content', 'comments_number', 'post_type_name', 'author', 'picture_url', 'title']
+  props: ['item', 'index'],
+  emits: ['sendShareInfo'],
+  methods:{
+    handleShare(){
+      this.$emit('sendShareInfo');
+    },
+    handleFavorite(){
+      const id = this.$props.index;
+      const favoriteIcon = document.getElementById(id);
+      if (favoriteIcon.getAttribute('class') === 'favoriteIcon'){
+        favoriteIcon.setAttribute('class', 'favoriteIconActivated');
+        /*axios.post('')
+        .then()*/
+      }else {
+        favoriteIcon.setAttribute('class', 'favoriteIcon');
+      }
+    }
+  }
 }
 </script>
 
@@ -132,10 +151,30 @@ export default {
   height: 30px;
 }
 
-#favoriteIcon{
+.favoriteIcon{
+  transition: .3s;
+  display: inline-block;
+  margin-right: 10px;
+  margin-left: 10px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   background-image: url("../../../../../templates/dist/images/star.png");
   width: 35px;
   height: 35px;
+}
+
+.favoriteIconActivated{
+  transition: .3s;
+  background-image: url("../../../../../templates/dist/images/star_active.png");
+  width: 35px;
+  height: 35px;
+  display: inline-block;
+  margin-right: 10px;
+  margin-left: 10px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .toolText{

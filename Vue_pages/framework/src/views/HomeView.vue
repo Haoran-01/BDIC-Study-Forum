@@ -8,11 +8,12 @@
       <div class="main">
         <div class="postListFrame">
           <div class="postListLogic" v-for="(item, index) in postData" :key="index">
-          <post-entrance v-bind="item"></post-entrance>
+          <post-entrance v-bind="{item, index}" @send-share-info="handleShare"></post-entrance>
           </div>
         </div>
         <div class="sideBar">
-            <top-section-list></top-section-list>
+          <top-section-list></top-section-list>
+          <user-activity-card></user-activity-card>
         </div>
       </div>
     </div>
@@ -28,6 +29,9 @@ import MainFunctionEntrance from "@/components/HomePageComponents/MainFunctionEn
 import PostEntrance from "@/components/generalComponents/PostEntrance";
 import TopSectionList from "@/components/HomePageComponents/TopSectionList";
 import axios from "axios";
+import {useToast} from "vue-toastification";
+import "vue-toastification/dist/index.css";
+import UserActivityCard from "@/components/HomePageComponents/userActivityCard";
 
 /*import {onMounted, onUnmounted} from "vue";
 onMounted(() =>{
@@ -41,7 +45,11 @@ onUnmounted(() =>{
 });*/
 
 export default {
-  components: {TopSectionList, PostEntrance, MainFunctionEntrance, CookieWindow},
+  setup(){
+    const sharedTip = useToast();
+    return {sharedTip};
+  },
+  components: {UserActivityCard, TopSectionList, PostEntrance, MainFunctionEntrance, CookieWindow},
   data() {
     return {
       cookieVisibility: true,
@@ -141,6 +149,10 @@ export default {
       }else {
         this.$store.commit("changeMainFunctionsInvisible");
       }
+    },
+    handleShare(){
+      console.log("yes")
+      this.sharedTip.info("Link Copied Successfully");
     }
   },
   created() {
