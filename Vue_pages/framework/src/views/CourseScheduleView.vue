@@ -53,12 +53,6 @@
 <script>
 import courseCard from "@/components/courseScheduleComponents/courseCard";
 
-// import { DndProvider } from 'vue3-dnd'
-// import { HTML5Backend } from 'react-dnd-html5-backend'
-// import Home from './Home.vue'
-// import { useDrag, useDrop, useDragLayer } from 'vue3-dnd'
-
-
 export default {
   name: "CourseScheduleView",
   components: {courseCard}
