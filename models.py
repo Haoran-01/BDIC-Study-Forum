@@ -9,7 +9,6 @@ class User(UserMixin, db.Model):
     user_email = db.Column(db.CHAR(200), primary_key=True, nullable=False, unique=True)
     user_name = db.Column(db.CHAR(200), nullable=False, unique=False)
     user_password = db.Column(db.CHAR(200), nullable=False)
-    profile = db.Column(db.CHAR(200), nullable=False)
 
     def get_id(self):
         return self.user_email
@@ -59,6 +58,7 @@ class UserProfile(db.Model):
     grade = db.Column(db.Integer, nullable=False)
     department = db.Column(db.VARCHAR(200), nullable = False, unique=False)
     major = db.Column(db.VARCHAR(200), nullable = False, unique=False)
+    profile = db.Column(db.CHAR(200), nullable=False)
 
 #评论
 class Comment(db.Model):

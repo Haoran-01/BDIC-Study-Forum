@@ -1,7 +1,7 @@
 import json
 
 from flask import Blueprint, request, render_template, jsonify
-from models import QuestionType,PostModel
+from models import QuestionType,PostModel,User
 from exts import db
 
 bp = Blueprint("forum", __name__, url_prefix="/forum")
@@ -36,7 +36,9 @@ def forum():
     time = post.create_time
     content = post.content
     user_email = post.author_email
-    return jsonify(type_name=type_name, content= content, title=title, comment_number=comment_number, time=time, user_email=user_email)
+    user = User.query.filter_by(user_email=user_email).first()
+    user_image = user.profile
+    return jsonify(type_name=type_name, content= content, user_image=user_image, title=title, comment_number=comment_number, time=time, user_email=user_email)
 
 
 
