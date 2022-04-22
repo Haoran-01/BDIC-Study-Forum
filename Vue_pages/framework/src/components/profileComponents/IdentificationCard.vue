@@ -3,6 +3,16 @@
     <div class="rightBar"></div>
     <div class="informationArea">
       <div class="pictureUpload">
+        <div class="center">
+          <vue-core-image-upload
+              class="btn btn-primary"
+              :crop="false"
+              @imageuploaded="imageuploaded"
+              :data="data"
+              :max-file-size="5242880"
+              url="http://127.0.0.1:4523/mock/831624/profile/post_photo" >
+          </vue-core-image-upload>
+        </div>
       </div>
       <div class="Otherselfie" v-if="!IsHost">
         <InforCollection></InforCollection>
@@ -27,15 +37,19 @@
 <script>
 import InforCollection from "@/components/profileComponents/InforCollection";
 import InforCollectionSpan from "@/components/profileComponents/InforCollectionSpan";
+import VueCoreImageUpload from 'core/vue-core-image-upload.vue'
+
 import axios from "axios";
 export default {
   name: "IdentificationCard",
   components:{
     InforCollectionSpan,
     InforCollection,
+    'vue-core-image-upload': VueCoreImageUpload,
   },
   data(){
     return{
+      src: 'http://img1.vued.vanthink.cn/vued0a233185b6027244f9d43e653227439a.png',
       animate:{
         transition: true,
         frame: true,
@@ -57,6 +71,11 @@ export default {
       this.animate.frameSpan = !this.animate.frameSpan;
       this.animateButton.Rotate = !this.animateButton.Rotate;
       this.animateButton.RotateBack = !this.animateButton.RotateBack;
+    },
+    imageuploaded(res) {
+      if (res.errcode == 0) {
+        this.src = res.data.src;
+      }
     }
   },
   created() {

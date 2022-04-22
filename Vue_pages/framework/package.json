@@ -11,8 +11,11 @@
     "axios": "^0.26.1",
     "core-js": "^3.8.3",
     "md-editor-v3": "^1.11.10",
+    "react-dnd-html5-backend": "^16.0.1",
     "vue": "^3.2.13",
+    "vue-core-image-upload": "^2.4.13",
     "vue-router": "^4.0.3",
+    "vue3-dnd": "^0.0.16",
     "vuex": "^4.0.0"
   },
   "devDependencies": {
