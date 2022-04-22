@@ -60,6 +60,15 @@ class UserProfile(db.Model):
     major = db.Column(db.VARCHAR(200), nullable = False, unique=False)
     profile = db.Column(db.CHAR(200), nullable=False)
 
+    def __init__(self, user_name, introduction,user_email,grade,department,major, profile):
+      self.user_name = user_name
+      self.introduction = introduction
+      self.user_email = user_email
+      self.grade = grade
+      self.department = department
+      self.major = major
+      self.profile = profile
+
 #评论
 class Comment(db.Model):
     __tablename__ = 'comment'
