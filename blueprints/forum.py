@@ -38,9 +38,9 @@ def forum():
     time = post.create_time
     content = post.content
     user_email = post.author_email
-    user = User.query.filter_by(user_email=user_email).first()
+    user = UserProfile.query.filter_by(user_email=user_email).first()
     user_image = user.profile
-    return jsonify(type_name=type_name, content= content, user_image=user_image, title=title, comment_number=comment_number, time=time, user_email=user_email)
+    return jsonify(data=[{'post_type_name':type_name, 'content': content, 'picture_url':user_image, 'title':title, 'comments_number':comment_number, 'time':time, 'user_email':user_email}])
 
 @bp.route("/post/comments", methods=['GET'])
 def comments():
