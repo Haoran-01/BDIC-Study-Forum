@@ -1,7 +1,9 @@
 import json
 
 from flask import Blueprint, request, render_template, jsonify
-from models import QuestionType,PostModel,User
+from flask_login import login_required, current_user
+
+from models import QuestionType, PostModel, User, Comment, UserProfile
 from exts import db
 
 bp = Blueprint("forum", __name__, url_prefix="/forum")
@@ -39,6 +41,37 @@ def forum():
     user = User.query.filter_by(user_email=user_email).first()
     user_image = user.profile
     return jsonify(type_name=type_name, content= content, user_image=user_image, title=title, comment_number=comment_number, time=time, user_email=user_email)
+
+@bp.route("/post/comments", methods=['GET'])
+def comments():
+    post_id = request.args.get('post_id')
+    comments = Comment.query.filter_by(post_id=post_id).all()
+    result = []
+    for i in comments:
+        user = UserProfile.query.filter_by(user_email=i.user_email).first()
+        dic = {
+            "user_email": i.user_email,
+            "content": i.content,
+            "time": i.create_time,
+            "user_image": user.profile,
+        }
+        result.append(dic)
+
+    return jsonify(comments=result)
+
+@bp.route("/publish/post", methods=['GET', 'POST'])
+@login_required
+def publish_post():
+    data = request.get_json(silent=True)
+    title = data['title']
+    content = data['content']
+    user_email = current_user.user_email
+
+
+
+
+
+
 
 
 

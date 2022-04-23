@@ -51,12 +51,11 @@ class RegisterForm(wtforms.Form):
     #     if length(user_name)
 
 
-
-
 class EditProfileForm(FlaskForm):
     username=StringField('Username',validators=[DataRequired()])
     about_me=TextAreaField('About_me',validators=[Length(min=0,max=140)])
     submit=SubmitField('Submit')
+
 
 class QuestionForm(wtforms.Form):
     def __init__(
