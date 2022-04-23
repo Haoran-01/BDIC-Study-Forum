@@ -5,7 +5,7 @@
         <div>{{inforMsg}}</div>
         <button type="button" class="ButtonEdit"  @click="edit">
           <span class="imgShow">
-            <img src="../../../assets/EditIcon.png">
+            <img src="../../../../../../templates/dist/images/EditIcon.png">
           </span>
           {{EditName}}
         </button>

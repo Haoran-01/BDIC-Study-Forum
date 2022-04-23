@@ -6,7 +6,7 @@
     <span class="point">·</span>
     <span class="section">{{ item.post_type_name }}</span>
   </div>
-  <div class="postTitle">{{item.title}}</div>
+  <router-link class="postTitle" :to="{name:'post',params:{postId:item.post_id}}">{{item.title}}</router-link>
   <div class="postImage">{{item.content}}</div>
   <div class="postToolBar">
     <div class="toolButton" id="comment">
@@ -182,5 +182,10 @@ export default {
   margin-right: 10px;
   margin-left: 10px;
   cursor: pointer;
+}
+
+a{
+  text-decoration: none;
+  color: black;
 }
 </style>
