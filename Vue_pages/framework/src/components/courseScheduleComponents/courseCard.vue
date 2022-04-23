@@ -1,7 +1,9 @@
 <template>
   <div class="courseCard">
     <div class="colorBar"> </div>
-    <div class="subjectTitle"> Subject</div>
+    <div class="subjectTitle"> Subject
+     <div class="changeButton"></div>
+    </div>
     <div class="classRoom">
     Classroom:<br>
       <span Style="font-weight: bold;">Building 4 614</span>
@@ -21,17 +23,14 @@ export default {
 
 <style scoped>
 .courseCard {
-  height: 130px;
+  margin: auto;
+  height: 114px;
   width: 200px;
   display: grid;
   grid-template-columns: 1fr repeat(2, 13px) 10px 170px 1fr;
-  grid-template-rows: 0 11px 22px 12px 30px 12px 30px 12px 0;
+  grid-template-rows: 0 5px 22px 7px 30px 12px 30px 7px 0;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
-
-  position: relative;
-  top: 250px;
-  left: 550px;
 
   background-color: white;
   border-radius: 10px;
@@ -39,7 +38,14 @@ export default {
 
   text-align:left;
 }
-
+.changeButton {
+  background-color: #00B8FF;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 20px;
+  top: 95px;
+}
 .colorBar {
   grid-area: 2 / 3 / 9 / 4;
   background-color: red;
@@ -49,14 +55,16 @@ export default {
 
   font-family: 'Arial Rounded MT',sans-serif;
   font-style: normal;
-  font-size: 22px;
+  font-size: 20px;
 
   color: #000000;
 }
 .classRoom {
   grid-area: 5 / 5 / 6 / 6;
+  font-size: 15px;
 }
 .lecture {
   grid-area: 7 / 5 / 8 / 6;
+  font-size: 15px;
 }
 </style>
