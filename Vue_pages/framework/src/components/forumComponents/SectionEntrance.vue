@@ -1,5 +1,5 @@
 <template>
-  <div class="Sector">
+  <router-link class="Sector" :to="{name:'sector',params:{typeName:this.type}}">
     <div class="sectorImage">
       <img :src=sector_image_url height="80" width="80"/>
     </div>
@@ -27,11 +27,10 @@
         Rank: {{ rank }}
       </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>
-
 export default {
   name: "SectionEntrance",
   props: [
@@ -43,12 +42,18 @@ export default {
     "sector_image_url",
     "sector_detail"
   ],
+  data(){
+    return{
+      type:this.type_name
+    }
+  }
 }
 </script>
 
 <style scoped>
 .Sector {
   background-color: white;
+  margin: 8px 0;
   display: grid;
   grid-template-columns: 10px 80px 644px 40px 160px 10px;
   grid-template-rows: repeat(2, 10px) 30px 20px 30px repeat(2, 10px);
@@ -84,6 +89,11 @@ export default {
   text-align:left;
   display: flex;
   align-items: center;
+}
+
+a{
+  text-decoration: none;
+  color: black;
 }
 
 </style>

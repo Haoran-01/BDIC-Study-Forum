@@ -60,7 +60,7 @@ export default {
   transition: .3s;
   display: flex;
   width: 100%;
-  height: 50px;
+  height: 40px;
   box-sizing: border-box;
   padding-left: 10px;
   padding-right: 10px;
@@ -102,7 +102,7 @@ a{
 .menuItemText, .menuItemText:visited{
   font-family: "Noto Sans", sans-serif;
   font-weight: normal;
-  font-size: 20px;
+  font-size: 18px;
   margin-left: 20px;
   text-decoration: none;
   color: black;
