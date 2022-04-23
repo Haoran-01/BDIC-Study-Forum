@@ -80,3 +80,23 @@ class Comment(db.Model):
     author = db.relationship("User", backref="comments")
     post = db.relationship("PostModel", backref="comments")
 
+#课表
+class Course(db.Model):
+    __tablename__ = 'course'
+    id = db.Column(db.Integer, primary_key= True, autoincrement=True)
+    From = db.Column(db.VARCHAR(50), nullable=False)
+    To = db.Column(db.VARCHAR(50), nullable=False)
+    Room = db.Column(db.VARCHAR(50), nullable=False)
+    Lecturer = db.Column(db.VARCHAR(50), nullable=False)
+    course_name = db.Column(db.VARCHAR(50), nullable=False)
+    color = db.Column(db.VARCHAR(50), nullable=False)
+
+    def __init__(self, id, course_name, Lecturer, Room, To, From, color):
+        self.id = id
+        self.course_name = course_name
+        self.Lecturer = Lecturer
+        self.Room = Room
+        self.To = To
+        self.From = From
+        self.color= color
+
