@@ -10,15 +10,15 @@
           <div class="sectionSelectArrow"></div>
         </div>
         <transition>
-          <section-select-menu class="sectionSelectMenu" v-if="sectionSelectMenuVisibility" @click="deleteMenu" @get-section-title="changeSectionTitle"></section-select-menu>
+          <section-select-menu class="sectionSelectMenu" v-if="sectionSelectMenuVisibility" @click="deleteMenu" @get-section-info="changeSectionTitle"></section-select-menu>
         </transition>
       </div>
       <div class="postInputArea">
-        <input class="postTitleInputArea" placeholder="Title">
+        <input class="postTitleInputArea" placeholder="Title" v-model="title">
         <div class="postContent">
-          <MdEditor editorClass="postContentEditor" v-model="text" :toolbars="toolbarOption"></MdEditor>
+          <MdEditor editorClass="postContentEditor" v-model="text" :toolbars="toolbarOption" @onHtmlChanged="saveHtml"></MdEditor>
         </div>
-        <button class="postButton">
+        <button class="postButton" @click="sendPost">
           <span class="postButtonText">Post</span>
         </button>
       </div>
@@ -31,13 +31,23 @@ import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
 import {ref} from 'vue';
 import SectionSelectMenu from "@/components/CreatePostPageComponents/SectionSelectMenu";
+import axios from "axios";
+import {useToast} from "vue-toastification";
+import "vue-toastification/dist/index.css";
 
 export default {
+  setup(){
+    const postTip = useToast();
+    return {postTip};
+  },
   name: "CreatePostView",
   components: {MdEditor, SectionSelectMenu},
   data(){
     return{
+      sectionId:'',
+      title:'',
       text: '',
+      html: '',
       sectionSelectMenuVisibility: false,
       sectionTitle: 'Choose Section',
       toolbarOption: ['bold',
@@ -74,10 +84,27 @@ export default {
     deleteMenu(){
       this.$data.sectionSelectMenuVisibility = false;
     },
-    changeSectionTitle(newTitle){
+    changeSectionTitle(newTitle, sectionId){
       this.$data.sectionTitle = ref(newTitle);
+      this.$data.sectionId = ref(sectionId);
+    },
+    saveHtml(h){
+      this.$data.html = h;
+    },
+    sendPost(){
+      axios.post('http://127.0.0.1:4523/mock/831624/forum//publish/post', {
+        section: this.sectionId,
+        title: this.title,
+        content: this.html
+      })
+      .then((response) =>{
+        const code = response.status;
+        if (code === 200){
+          this.postTip.info('Post successfully.')
+        }
+      })
     }
-  }
+  },
 }
 </script>
 

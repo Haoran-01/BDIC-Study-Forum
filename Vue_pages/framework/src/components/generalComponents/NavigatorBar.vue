@@ -3,10 +3,23 @@
   <router-link class="logo" to="/"></router-link>
   <div class="navOptions" id="navOptions">
     <nav>
-      <router-link class="home" to="/" Style="cursor: pointer;"> Home </router-link>
-      <router-link class="forum" to="/forum" Style="cursor: pointer;">Forum</router-link>
-      <router-link class="courseSchedule" to="/course_schedule" Style="cursor:pointer;">Course</router-link>
+      <div class="navItem">
+        <router-link class="navLink" id="home" to="/" Style="cursor: pointer;"> Home </router-link>
+        <div class="navLinkDecoration"></div>
+      </div>
+      <div class="navItem">
+        <router-link class="navLink" id="forum" to="/forum" Style="cursor: pointer;">Forum</router-link>
+        <div class="navLinkDecoration"></div>
+      </div>
+      <div class="navItem">
+        <router-link class="navLink" id="courseSchedule" to="/course_schedule" Style="cursor:pointer;">Course</router-link>
+        <div class="navLinkDecoration"></div>
+      </div>
     </nav>
+  </div>
+  <div class="searchArea">
+    <input type="text" class="searchInput" @keyup.enter="search" v-model="searchText">
+    <div class="searchIcon"></div>
   </div>
   <button class="userMenuButton" id="userMenuButton" v-if="userLogined" @click="handleUserMenu" @blur="deleteUserMenu"></button>
   <button class="loginButton" id="loginButton" v-else @click="jumpToLogin">
@@ -49,7 +62,8 @@ export default {
   data() {
     return {
       userMenuVisibility: false,
-      userLogined: true
+      userLogined: false,
+      searchText:''
     }
   },
   methods: {
@@ -77,6 +91,18 @@ export default {
     },
     jumpToLogin(){
       window.location.assign(window.location.origin + '/user/login');
+    },
+    search(){
+      axios.post('', {
+        content: this.searchText
+      })
+      .then((response)=>{
+        if (response.status === 200){
+          // if (this.$route.path !== '/'){
+          //
+          // }
+        }
+      })
     }
   },
   watch:{
@@ -87,15 +113,16 @@ export default {
     }
   },
   created() {
-      axios.get('/get_session')
+    const vue = this;
+    axios.get('http://127.0.0.1:4523/mock/831624/get_session')
     .then(function (response){
-      let code = response.data['code'];
+      let code = response.status;
       if (code === 200){
-        this.data().userLogined = true;
+        vue.userLogined = true;
         let email = response.data['message'];
-        this.$store.commit("userLogin", email);
+        vue.$store.commit("userLogin", email);
       }else if (code === 400){
-        this.data().userLogined = false;
+        vue.userLogined = false;
       }
     })
   },
@@ -130,7 +157,7 @@ export default {
 .navigatorMain{
   z-index: 3;
   display: grid;
-  grid-template-columns: 200px 270px 1fr 100px;
+  grid-template-columns: 150px auto 1fr 400px 120px;
   grid-template-rows: 50px;
 
   width: 100vw;
@@ -160,9 +187,9 @@ export default {
 }
 
 nav {
-  display: flex;
+  display: grid;
   grid-template-rows: 100%;
-  grid-template-columns: repeat(2, 100px);
+  grid-template-columns: repeat(3, 100px);
   padding: 0;
   margin: 0;
   text-align: center;
@@ -170,13 +197,65 @@ nav {
   flex-basis: auto;
   font-family: "Noto Sans", sans-serif;
 }
-
 nav a:link, a:visited{
   width: 100px;
   color: #000000;
   text-decoration:none;
 }
-
+.navItem{
+  position: relative;
+}
+.navLinkDecoration{
+  transition: .3s ease-in;
+  width: 0;
+  height: 5px;
+  position: absolute;
+  left: 25px;
+  background-color: #00B8FF;
+}
+.navLink:hover+.navLinkDecoration{
+  transition: .3s ease-out;
+  width: 50px;
+}
+.searchArea{
+  grid-area: 1 / 4 / 2 / 5;
+  width: 380px;
+  height: 40px;
+  align-self: center;
+}
+.searchIcon{
+  transition: 0.3s;
+  width: 30px;
+  height: 30px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("../../../../../templates/dist/images/search.png");
+  position: relative;
+  left: 13px;
+  top: -33px;
+}
+.searchInput:focus+.searchIcon{
+  transition: 0.3s;
+  background-image: url("../../../../../templates/dist/images/search_active.png");
+}
+.searchInput{
+  transition: .3s;
+  width: calc(100% - 40px);
+  height: 38px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 100px;
+  padding: 0 0 0 40px;
+  outline: none;
+}
+.searchInput:hover{
+  transition: .3s;
+  box-shadow: 0 0 3px #8ab5ff;
+  outline: none;
+}
+.searchInput:focus{
+  border: 1px solid #00B8FF;
+}
 .loginButton{
   transition: 0.2s;
   z-index: 5;
@@ -189,9 +268,10 @@ nav a:link, a:visited{
   margin-top: 5px;
   margin-bottom: 5px;
   margin-right: 20px;
-  grid-area: 1 / 4 / 2 / 5;
+  grid-area: 1 / 5 / 2 / 6;
   border: none;
   border-radius: 4px;
+  align-self: center;
 }
 
 .loginButton:hover{
@@ -222,9 +302,10 @@ nav a:link, a:visited{
   margin-top: 5px;
   margin-bottom: 5px;
   margin-right: 20px;
-  grid-area: 1 / 4 / 2 / 5;
+  grid-area: 1 / 5 / 2 / 6;
   border: none;
   border-radius: 4px;
+  align-self: center;
 }
 
 .userMenu{

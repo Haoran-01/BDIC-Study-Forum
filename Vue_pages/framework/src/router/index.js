@@ -42,6 +42,23 @@ const routes = [
     path: '/course_schedule',
     name: 'courseSchedule',
     component: () => import(/* webpackChunkName: "forum" */ '../views/CourseScheduleView')
+  },
+  {
+    path: "/sector/:typeName",
+    name: "sector",
+    component: () => import(/* webpackChunkName: "sector" */ '../components/forumComponents/InSection.vue'),
+    children: [
+      {
+        path:"new",
+        name:"new",
+        component: () => import(/* webpackChunkName: "new" */ '../components/forumComponents/NewPosts')
+      },
+      {
+        path: "hot",
+        name: "hot",
+        component: () => import(/* webpackChunkName: "sector" */ '../components/forumComponents/HotPosts')
+      }
+    ]
   }
 ]
 

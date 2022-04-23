@@ -1,10 +1,10 @@
 <template>
-  <div class="sectionCard">
+  <router-link class="sectionCard" to="/">
     <div class="sectionRank">{{ rank }}</div>
     <img :src=type_picture class="sectionImage">
     <div class="sectionName">{{ type_name }}</div>
     <div class="newComments"> {{ today_comment }} Comments</div>
-  </div>
+  </router-link>
 </template>
 
 <script>
@@ -15,9 +15,16 @@ export default {
 </script>
 
 <style scoped>
+  a{
+    text-decoration-line: none;
+    color: black;
+  }
+  a:hover{
+    color: black;
+  }
   .sectionCard {
     display: grid;
-    grid-template-columns: 20px repeat(2, auto) 147px 20px;
+    grid-template-columns: 20px repeat(2, 1fr) 147px 20px;
     grid-template-rows: 1fr repeat(2, auto) 1fr;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
