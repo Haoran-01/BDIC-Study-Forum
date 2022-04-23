@@ -37,7 +37,7 @@
       </div>
     </div>
     <div class="cardSection">
-      <course-card></course-card>
+      <course-board></course-board>
     </div>
     <div class="xingQiJiSection">
       <div class="mon">MON </div>
@@ -45,17 +45,22 @@
       <div class="wed"> WED</div>
       <div class="thu"> THU</div>
       <div class="fri"> FRI</div>
+      <div class="line" Style="bottom: 455px;"></div>
+      <div class="line" Style="bottom: 325px;"></div>
+      <div class="line" Style="bottom: 195px;"></div>
+      <div class="line" Style="bottom: 65px;"></div>
+      <div class="line" Style="bottom: -65px;"></div>
     </div>
   </div>
   <footer></footer>
 </template>
 
 <script>
-import courseCard from "@/components/courseScheduleComponents/courseCard";
+import CourseBoard from "@/components/courseScheduleComponents/CourseBoard";
 
 export default {
   name: "CourseScheduleView",
-  components: {courseCard}
+  components: {CourseBoard}
 }
 </script>
 
@@ -71,7 +76,7 @@ template{
   width: 1200px;
   margin: auto;
 
-  background-color: #f600ff;
+  /*background-color: #f600ff;*/
 
   display: grid;
   grid-template-columns: 1fr 120px 1080px 200px;
@@ -84,11 +89,11 @@ template{
   grid-area: 3 / 2 / 4 / 3;
   text-align: center;
   align-items: center;
-  color: #9A9A9A;
+  /*color: #9A9A9A;*/
   font-size: 20px;
   font-weight: bold;
   letter-spacing:2px;
-  background-color: green;
+  /*background-color: green;*/
 
   display: grid;
   grid-template-columns: 1fr 120px 1fr;
@@ -105,17 +110,17 @@ template{
 .div6 { grid-area: 7 / 2 / 8 / 3; }
 .cardSection {
   grid-area: 3 / 3 / 4 / 4;
-  background-color: rebeccapurple;
+  /*background-color: rebeccapurple;*/
 }
 .xingQiJiSection {
   grid-area: 2 / 3 / 3 / 4;
   text-align: center;
   align-items: center;
-  color: #9A9A9A;
+  /*color: #9A9A9A;*/
   font-size: 20px;
   font-weight: bold;
   letter-spacing:2px;
-  background-color: yellow;
+  /*background-color: yellow;*/
 
   display: grid;
   grid-template-columns: 1fr repeat(5, 216px) 1fr;
@@ -132,5 +137,10 @@ footer{
 .wed { grid-area: 2 / 4 / 3 / 5; }
 .thu { grid-area: 2 / 5 / 3 / 6; }
 .fri { grid-area: 2 / 6 / 3 / 7; }
-
+.line{
+  position: absolute;
+  background-color: #9A9A9A;
+  height: 1px;
+  width: 1080px;
+}
 </style>

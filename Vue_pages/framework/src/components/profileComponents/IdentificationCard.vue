@@ -3,6 +3,7 @@
     <div class="rightBar"></div>
     <div class="informationArea">
       <div class="pictureUpload">
+        <CropperImage></CropperImage>
       </div>
       <div class="Otherselfie" v-if="IsHost">
         <InforCollection></InforCollection>
@@ -28,11 +29,14 @@
 import InforCollection from "@/components/profileComponents/InforCollection";
 import InforCollectionSpan from "@/components/profileComponents/InforCollectionSpan";
 import axios from "axios";
+import CropperImage from "@/components/profileComponents/CropperImage";
+
 export default {
   name: "IdentificationCard",
   components:{
     InforCollectionSpan,
     InforCollection,
+    CropperImage
   },
   data(){
     return{
