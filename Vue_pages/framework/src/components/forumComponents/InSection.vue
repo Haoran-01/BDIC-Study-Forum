@@ -22,9 +22,7 @@
               </div>
               <div class="blank"></div>
               <div class="PostChoice">
-                <div class="choice">
                   <router-link :to="{name:'createPost'}">Post</router-link>
-                </div>
               </div>
             </div>
 
@@ -87,25 +85,34 @@ export default {
   }
 
   .nav a{
-    padding: 5px;
+    transition: .2s ease-in;
+    display: block;
     text-decoration: none;
-    border-radius: 8px;
     color: #00B8FF;
-  }
-
-  .nav a:hover{
-    background-color: #00B8FF;
-    color: #FFFFFF;
+    padding: 5px;
+    width: 50px;
   }
 
   .choice{
+    transition: .2s ease-in;
     margin: 5px;
-    padding: 5px;
+    width: 70px;
+  }
+
+  .choice a:hover{
+    transition: .2s ease-out;
+    background-color: #00B8FF;
+    border-radius: 100px;
+    color: #FFFFFF;
   }
 
   .choice a.router-link-exact-active{
     background-color: #00B8FF;
     color: #FFFFFF;
+    display: block;
+    width: 50px;
+    padding: 5px;
+    border-radius: 100px;
   }
 
   .posts{
@@ -118,6 +125,7 @@ export default {
     grid-template-rows: 1fr;
     grid-column-gap: 0px;
     grid-row-gap: 18px;
+    align-items: center;
   }
 
   .blank{
@@ -125,7 +133,20 @@ export default {
   }
 
   .PostChoice{
+    transition: .2s ease-in;
     grid-area: 1 / 3 / 2 / 4;
+    justify-self: center;
+    width: 60px;
+    border: 1px solid #00B8FF;
+    border-radius: 100px;
+  }
+  .PostChoice:hover{
+    transition: .2s ease-out;
+    background-color: #00B8FF;
+  }
+  .PostChoice:hover a{
+    transition: .2s ease-out;
+    color: #FFFFFF;
   }
 
   .ContentFrame{

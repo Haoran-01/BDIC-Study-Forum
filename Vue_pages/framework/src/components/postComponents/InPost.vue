@@ -1,9 +1,7 @@
 <template>
   <div class="FrameWork">
     <div class="ContentCenter">
-      <div class="PostShow">
-<!--        post显示区域-->
-      </div>
+      <post-entrance v-bind="{item, index}" width="1000" @send-share-info="handleShare"></post-entrance>
       <div class="commentArea">
         <div class="EditArea">
 
@@ -27,20 +25,35 @@
 <script>
 import axios from "axios";
 import CommentPost from "@/components/postComponents/CommentPost";
+import PostEntrance from "@/components/generalComponents/PostEntrance";
+import {useToast} from "vue-toastification";
+import "vue-toastification/dist/index.css";
 export default {
+  setup(){
+    const sharedTip = useToast();
+    return {sharedTip};
+  },
   name: "InPost",
-  components:{CommentPost},
+  components:{CommentPost, PostEntrance},
+  methods:{
+    handleShare(){
+      this.sharedTip.info("Link Copied Successfully");
+    }
+  },
   data(){
     return{
-      postData:[],
-      commentData:[]
+      item: [],
+      commentData:[],
+      index:this.$route.params.postId
     }
   },
   created() {
     axios.get('http://127.0.0.1:4523/mock/831624/forum/post',{
       post_id:this.$route.params.postId
     }).then((response) => {
-      this.postData=response.data.data;
+      this.$data.item=response.data.data;
+      this.item = this.item[0]
+      this.item.post_id=this.$route.params.postId
     }).catch(function (error) {
       console.log(error);
     });

@@ -49,35 +49,40 @@ export default {
   }
   .nav{
     display: flex;
-    margin: 0;
-    padding: 0;
   }
-
   .nav a{
-    padding: 5px;
+    transition: .2s ease-in;
+    display: block;
     text-decoration: none;
-    border-radius: 8px;
-    color: #FFFFFF;
+    color: #ffffff;
+    padding: 5px;
+    width: 100px;
   }
 
+  .choice{
+    transition: .2s ease-in;
+    margin: 5px;
+    width: 120px;
+  }
 
-  .nav a:hover{
+  .choice a:hover{
+    transition: .2s ease-out;
     background-color: #ffffff;
+    border-radius: 120px;
     color: #00B8FF;
+  }
+
+  .choice a.router-link-exact-active{
+    background-color: #FFFFFF;
+    color: #00B8FF;
+    display: block;
+    width: 100px;
+    padding: 5px;
+    border-radius: 100px;
   }
 
   .content {
     grid-area: 2 / 2 / 3 / 3;
-  }
-
-  .choice{
-    margin: 5px;
-    padding: 5px;
-  }
-
-  .choice a.router-link-exact-active{
-    background-color: #ffffff;
-    color: #00B8FF;
   }
 
 </style>
