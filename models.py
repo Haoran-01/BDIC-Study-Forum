@@ -76,7 +76,7 @@ class Comment(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey("question.id"))
     user_email = db.Column(db.CHAR(200), db.ForeignKey("user.user_email"))
     content = db.Column(db.Text, nullable=False)
-    creat_time = db.Column(db.DateTime, default=datetime.now)
+    create_time = db.Column(db.DateTime, default=datetime.now)
     like = db.Column(db.Integer, nullable=False)
     author = db.relationship("User", backref="comments")
     post = db.relationship("PostModel", backref="comments")
