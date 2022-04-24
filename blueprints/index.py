@@ -1,4 +1,5 @@
 from flask import Blueprint, request, render_template, jsonify
+from exts import db
 from models import PostModel, QuestionType, Comment
 import flask_login
 
@@ -32,7 +33,7 @@ def index():
 # 论坛主界面得到10个最新的帖子
 @bp.route("/index/get_post",methods=['GET'])
 def get_post():
-    posts = PostModel.query.all()
+    posts = db.session.query(PostModel).order_by(PostModel.comments_number.desc()).all()
     data = []
     for i in posts:
         dict = {
@@ -48,6 +49,8 @@ def get_post():
             "time": i.create_time
                 }
         data.append(dict)
+    if len(data) == 0:
+        return jsonify(code=200, message="该论坛还没有帖子")
     return jsonify({"code":200,"data":data})
 
 
