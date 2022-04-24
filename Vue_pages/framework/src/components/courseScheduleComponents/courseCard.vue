@@ -1,23 +1,64 @@
 <template>
   <div class="courseCard">
-    <div class="colorBar"> </div>
+    <div class="colorBar" :style="{ backgroundColor: colors.hex,}"> </div>
     <div class="subjectTitle"> Subject
-     <div class="changeButton"></div>
+     <div class="changeSection">
+       <button type="button" class="changeButton" @click="showModal=true">
+       </button>
+       <Modal v-model="showModal" title="Change Detail" >
+         <div>
+           <div>
+             <label>ClassRoom</label>
+           </div>
+           <div>
+             <input v-model="classroom"/>
+           </div>
+         </div>
+         <div>
+           <div>
+             <lable>Lecturer</lable>
+           </div>
+           <div>
+             <input v-model="lecturer"/>
+           </div>
+           <div class="color">
+             <Sketch v-model="colors"/>
+           </div>
+         </div>
+       </Modal>
+     </div>
     </div>
     <div class="classRoom">
     Classroom:<br>
-      <span Style="font-weight: bold;">Building 4 614</span>
+      <span Style="font-weight: bold;">{{classroom}}</span>
     </div>
     <div class="lecture">
     Lecturer:<br>
-      <span Style="font-weight: bold;">Sean Russel</span>
+      <span Style="font-weight: bold;">{{lecturer}}</span>
     </div>
+
   </div>
 </template>
 
 <script>
+import VueModal from '@kouts/vue-modal'
+import '@kouts/vue-modal/dist/vue-modal.css'
+import { Sketch } from '@ckpack/vue-color';
+
 export default {
-  name: "courseCard"
+  name: "courseCard",
+  components: {
+    'Modal': VueModal,
+    Sketch,
+  },
+  data() {
+    return {
+      showModal: false,
+      classroom: "",
+      lecturer: "",
+      colors: ''
+    }
+  }
 }
 </script>
 
@@ -38,13 +79,17 @@ export default {
 
   text-align:left;
 }
-.changeButton {
+.changeSection {
   background-color: #00B8FF;
   width: 20px;
   height: 20px;
   position: absolute;
   right: 20px;
   top: 95px;
+}
+.changeButton{
+  height: 100%;
+  width: 100%;
 }
 .colorBar {
   grid-area: 2 / 3 / 9 / 4;

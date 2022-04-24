@@ -42,9 +42,8 @@ export default {
   components:{GridLayout, GridItem, courseCard},
   data(){
     return{
-      layout: [ //其实一开始一块也不需要。w和h必须是1。想实现点一下按钮加一个？自己写吧
-        {"x":0,"y":0,"w":1,"h":1,"i":"0"},
-        {"x":1,"y":0,"w":1,"h":1,"i":"1"}
+      layout: [
+
       ]
     }
   },

@@ -142,5 +142,6 @@ footer{
   background-color: #9A9A9A;
   height: 1px;
   width: 1080px;
+  z-index: -1;
 }
 </style>
