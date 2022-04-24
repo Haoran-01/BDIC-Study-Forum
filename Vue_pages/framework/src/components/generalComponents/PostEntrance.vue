@@ -4,17 +4,19 @@
     <router-link  :to="{name:'profile',params:{email:item.user_email}}">
       <img class="headImage" :src=this.item.picture_url >
     </router-link>
-    <span class="userName">{{ item.author }}</span>
+    <router-link  :to="{name:'profile',params:{email:item.user_email}}">
+    <span class="userName">{{ item.user_name }}</span>
+    </router-link>
     <span class="point">·</span>
     <router-link class="section" :to="{name:'sector',params:{typeName:this.type_name}}">{{ item.post_type_name }}</router-link>
   </div>
   <router-link class="postTitle" :to="{name:'post',params:{postId:item.post_id}}">{{item.title}}</router-link>
   <div class="postImage">{{item.content}}</div>
   <div class="postToolBar">
-    <div class="toolButton" id="comment">
+    <router-link class="toolButton" id="comment" :to="{name:'post',params:{postId:item.post_id}}">
       <div class="postIcon" id="commentIcon"></div>
       <span class="toolText" id="commentNumber">{{ item.comments_number }} Comments</span>
-    </div>
+    </router-link>
     <div class="toolButton" id="share" @click="handleShare">
       <div class="postIcon" id="shareIcon"></div>
       <span class="toolText" id="shareText">Share</span>
@@ -42,12 +44,7 @@ export default {
   },
   methods:{
     handleShare(){
-      if (this.$route.path === '/'){
-        toClipboard(window.location.href + 'post/' + this.item.post_id);
-      }else {
-        toClipboard(window.location.href);
-      }
-
+      toClipboard(window.location.host + '#/post/' + this.item.post_id);
       this.$emit('sendShareInfo');
     },
     handleFavorite(){

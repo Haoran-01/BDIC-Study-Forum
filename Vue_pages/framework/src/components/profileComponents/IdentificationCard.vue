@@ -80,7 +80,7 @@ export default {
 <style scoped>
   .Frame{
     margin: 15px auto auto;
-    width: 694px;
+    width: 1000px;
     background-color: #FFFFFF;
     border-radius: 4px;
     display: grid;

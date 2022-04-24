@@ -1,20 +1,24 @@
 <template>
   <div class="FrameWork">
     <div class="topBar">
-      <img :src=user_image class="headImage">
-      <span class="userName">{{user_email}}</span>
+      <router-link :to="{name:'profile',params:{email:item.user_email}}">
+        <img :src=item.user_image class="headImage">
+      </router-link>
+      <router-link :to="{name:'profile',params:{email:item.user_email}}">
+        <span class="userName">{{item.user_name}}</span>
+      </router-link>
       <span class="point">·</span>
-      <span class="Time">{{time}}</span>
+      <span class="Time">{{item.time}}</span>
     </div>
     <div class="CommentContent">
-      {{content}}
+      {{item.content}}
     </div>
     <div class="bottomBar">
       <div class="choiceLike">
-        <button type="button" class="Like">Like</button>
+        <button type="button" class="Like" :id="setLikeId" @click="handleLike">Like {{like}}</button>
       </div>
       <div class="choiceReply">
-        <button type="button" class="Reply">Reply</button>
+        <button type="button" class="Reply" :id="setReplyId" @click="handleReply">Reply</button>
       </div>
     </div>
   </div>
@@ -24,15 +28,53 @@
 export default {
   name: "CommentPost",
   props:[
-      "user_email",
-      "content",
-      "time",
-      "user_image"
-  ]
+      "item",
+      "index"
+  ],
+  emits:['sendReply'],
+  data(){
+    return {like: null}
+  },
+  methods:{
+    handleLike(){
+      const likeId = 'like' + this.$props.index;
+      const likeButton = document.getElementById(likeId);
+      if (likeButton.getAttribute('class') === 'Like'){
+        likeButton.setAttribute('class', 'LikeActivated');
+        this.like = this.like + 1;
+        /*axios.post('')
+        .then()*/
+      }else {
+        likeButton.setAttribute('class', 'Like');
+        this.like = this.like - 1;
+      }
+    },
+    handleReply(){
+      this.$emit('sendReply', this.item.user_name);
+    }
+  },
+  computed:{
+    setLikeId(){
+      return 'like' + this.index;
+    },
+    setReplyId(){
+      return 'reply' + this.index;
+    }
+  },
+  created() {
+    this.like = this.item.like;
+  }
 }
 </script>
 
 <style scoped>
+button{
+  font-family: "Noto Sans", sans-serif;
+}
+a{
+  color: black;
+  text-decoration-line: none;
+}
 .headImage{
   height: 30px;
   width: 30px;
@@ -97,6 +139,7 @@ export default {
 }
 
 .Like{
+  transition: ease-in .2s;
   padding: 5px 10px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 15px;
@@ -106,12 +149,24 @@ export default {
 }
 
 .Like:hover{
+  transition: ease-out .2s;
   background-color: #00B8FF;
   color: #FFFFFF;
+  border: 1px solid #00B8FF;
+}
+.LikeActivated{
+  transition: ease-out .2s;
+  padding: 5px 10px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #00B8FF;
+  color: #FFFFFF;
+  border: 1px solid #00B8FF;
 }
 
-
 .Reply{
+  transition: ease-in .2s;
   padding: 5px 10px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 15px;
@@ -121,7 +176,9 @@ export default {
 }
 
 .Reply:hover{
+  transition: ease-out .2s;
   background-color: #00B8FF;
   color: #FFFFFF;
+  border: 1px solid #00B8FF;
 }
 </style>

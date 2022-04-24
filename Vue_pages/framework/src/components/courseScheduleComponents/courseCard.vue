@@ -1,29 +1,25 @@
 <template>
   <div class="courseCard">
     <div class="colorBar" :style="{ backgroundColor: colors.hex,}"> </div>
-    <div class="subjectTitle"> Subject
+    <div class="subjectTitle"> {{ subject }}
      <div class="changeSection">
        <button type="button" class="changeButton" @click="showModal=true">
        </button>
-       <Modal v-model="showModal" title="Change Detail" >
-         <div>
-           <div>
-             <label>ClassRoom</label>
+       <Modal v-model="showModal" title="Change Detail" :modalStyle="'max-width: 600px'">
+         <div class="modalFrame">
+           <div class="subjectArea">
+             <label class="modalInputText">Subject</label>
+             <input class="modalInput" v-model="subject"/>
            </div>
-           <div>
-             <input v-model="classroom"/>
+           <div class="classRoomArea">
+             <label class="modalInputText">ClassRoom</label>
+             <input class="modalInput" v-model="classroom"/>
            </div>
-         </div>
-         <div>
-           <div>
-             <lable>Lecturer</lable>
+           <div class="lecturerArea">
+             <label class="modalInputText">Lecturer</label>
+             <input class="modalInput" v-model="lecturer"/>
            </div>
-           <div>
-             <input v-model="lecturer"/>
-           </div>
-           <div class="color">
-             <Sketch v-model="colors"/>
-           </div>
+           <Sketch class="colorSelector" v-model="colors"/>
          </div>
        </Modal>
      </div>
@@ -54,6 +50,7 @@ export default {
   data() {
     return {
       showModal: false,
+      subject: "Subject",
       classroom: "",
       lecturer: "",
       colors: ''
@@ -63,6 +60,9 @@ export default {
 </script>
 
 <style scoped>
+input{
+  font-family: "Noto Sans", sans-serif;
+}
 .courseCard {
   margin: auto;
   height: 114px;
@@ -76,20 +76,33 @@ export default {
   background-color: white;
   border-radius: 10px;
   box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.15);
+  font-family: "Noto Sans", sans-serif;
 
   text-align:left;
 }
+.courseCard:hover .changeButton{
+  transition: .2s ease-out;
+  opacity: 1;
+}
 .changeSection {
-  background-color: #00B8FF;
   width: 20px;
   height: 20px;
   position: absolute;
   right: 20px;
   top: 95px;
+  background-color: white;
 }
 .changeButton{
+  transition: .2s ease-in;
+  opacity: 0;
+  background-image: url("../../../../../templates/dist/images/setting.png");
   height: 100%;
   width: 100%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: white;
+  border: none;
+  cursor: pointer;
 }
 .colorBar {
   grid-area: 2 / 3 / 9 / 4;
@@ -111,5 +124,47 @@ export default {
 .lecture {
   grid-area: 7 / 5 / 8 / 6;
   font-size: 15px;
+}
+.modalFrame {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+
+  align-items: center;
+  justify-content: center;
+}
+.modalInputText{
+  display: block;
+  margin: 5px 0;
+  font-size: 20px;
+  font-family: "Noto Sans", sans-serif;
+  font-weight: bold;
+}
+.modalInput{
+  transition: .2s ease-out;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 100px;
+  outline: rgba(0, 0, 0, 0.2) 1px;
+  width: 200px;
+  height: 25px;
+  padding-left: 10px;
+}
+.modalInput:hover{
+  transition: .2s ease-in;
+  box-shadow: 0 0 0 3px #8ab5ff;
+}
+.modalInput:focus{
+  transition: .2s ease-in;
+  box-shadow: 0 0 0 3px #8ab5ff;
+}
+
+.subjectArea { grid-area: 1 / 1 / 2 / 2; }
+.classRoomArea { grid-area: 2 / 1 / 3 / 2; }
+.lecturerArea { grid-area: 3 / 1 / 4 / 2; }
+.colorSelector {
+  grid-area: 1 / 2 / 4 / 3;
+  justify-self: center;
 }
 </style>

@@ -170,9 +170,6 @@ export default {
   grid-area: 2 / 2 / 3 / 3;
   position: relative;
 }
-.sectionSelector :focus{
-  background-color: black;
-}
 .sectionSelector {
   width: 300px;
   height: 40px;
@@ -232,9 +229,18 @@ export default {
   font-weight: bold;
   font-family: "Noto Sans", sans-serif;
   outline: rgba(0, 0, 0, 0.2) 1px;
+  transition: .2s ease-out;
 }
 .postTitleInputArea ::placeholder{
   color: #727272;
+}
+.postTitleInputArea:hover{
+  transition: .2s ease-in;
+  box-shadow: 2px 3px 5px 1px #bdbdbd;
+}
+.postTitleInputArea:focus{
+  transition: .2s ease-in;
+  box-shadow: 2px 3px 5px 1px #bdbdbd;
 }
 .postContent {
   grid-area: 2 / 1 / 3 / 2;
@@ -250,6 +256,7 @@ export default {
   border-radius: 5px;
 }
 .postButton {
+  transition: .3s ease-in;
   grid-area: 3 / 1 / 4 / 2;
   margin: 20px;
   width: 80px;
@@ -259,6 +266,10 @@ export default {
   justify-self: end;
   border: none;
   cursor: pointer;
+}
+.postButton:hover{
+  transition: .3s ease-out;
+  box-shadow: 0 0 0 3px #8ab5ff;
 }
 .postButtonText{
   font-family: "Noto Sans", sans-serif;

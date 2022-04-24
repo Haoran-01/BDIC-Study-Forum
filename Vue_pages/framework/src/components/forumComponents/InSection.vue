@@ -14,7 +14,7 @@
             <div class="girdNav">
               <div class="FirstChoice">
                 <div class="choice">
-                  <router-link :to="{name:'new',params:this.$route.params.typeName}">New</router-link>
+                  <router-link :to="{name:'new',params:this.$route.params.typeName}" @click="sendSectionRequirement">New</router-link>
                 </div>
                 <div class="choice">
                   <router-link :to="{name:'hot',params:this.$route.params.typeName}">Hot</router-link>
@@ -46,6 +46,11 @@ export default {
       items:[
 
       ]
+    }
+  },
+  methods:{
+    sendSectionRequirement(){
+      this.$store.commit("setCurrentSection", this.item.type_name);
     }
   },
   created() {

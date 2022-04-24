@@ -8,7 +8,9 @@ export default createStore({
     Span:false,
     // User Login States
     loginState: false,
-    userEmail: null
+    userEmail: null,
+    // Current Section
+    currentSection: ''
   },
   getters: {
   },
@@ -30,7 +32,10 @@ export default createStore({
     userLogout(){
       this.state.loginState = false;
       this.state.userEmail = null;
-    }
+    },
+    setCurrentSection(section){
+      this.state.currentSection = section;
+    },
   },
   actions: {
   },

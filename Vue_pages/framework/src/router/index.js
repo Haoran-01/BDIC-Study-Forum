@@ -15,6 +15,9 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "profile" */ '../views/ProfileView.vue'),
+    redirect: to =>{
+      return to.path + '/posts'
+    },
     children:[
       {
         path:'posts',
@@ -47,6 +50,9 @@ const routes = [
     path: "/sector/:typeName",
     name: "sector",
     component: () => import(/* webpackChunkName: "sector" */ '../components/forumComponents/InSection.vue'),
+    redirect: to =>{
+      return to.path + '/new'
+    },
     children: [
       {
         path:"new",

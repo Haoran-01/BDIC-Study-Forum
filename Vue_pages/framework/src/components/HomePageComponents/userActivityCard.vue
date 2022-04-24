@@ -69,7 +69,7 @@ a{
   grid-area: 1 / 1 / 2 / 2;
   font-family: "Noto Sans", sans-serif;
   font-weight: bolder;
-  font-size: 18px;
+  font-size: 17px;
 }
 .activityCardDataFrame {
   grid-area: 2 / 1 / 3 / 2;
@@ -101,7 +101,7 @@ a{
 #leftLine { grid-area: 1 / 2 / 3 / 3; }
 #rightLine { grid-area: 1 / 4 / 3 / 5; }
 .createPostButton {
-  transition: .3s;
+  transition: .3s ease-in;
   grid-area: 3 / 1 / 4 / 2;
   width: 100%;
   height: 100%;
@@ -113,7 +113,7 @@ a{
   cursor: pointer;
 }
 .createPostButton:hover{
-  transition: .3s;
+  transition: .3s ease-out;
   box-shadow: 0 0 0 3px #8ab5ff;
 }
 .createPostButtonText{

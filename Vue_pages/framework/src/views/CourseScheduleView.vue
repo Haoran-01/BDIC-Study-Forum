@@ -45,11 +45,11 @@
       <div class="wed"> WED</div>
       <div class="thu"> THU</div>
       <div class="fri"> FRI</div>
-      <div class="line" Style="bottom: 455px;"></div>
-      <div class="line" Style="bottom: 325px;"></div>
-      <div class="line" Style="bottom: 195px;"></div>
-      <div class="line" Style="bottom: 65px;"></div>
-      <div class="line" Style="bottom: -65px;"></div>
+      <div class="line" Style="top: 200px;"></div>
+      <div class="line" Style="top: 330px;"></div>
+      <div class="line" Style="top: 460px;"></div>
+      <div class="line" Style="top: 590px;"></div>
+      <div class="line" Style="top: 720px;"></div>
     </div>
   </div>
   <footer></footer>
@@ -110,6 +110,7 @@ template{
 .div6 { grid-area: 7 / 2 / 8 / 3; }
 .cardSection {
   grid-area: 3 / 3 / 4 / 4;
+  font-family: "Noto Sans", sans-serif;
   /*background-color: rebeccapurple;*/
 }
 .xingQiJiSection {
@@ -120,9 +121,11 @@ template{
   font-size: 20px;
   font-weight: bold;
   letter-spacing:2px;
+  font-family: "Noto Sans", sans-serif;
   /*background-color: yellow;*/
 
   display: grid;
+  position: relative;
   grid-template-columns: 1fr repeat(5, 216px) 1fr;
   grid-template-rows: 1fr 70px 1fr;
   grid-column-gap: 0px;
