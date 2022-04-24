@@ -38,9 +38,11 @@ def forum():
     time = post.create_time
     content = post.content
     user_email = post.author_email
-    user = UserProfile.query.filter_by(user_email=user_email).first()
-    user_image = user.profile
-    return jsonify(data=[{'post_type_name':type_name, 'content': content, 'picture_url':user_image, 'title':title, 'comments_number':comment_number, 'time':time, 'user_email':user_email}])
+    user_profile = UserProfile.query.filter_by(user_email=user_email).first()
+    user = User.query.filter_by(user_email=user_email).first()
+    user_name = user.user_name
+    user_image = user_profile.profile
+    return jsonify(data=[{'post_type_name':type_name, 'content': content, 'picture_url':user_image, 'title':title, 'comments_number':comment_number, 'time':time, 'user_email':user_email, "user_name":user_name}])
 
 @bp.route("/post/comments", methods=['GET'])
 def comments():
@@ -51,24 +53,34 @@ def comments():
         user = UserProfile.query.filter_by(user_email=i.user_email).first()
         dic = {
             "user_email": i.user_email,
+            "user_name": i.author.user_name,
             "content": i.content,
             "time": i.create_time,
             "user_image": user.profile,
+            "like":i.like
         }
         result.append(dic)
 
     return jsonify(comments=result)
 
 @bp.route("/publish/post", methods=['GET', 'POST'])
-@login_required
+# @login_required
 def publish_post():
     data = request.get_json(silent=True)
     title = data['title']
     content = data['content']
-    user_email = current_user.user_email
+    post_type = QuestionType.query.filter_by(type_name=data['post_type']).first().type_number
+    #
+    author_email = request.cookies.get('_user_id')
+    # user_email = current_user.user_email
+    post = PostModel(post_type=post_type, title=title, content=content, author_email=author_email,comments_number=0)
+    db.session.add(post)
+    db.session.commit()
+    return jsonify(code=200)
 
-
-
+@bp.route("/forum/post/publish_comment", methods=['GET','POST'])
+def publish_comment():
+    return jsonify(code=200)
 
 
 

@@ -105,7 +105,6 @@ def my_mail():
             captcha_model = EmailCaptchaModel(email=email, captcha=captcha)
             db.session.add(captcha_model)
             db.session.commit()
-        print("captcha", captcha)
         # code:200,成功的，正常的请求
         return {'code': 200}
     else:
@@ -143,7 +142,6 @@ def password_check():
         user_model = User.query.filter_by(user_email=email).first()
         user_model.user_password = generate_password_hash(new_password)
         db.session.commit()
-        print("success")
         return redirect(url_for("User.login"))
     else:
         return redirect(url_for("User.login"))

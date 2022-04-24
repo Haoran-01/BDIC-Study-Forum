@@ -1,5 +1,5 @@
 from flask import Blueprint, request, render_template, jsonify
-from models import PostModel, QuestionType
+from models import PostModel, QuestionType, Comment
 import flask_login
 
 bp = Blueprint("Index", __name__, url_prefix="/")
@@ -30,20 +30,22 @@ def index():
 
 
 # 论坛主界面得到10个最新的帖子
-@bp.route("/index/get_post")
+@bp.route("/index/get_post",methods=['GET'])
 def get_post():
     posts = PostModel.query.all()
     data = []
     for i in posts:
         dict = {
             "content": i.content,
-            # 帖子模型缺少评论数
-            # "comments_number": i.comments_number,
-            "post_type_name": i.post_type_name,
-            "author": i.author,
+            "comments_number": i.comments_number,
+            "post_type_name": QuestionType.query.filter_by(type_number=i.post_type).first().type_name,
+            "post_id": i.id,
+            "user_name": i.author.user_name,
             # 需要有相对应的用户照片url
-            # "picture_url": "http://tncm.zm/psm",
-            "title": i.title
+            "picture_url": "http://tncm.zm/psm",
+            "title": i.title,
+            "user_email": i.author_email,
+            "time": i.create_time
                 }
         data.append(dict)
     return jsonify({"code":200,"data":data})
@@ -59,8 +61,28 @@ def get_popular_type():
             "type_name": i.type_name,
             "today_comment": i.today_comment,
             # 需要有相对应的板块图片
-            # "type_picture": "http://hzvgqyy.ni/occvggpean",
+            "profile": "http://hzvgqyy.ni/occvggpean",
             "rank": i.rank
         }
         data.append(dict)
     return jsonify({"code":200,"data":data})
+
+@bp.route("/index/get_information",methods=['GET'])
+def get_information():
+    if flask_login.current_user:
+        email = flask_login.current_user.user_email
+        # 个人发帖数
+        post_numbers = len(PostModel.query.filter_by(author_email=email).all())
+        # 个人评论数
+        comment_number = len(Comment.query.filter_by(user_email=email).all())
+        # 赞同回复
+        # 假装有一些代码
+        return jsonify({'code':200,'post_number':post_numbers,'comment_number':comment_number})
+    else:
+        return jsonify({'code':400})
+
+# @bp.route('/1',methods=['GET'])
+# def test():
+#     numbers = len(PostModel.query.filter_by(author_email='2334201198@qq.com').all())
+#     print(numbers)
+#     return jsonify({'code':200,'message':1})

@@ -1,7 +1,7 @@
 from flask import Blueprint, request, render_template, redirect, url_for, flash, jsonify
 from sqlalchemy.sql.functions import current_user
 from flask_login import login_required
-from models import UserProfile
+from models import UserProfile, PostModel, QuestionType
 from exts import db
 import json
 
@@ -43,3 +43,27 @@ def edit_profile():
     return up_res_json
 
     #return jsonify(code= 200, message= "save successfully!", data=data)
+
+# 个人界面得到自己的所有帖子
+@bp.route("/profile/my_post", methods=['GET'])
+
+def get_my_post():
+    email = request.args.get("email")
+    posts = PostModel.query.filter_by(author_email=email)
+    data = []
+    for i in posts:
+        dict = {
+            "content": i.content,
+            "comments_number": i.comments_number,
+            "post_type_name": QuestionType.query.filter_by(type_number=i.post_type).first().type_name,
+            "post_id": i.id,
+            "user_name": i.author.user_name,
+            "picture_url": "http://tncm.zm/psm",
+            "title": i.title,
+            "user_email": i.author_email,
+            "time": i.create_time
+        }
+        data.append(dict)
+    if len(data) == 0:
+        return jsonify(code=200,message="没发布过帖子")
+    return jsonify(code=200,data=data)
