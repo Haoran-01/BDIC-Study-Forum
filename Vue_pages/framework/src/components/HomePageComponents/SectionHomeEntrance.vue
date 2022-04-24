@@ -1,5 +1,5 @@
 <template>
-  <router-link class="sectionCard" to="/">
+  <router-link class="sectionCard" :to="{name:'sector',params:{typeName:this.type}}">
     <div class="sectionRank">{{ rank }}</div>
     <img :src=type_picture class="sectionImage">
     <div class="sectionName">{{ type_name }}</div>
@@ -10,7 +10,12 @@
 <script>
 export default {
   name: "SectionEntrance",
-  props:['type_name', 'today_comment', 'type_picture', 'rank']
+  props:['type_name', 'today_comment', 'type_picture', 'rank'],
+  data(){
+    return{
+      type:this.type_name
+    }
+  }
 }
 </script>
 

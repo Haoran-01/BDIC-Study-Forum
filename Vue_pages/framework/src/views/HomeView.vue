@@ -8,7 +8,7 @@
       <div class="main">
         <div class="postListFrame">
           <div class="postListLogic" v-for="(item, index) in postData" :key="index">
-          <post-entrance v-bind="{item, index}" @send-share-info="handleShare"></post-entrance>
+          <post-entrance v-bind="{item, index}" :width="682" @send-share-info="handleShare"></post-entrance>
           </div>
         </div>
         <div class="sideBar">
@@ -54,22 +54,22 @@ export default {
     return {
       cookieVisibility: true,
       postData:[
-          {
-            userName: 'Jerry',
-            sectionName: 'Lecture Question',
-            title: 'The problem about binary tree',
-            introduction: 'What is the difference between a binary search tree and a binary tree?',
-            commentNumber: 6,
-            userImageURL: require('../../../../templates/dist/images/Jerry.jpg')
-          },
-          {
-            userName: 'Jerry',
-            sectionName: 'Lecture Question',
-            title: 'About AVL tree',
-            introduction: 'After inserting in the AVL tree, why will one restructuring (if necessary) be enough to rebalance the whole tree? While for deletion, we must continue checking for balance until the root of T is reached.',
-            commentNumber: 4,
-            userImageURL: require('../../../../templates/dist/images/Jerry.jpg')
-          },
+          // {
+          //   userName: 'Jerry',
+          //   sectionName: 'Lecture Question',
+          //   title: 'The problem about binary tree',
+          //   introduction: 'What is the difference between a binary search tree and a binary tree?',
+          //   commentNumber: 6,
+          //   userImageURL: require('../../../../templates/dist/images/Jerry.jpg')
+          // },
+          // {
+          //   userName: 'Jerry',
+          //   sectionName: 'Lecture Question',
+          //   title: 'About AVL tree',
+          //   introduction: 'After inserting in the AVL tree, why will one restructuring (if necessary) be enough to rebalance the whole tree? While for deletion, we must continue checking for balance until the root of T is reached.',
+          //   commentNumber: 4,
+          //   userImageURL: require('../../../../templates/dist/images/Jerry.jpg')
+          // },
           // {
           //   userName: 'Jerry',
           //   sectionName: 'Lecture Question',
@@ -151,7 +151,6 @@ export default {
       }
     },
     handleShare(){
-      console.log("yes")
       this.sharedTip.info("Link Copied Successfully");
     }
   },

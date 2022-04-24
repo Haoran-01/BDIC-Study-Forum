@@ -1,12 +1,14 @@
 <template>
-<div class="postEntranceFrame">
+<div class="postEntranceFrame" :style="setWidth">
   <div class="topBar">
-    <img :src=item.picture_url class="headImage">
+    <router-link  :to="{name:'profile',params:{email:item.user_email}}">
+      <img class="headImage" :src=this.item.picture_url >
+    </router-link>
     <span class="userName">{{ item.author }}</span>
     <span class="point">·</span>
-    <span class="section">{{ item.post_type_name }}</span>
+    <router-link class="section" :to="{name:'sector',params:{typeName:this.type_name}}">{{ item.post_type_name }}</router-link>
   </div>
-  <div class="postTitle">{{item.title}}</div>
+  <router-link class="postTitle" :to="{name:'post',params:{postId:item.post_id}}">{{item.title}}</router-link>
   <div class="postImage">{{item.content}}</div>
   <div class="postToolBar">
     <div class="toolButton" id="comment">
@@ -27,13 +29,25 @@
 
 <script>
 // import axios from "axios";
+import { toClipboard } from '@soerenmartius/vue3-clipboard'
 
 export default {
   name: "PostEntrance",
-  props: ['item', 'index'],
+  props: ['item', 'index', 'width'],
   emits: ['sendShareInfo'],
+  data(){
+    return{
+      type_name: this.item.post_type_name
+    }
+  },
   methods:{
     handleShare(){
+      if (this.$route.path === '/'){
+        toClipboard(window.location.href + 'post/' + this.item.post_id);
+      }else {
+        toClipboard(window.location.href);
+      }
+
       this.$emit('sendShareInfo');
     },
     handleFavorite(){
@@ -47,14 +61,23 @@ export default {
         favoriteIcon.setAttribute('class', 'favoriteIcon');
       }
     }
+  },
+  computed:{
+    setWidth(){
+      return 'width: ' + this.width + 'px';
+    }
   }
 }
 </script>
 
 <style scoped>
+a{
+  color: black;
+  text-decoration-line: none;
+}
 .postEntranceFrame {
   display: grid;
-  grid-template-columns: 30px 622px 30px;
+  grid-template-columns: 30px 1fr 30px;
   grid-template-rows: 36px auto auto 36px;
   grid-column-gap: 0px;
   grid-row-gap: 15px;
@@ -182,5 +205,10 @@ export default {
   margin-right: 10px;
   margin-left: 10px;
   cursor: pointer;
+}
+
+a{
+  text-decoration: none;
+  color: black;
 }
 </style>

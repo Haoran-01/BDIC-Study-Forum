@@ -20,7 +20,7 @@ export default {
   data(){
     return{
       sectionData:[
-        {
+/*        {
           sectionTitle: 'Lecture Question',
           commentNumber: 26,
           rank: 1,
@@ -37,7 +37,7 @@ export default {
           commentNumber: 8,
           rank: 3,
           sectionCoverImageURL: require('../../../../../templates/dist/images/transaction.jpeg')
-        }
+        }*/
       ]
     }
   },

@@ -59,6 +59,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "sector" */ '../components/forumComponents/HotPosts')
       }
     ]
+  },
+  {
+    path: "/post/:postId",
+    name: "post",
+    component: () => import(/* webpackChunkName: "post" */ '../components/postComponents/InPost.vue')
   }
 ]
 

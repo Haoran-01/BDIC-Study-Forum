@@ -208,7 +208,7 @@ nav a:link, a:visited{
 .navLinkDecoration{
   transition: .3s ease-in;
   width: 0;
-  height: 5px;
+  height: 3px;
   position: absolute;
   left: 25px;
   background-color: #00B8FF;

@@ -75,8 +75,29 @@ class Comment(db.Model):
     cmt_id = db.Column(db.Integer, nullable=False, primary_key=True, autoincrement=True)
     post_id = db.Column(db.Integer, db.ForeignKey("question.id"))
     user_email = db.Column(db.CHAR(200), db.ForeignKey("user.user_email"))
-    content = content = db.Column(db.Text, nullable=False)
-    create_time = db.Column(db.DateTime, default=datetime.now)
+    content = db.Column(db.Text, nullable=False)
+    creat_time = db.Column(db.DateTime, default=datetime.now)
+    like = db.Column(db.Integer, nullable=False)
     author = db.relationship("User", backref="comments")
     post = db.relationship("PostModel", backref="comments")
+
+#课表
+class Course(db.Model):
+    __tablename__ = 'course'
+    id = db.Column(db.Integer, primary_key= True, autoincrement=True)
+    From = db.Column(db.VARCHAR(50), nullable=False)
+    To = db.Column(db.VARCHAR(50), nullable=False)
+    Room = db.Column(db.VARCHAR(50), nullable=False)
+    Lecturer = db.Column(db.VARCHAR(50), nullable=False)
+    course_name = db.Column(db.VARCHAR(50), nullable=False)
+    color = db.Column(db.VARCHAR(50), nullable=False)
+
+    def __init__(self, id, course_name, Lecturer, Room, To, From, color):
+        self.id = id
+        self.course_name = course_name
+        self.Lecturer = Lecturer
+        self.Room = Room
+        self.To = To
+        self.From = From
+        self.color= color
 
