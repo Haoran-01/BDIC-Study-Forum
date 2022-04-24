@@ -37,13 +37,15 @@ def get_post():
     for i in posts:
         dict = {
             "content": i.content,
-            # 帖子模型缺少评论数
             "comments_number": i.comments_number,
-            "post_type_name": i.post_type_name,
-            "author": i.author,
+            "post_type_name": QuestionType.query.filter_by(type_number=i.post_type).first().type_name,
+            "post_id": i.id,
+            "user_name": i.author.user_name,
             # 需要有相对应的用户照片url
-            "profile": "http://tncm.zm/psm",
-            "title": i.title
+            "picture_url": "http://tncm.zm/psm",
+            "title": i.title,
+            "user_email": i.author_email,
+            "time": i.create_time
                 }
         data.append(dict)
     return jsonify({"code":200,"data":data})
