@@ -56,6 +56,7 @@ def comments():
             "content": i.content,
             "time": i.create_time,
             "user_image": user.profile,
+            "like":i.like
         }
         result.append(dic)
 
@@ -64,10 +65,15 @@ def comments():
 @bp.route("/publish/post", methods=['GET', 'POST'])
 @login_required
 def publish_post():
+    post_type = request.args.get('post_id')
     data = request.get_json(silent=True)
     title = data['title']
     content = data['content']
     user_email = current_user.user_email
+    post = PostModel(post_type=post_type, title=title, content=content, user_email=user_email)
+    db.session.add(post)
+    db.session.commit()
+    return jsonify(code=200)
 
 
 
