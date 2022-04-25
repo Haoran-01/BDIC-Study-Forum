@@ -13,7 +13,6 @@
       :use-css-transforms="true"
       preventCollision="false"
     >
-
     <grid-item v-for="item in layout"
        :x="item.x"
        :y="item.y"
@@ -64,10 +63,14 @@ export default {
       });
       // Increment the counter to ensure key is always unique.
       this.index++;
+
+      console.log(this.layout);
     },
     removeItem: function (val) {
       const index = this.layout.map(item => item.i).indexOf(val);
       this.layout.splice(index, 1);
+
+      console.log(this.layout);
     },
 /*    moveEvent(){
       axios.post('', {

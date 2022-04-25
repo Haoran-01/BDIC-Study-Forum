@@ -3,7 +3,11 @@
     <div class="rightBar"></div>
     <div class="informationArea">
       <div class="pictureUpload">
-        <CropperImage></CropperImage>
+        <button type="button" class="changeButton" @click="showModal=true">
+        </button>
+        <Modal v-model="showModal" title="Change Detail" >
+          <CropperImage></CropperImage>
+        </Modal>
       </div>
       <div class="Otherselfie" v-if="IsHost">
         <InforCollection></InforCollection>
@@ -30,16 +34,21 @@ import InforCollection from "@/components/profileComponents/InforCollection";
 import InforCollectionSpan from "@/components/profileComponents/InforCollectionSpan";
 import axios from "axios";
 import CropperImage from "@/components/profileComponents/CropperImage";
+import 'vue-cropper/dist/index.css';
+import VueModal from "@kouts/vue-modal";
+import '@kouts/vue-modal/dist/vue-modal.css'
 
 export default {
   name: "IdentificationCard",
   components:{
     InforCollectionSpan,
     InforCollection,
-    CropperImage
+    CropperImage,
+    'Modal': VueModal,
   },
   data(){
     return{
+      showModal: false,
       animate:{
         transition: true,
         frame: true,
@@ -162,6 +171,12 @@ export default {
 
   .v-enter-to{
     opacity: 1;
+  }
+
+  .changeButton{
+    background-color: blue;
+    height: 30px;
+    width: 30px;
   }
 
 

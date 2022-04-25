@@ -106,7 +106,7 @@ input{
 }
 .colorBar {
   grid-area: 2 / 3 / 9 / 4;
-  background-color: red;
+  background-color: #000000;
 }
 .subjectTitle {
   grid-area: 3 / 5 / 4 / 6;

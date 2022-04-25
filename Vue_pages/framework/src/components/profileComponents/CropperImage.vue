@@ -1,8 +1,8 @@
 <template>
-  <div class="cropper-content">
-    <div class="cropper-box">
-      <div class="cropper">
-        <vueCropper
+  <div class="show-info">
+    <h2>example1 基本例子 无限制</h2>
+    <div class="test test1">
+      <vueCropper
           ref="cropper"
           :img="option.img"
           :outputSize="option.outputSize"
@@ -27,23 +27,22 @@
           :mode="option.mode"
           @realTime="realTime"
           @imgLoad="imgLoad">
-        </vueCropper>
-      </div>
-      <!--底部操作工具按钮-->
-<!--      <div class="footer-btn">-->
-<!--        <div class="scope-btn">-->
-<!--          <label class="btn" for="uploads">选择封面</label>-->
-<!--          <input type="file" id="uploads" style="position:absolute; clip:rect(0 0 0 0);" accept="image/png, image/jpeg, image/gif, image/jpg" @change="selectImg($event)">-->
-<!--          <button size="mini" type="danger" plain icon="el-icon-zoom-in" @click="changeScale(1)">放大</button>-->
-<!--          <button size="mini" type="danger" plain icon="el-icon-zoom-out" @click="changeScale(-1)">缩小</button>-->
-<!--          <button size="mini" type="danger" plain @click="rotateLeft">↺ 左旋转</button>-->
-<!--          <button size="mini" type="danger" plain @click="rotateRight">↻ 右旋转</button>-->
-<!--        </div>-->
-<!--        <div class="upload-btn">-->
-<!--          <button size="mini" type="success" @click="uploadImg('blob')">上传封面 <i class="el-icon-upload"></i></button>-->
-<!--        </div>-->
-<!--      </div>-->
+      </vueCropper>
     </div>
+    <div class="test-button">
+      <label class="btn" for="uploads">upload</label>
+      <input type="file" id="uploads" style="position:absolute; clip:rect(0 0 0 0);" accept="image/png, image/jpeg, image/gif, image/jpg" @change="selectImg($event)">
+      <button @click="changeScale(1)" class="btn">+</button>
+      <button @click="changeScale(-1)" class="btn">-</button>
+      <button @click="rotateLeft" class="btn">rotateLeft</button>
+      <button @click="rotateRight" class="btn">rotateRight</button>
+      <div class="upload-btn">
+        <button @click="uploadImg('blob')">上传封面</button>
+      </div>
+    </div>
+
+
+    <p>截图框大小</p>
     <!--预览效果图-->
     <div class="show-preview">
       <div :style="previews.div" class="preview">
@@ -52,6 +51,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 import 'vue-cropper/dist/index.css'
@@ -94,8 +94,75 @@ export default {
     imgLoad (msg) {
       console.log("工具初始化函数====="+msg)
     },
+    //图片缩放
+    changeScale (num) {
+      num = num || 1
+      this.$refs.cropper.changeScale(num)
+    },
+    //向左旋转
+    rotateLeft () {
+      this.$refs.cropper.rotateLeft()
+    },
+    //向右旋转
+    rotateRight () {
+      this.$refs.cropper.rotateRight()
+    },
+    //实时预览函数
     realTime (data) {
       this.previews = data
+    },
+    selectImg (e) {
+      let file = e.target.files[0]
+      if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(e.target.value)) {
+        this.$message({
+          message: '图片类型要求：jpeg、jpg、png',
+          type: "error"
+        });
+        return false
+      }
+      //转化为blob
+      let reader = new FileReader()
+      reader.onload = (e) => {
+        let data
+        if (typeof e.target.result === 'object') {
+          data = window.URL.createObjectURL(new Blob([e.target.result]))
+        } else {
+          data = e.target.result
+        }
+        this.option.img = data
+      }
+      //转化为base64
+      reader.readAsDataURL(file)
+    },
+    //上传图片
+    uploadImg (type) {
+      let _this = this;
+      if (type === 'blob') {
+        //获取截图的blob数据
+        this.$refs.cropper.getCropBlob(async (data) => {
+          let formData = new FormData();
+          formData.append('file',data,"DX.jpg")
+          //调用axios上传
+          let {data: res} = await _this.$http.post('/api/file/imgUpload', formData)
+          if(res.code === 200){
+            _this.$message({
+              message: res.msg,
+              type: "success"
+            });
+            let data = res.data.replace('[','').replace(']','').split(',');
+            let imgInfo = {
+              name : _this.Name,
+              url : data[0]
+            };
+            _this.$emit('uploadImgSuccess',imgInfo);
+          }else {
+            _this.$message({
+              message: '文件服务异常，请联系管理员！',
+              type: "error"
+            });
+          }
+        })
+      }
     },
   }
 }
@@ -105,5 +172,25 @@ export default {
 .cropper-content{
   height: 300px;
   width: 200px;
+}
+.show-preview{
+  flex: 1;
+  -webkit-flex: 1;
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+  height: 300px;
+  width: 200px;
+}
+
+.preview{
+  overflow: hidden;
+  border:1px solid #67c23a;
+  background: #cccccc;
+  flex: 1;
+  -webkit-flex: 1;
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
 }
 </style>
