@@ -77,7 +77,7 @@ def publish_post():
 
 @bp.route("/publish/comment", methods=['GET', 'POST'])
 @login_required
-def publish_post():
+def publish_comment():
     data = request.get_json(silent=True)
     post_id = data['title']
     content = data['content']
@@ -87,7 +87,14 @@ def publish_post():
     db.session.commit()
     return jsonify(code=200)
 
-
+@bp.route('/like/comment', methods=['GET', 'POST'])
+def like():
+    data = request.get_json(silent=True)
+    comment_id = data['comment_id']
+    comment = Comment.query.filter_by(cmt_id=comment_id).first()
+    comment.like = comment.like + 1
+    db.session.commit()
+    return jsonify(code=200)
 
 
 
