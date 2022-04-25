@@ -73,7 +73,7 @@ def user_all_course():
             "y": i.y
         }
         result.append(dic)
-    return jsonify(comments=result)
+    return jsonify(result)
 
 
 """
