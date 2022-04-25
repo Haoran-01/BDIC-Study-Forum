@@ -1,6 +1,9 @@
+import flask_login
 from exts import db
 from datetime import datetime
 from flask_login import UserMixin
+from flask_login import login_required,current_user
+
 # 定义orm模型
 # autoincrement = True
 
@@ -84,20 +87,23 @@ class Comment(db.Model):
 #课表
 class Course(db.Model):
     __tablename__ = 'course'
-    id = db.Column(db.Integer, primary_key= True, autoincrement=True)
-    From = db.Column(db.VARCHAR(50), nullable=False)
-    To = db.Column(db.VARCHAR(50), nullable=False)
-    Room = db.Column(db.VARCHAR(50), nullable=False)
-    Lecturer = db.Column(db.VARCHAR(50), nullable=False)
-    course_name = db.Column(db.VARCHAR(50), nullable=False)
-    color = db.Column(db.VARCHAR(50), nullable=False)
+    course_id = db.Column(db.Integer, primary_key= True, autoincrement=True)
+    classroom = db.Column(db.VARCHAR(50), nullable=True)
+    teacher = db.Column(db.VARCHAR(50), nullable=True)
+    course_name = db.Column(db.VARCHAR(50), nullable=True)
+    course_color = db.Column(db.VARCHAR(50), nullable=True)
+    x = db.Column(db.Integer, nullable=True)
+    y = db.Column(db.Integer, nullable=True)
+    front_id = db.Column(db.Integer, nullable=True)
+    user_email = db.Column(db.VARCHAR(50), nullable=True)
 
-    def __init__(self, id, course_name, Lecturer, Room, To, From, color):
-        self.id = id
+    def __init__(self, course_name, teacher, classroom, course_color, x, y, front_id, user_email):
         self.course_name = course_name
-        self.Lecturer = Lecturer
-        self.Room = Room
-        self.To = To
-        self.From = From
-        self.color= color
+        self.teacher = teacher
+        self.classroom = classroom
+        self.course_color = course_color
+        self.x = x
+        self.y = y
+        self.front_id = front_id
+        self.user_email = user_email
 
