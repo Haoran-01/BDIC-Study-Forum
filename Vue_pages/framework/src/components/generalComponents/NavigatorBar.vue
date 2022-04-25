@@ -114,7 +114,7 @@ export default {
   },
   created() {
     const vue = this;
-    axios.get('http://127.0.0.1:4523/mock/831624/get_session')
+    axios.get('/get_session')
     .then(function (response){
       let code = response.status;
       if (code === 200){

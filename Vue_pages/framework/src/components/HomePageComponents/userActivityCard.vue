@@ -32,7 +32,7 @@ export default {
     }
   },
   created() {
-    axios.get('http://127.0.0.1:4523/mock/831624/index/get_information')
+    axios.get('/index/get_information')
     .then((response)=>{
       if (response.status === 200){
         this.$data.post_number = response.data.post_number;

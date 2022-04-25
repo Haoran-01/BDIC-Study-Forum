@@ -74,7 +74,7 @@ export default {
   },
   created() {
     this.hostEmail=this.$route.params.email;
-    axios.get('http://127.0.0.1:4523/mock/831624/get_session')
+    axios.get('/get_session')
         .then((response) => {
           this.accessEmail=response.data.message;
           this.IsHost = this.hostEmail === this.accessEmail;

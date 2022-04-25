@@ -50,7 +50,7 @@ export default {
       if (this.$refs.editor.getText() === '\n' || this.$refs.editor.getText() === ''){
         this.tip.error("Comment cannot be blank")
       }else {
-        axios.post('http://127.0.0.1:4523/mock/831624/forum/publish/post', {
+        axios.post('/forum/publish/post', {
           content: this.content,
           post_id: this.item.post_id
         })
@@ -76,7 +76,7 @@ export default {
     }
   },
   created() {
-    axios.get('http://127.0.0.1:4523/mock/831624/forum/post',{
+    axios.get('/forum/post',{
       post_id:this.$route.params.postId
     }).then((response) => {
       this.$data.item=response.data.data;
@@ -86,7 +86,7 @@ export default {
       console.log(error);
     });
 
-    axios.get('http://127.0.0.1:4523/mock/831624/forum/post/comments',{
+    axios.get('/forum/post/comments',{
       post_id:this.$route.params.postId
     }).then((response) => {
       this.commentData=response.data.comments;

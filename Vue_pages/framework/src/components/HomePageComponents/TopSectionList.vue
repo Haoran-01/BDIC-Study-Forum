@@ -43,7 +43,7 @@ export default {
   },
   created() {
     let data;
-    axios.get('http://127.0.0.1:4523/mock/831624/index/get_popular_type')
+    axios.get('/index/get_popular_type')
         .then((response) => {
           this.sectionData = response.data.data;
         })

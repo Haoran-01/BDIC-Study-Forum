@@ -30,7 +30,7 @@ export default {
   created() {
     this.currentEmail=this.$route.params.email;
 
-    axios.get('http://127.0.0.1:4523/mock/831624/profile', {
+    axios.get('/profile', {
       user_email:this.currentEmail
     }).then((response) => {
       this.currentName=response.data.user_name;

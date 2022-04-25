@@ -54,7 +54,7 @@ export default {
     }
   },
   created() {
-    axios.get('http://127.0.0.1:4523/mock/831624/forum/section_detail',{
+    axios.get('/forum/section_detail',{
       type_name:this.$route.params.typeName
     }).then((response) => {
       this.items=response.data.data;

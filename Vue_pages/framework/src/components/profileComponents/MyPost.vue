@@ -32,7 +32,7 @@ export default {
     }
   },
   created() {
-    axios.get('http://127.0.0.1:4523/mock/831624/profile/my_post', {
+    axios.get('/profile/my_post', {
       email: this.$route.params.email
     })
         .then((response) =>{

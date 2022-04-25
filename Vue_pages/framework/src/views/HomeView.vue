@@ -155,7 +155,7 @@ export default {
     }
   },
   created() {
-    axios.get('http://127.0.0.1:4523/mock/831624/index/get_post')
+    axios.get('/index/get_post')
         .then((response) => {
           this.postData = response.data.data;
         })

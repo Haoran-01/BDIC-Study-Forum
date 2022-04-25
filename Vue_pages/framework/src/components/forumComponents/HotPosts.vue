@@ -28,7 +28,7 @@ export default {
     }
   },
   created() {
-    axios.get('http://127.0.0.1:4523/mock/831624/forum/section/get_hot_posts', {
+    axios.get('/forum/section/get_hot_posts', {
       type_name: this.$route.params.typeName
     })
         .then((response) =>{
