@@ -12,7 +12,7 @@
         <div class="navLinkDecoration"></div>
       </div>
       <div class="navItem">
-        <router-link class="navLink" id="courseSchedule" to="/course_schedule" Style="cursor:pointer;">Course</router-link>
+        <router-link class="navLink" id="courseSchedule" :to="{name:'courseSchedule',params:{email:this.userEmail}}" Style="cursor:pointer;">Course</router-link>
         <div class="navLinkDecoration"></div>
       </div>
     </nav>
@@ -63,6 +63,7 @@ export default {
     return {
       userMenuVisibility: false,
       userLogined: false,
+      userEmail: this.$store.state.userEmail,
       searchText:''
     }
   },
@@ -120,6 +121,7 @@ export default {
       if (code === 200){
         vue.userLogined = true;
         let email = response.data['message'];
+        vue.userEmail = email;
         vue.$store.commit("userLogin", email);
       }else if (code === 400){
         vue.userLogined = false;
@@ -127,7 +129,7 @@ export default {
     })
   },
   mounted() {
-    window.addEventListener('scroll', this.changeOptionsVisibility, true)
+    window.addEventListener('scroll', this.changeOptionsVisibility, true);
   },
   unmounted() {
     window.removeEventListener('scroll', this.changeOptionsVisibility, true)

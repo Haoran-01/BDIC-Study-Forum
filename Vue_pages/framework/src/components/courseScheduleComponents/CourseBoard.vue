@@ -11,7 +11,7 @@
       :vertical-compact="false"
       :margin="[0, 0]"
       :use-css-transforms="true"
-      preventCollision="false"
+      :preventCollision="false"
     >
 
     <grid-item v-for="item in layout"
@@ -22,8 +22,9 @@
        :i="item.i"
        :key="item.i"
        :maxW="1"
+       @moved="moveEvent"
     >
-      <course-card class="courseCard"></course-card> <!--把你的标签写这里-->
+      <course-card class="courseCard" v-bind="item.i"></course-card> <!--把你的标签写这里-->
       <div class="remove" @click="removeItem(item.i)">
 
       </div>
@@ -36,13 +37,20 @@
 <script>
 import {GridLayout, GridItem} from 'vue3-grid-layout'
 import courseCard from "@/components/courseScheduleComponents/courseCard";
-// import axios from "axios";
+import axios from "axios";
+import {useToast} from "vue-toastification";
+import "vue-toastification/dist/index.css";
 
 export default {
+  setup(){
+    const tip = useToast();
+    return {tip};
+  },
   name: "CourseBoard",
   components:{GridLayout, GridItem, courseCard},
   data(){
     return{
+      rawData:{},
       layout: [
 
       ]
@@ -51,6 +59,16 @@ export default {
   mounted() {
     // this.$gridlayout.load();
     this.index = this.layout.length;
+  },
+  created() {
+    axios.get('get_course')
+    .then((response)=>{
+      const code = response.status;
+      if (code === 200){
+        this.rawData = response.data
+        // this.setLayout()
+      }
+    })
   },
   methods: {
     addItem: function () {
@@ -68,11 +86,33 @@ export default {
     removeItem: function (val) {
       const index = this.layout.map(item => item.i).indexOf(val);
       this.layout.splice(index, 1);
-    },
-/*    moveEvent(){
-      axios.post('', {
-        x:
+      axios.post('delete', {
+        course_id: val
       })
+      .then((response)=>{
+        const code = response.status;
+        if (code === 200){
+          this.tip.info('Delete successfully.');
+        }
+      })
+    },
+    moveEvent(i, newX, newY){
+      axios.post('moved', {
+        course_id: i,
+        x: newX,
+        y: newY
+      })
+      .then((response)=>{
+        const code = response.status;
+        if (code === 200){
+          this.tip.info('Change saved successfully.');
+        }
+      })
+    }
+  },
+  computed:{
+/*    setLayout(){
+
     }*/
   }
 }
