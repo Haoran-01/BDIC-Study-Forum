@@ -12,7 +12,7 @@ bp = Blueprint("edit_profile",__name__,url_prefix="/")
 #@login_required
 def edit_profile():
     print('begin edit')
-    data = request.get_json()
+    data = request.get_json(silent=True)
 
     user_name = data["user_name"]
     introduction = data["introduction"]
