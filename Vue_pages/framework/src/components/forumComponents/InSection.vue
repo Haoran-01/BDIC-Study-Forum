@@ -14,15 +14,15 @@
             <div class="girdNav">
               <div class="FirstChoice">
                 <div class="choice">
-                  <router-link :to="{name:'new',params:this.$route.params.typeName}" @click="sendSectionRequirement">New</router-link>
+                  <router-link :to="{path:'/new',query:this.$route.params.typeName}" @click="sendSectionRequirement">New</router-link>
                 </div>
                 <div class="choice">
-                  <router-link :to="{name:'hot',params:this.$route.params.typeName}">Hot</router-link>
+                  <router-link :to="{path:'/hot',query:this.$route.params.typeName}">Hot</router-link>
                 </div>
               </div>
               <div class="blank"></div>
               <div class="PostChoice">
-                  <router-link :to="{name:'createPost'}">Post</router-link>
+                  <router-link :to="{path:'/create_post'}">Post</router-link>
               </div>
             </div>
 
