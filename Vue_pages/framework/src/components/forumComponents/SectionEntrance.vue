@@ -1,5 +1,5 @@
 <template>
-  <router-link class="Sector" :to="{path:'/sector',query:{typeName:this.type}}">
+  <router-link class="Sector" :to="{path:'/sector',query:{typeName:this.type_name}}">
     <div class="sectorImage">
       <img :src=sector_image_url height="80" width="80"/>
     </div>
