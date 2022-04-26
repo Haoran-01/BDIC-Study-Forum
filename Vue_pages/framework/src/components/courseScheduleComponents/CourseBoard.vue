@@ -96,7 +96,7 @@ export default {
       })
     },
     moveEvent(i, newX, newY){
-      axios.post('/course/insert', {
+      axios.post('/course/move', {
         course_id: i,
         x: newX,
         y: newY
