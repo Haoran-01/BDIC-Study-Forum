@@ -71,6 +71,7 @@ def comments():
     for i in comments:
         user = UserProfile.query.filter_by(user_email=i.user_email).first()
         dic = {
+            "user_name" : user.user_name,
             "user_email": i.user_email,
             "content": i.content,
             "time": i.create_time,
@@ -100,8 +101,10 @@ def publish_post():
 @login_required
 def publish_comment():
     data = request.get_json(silent=True)
-    post_id = data['title']
-    content = data['content']
+    print(data)
+    post_id = data['post_id']
+    content = data['content']['ops'][0]['insert']
+    PostModel.query.filter_by(id=post_id).first().comments_number += 1
     user_email = current_user.user_email
     post = Comment(post_id=post_id, content=content, user_email=user_email)
     db.session.add(post)
