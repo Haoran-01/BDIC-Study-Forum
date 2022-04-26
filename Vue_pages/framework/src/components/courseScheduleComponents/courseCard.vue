@@ -55,7 +55,7 @@ export default {
     'Modal': VueModal,
     Sketch,
   },
-  props:['id'],
+  props:['cid'],
   data() {
     return {
       showModal: false,
@@ -67,8 +67,8 @@ export default {
   },
   methods:{
     handleClose(){
-      axios.post('/course/insert2', {
-        course_id: this.id,
+      axios.post('/course/insert', {
+        course_id: this.cid,
         course_title: this.subject,
         classroom: this.classroom,
         teacher: this.lecturer,

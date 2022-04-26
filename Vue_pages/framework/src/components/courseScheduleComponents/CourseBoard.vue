@@ -24,7 +24,7 @@
        :maxW="1"
        @moved="moveEvent"
     >
-      <course-card class="courseCard" v-bind="item.i"></course-card> <!--把你的标签写这里-->
+      <course-card class="courseCard" v-bind="{cid:item.i}"></course-card> <!--把你的标签写这里-->
       <div class="remove" @click="removeItem(item.i)">
 
       </div>
@@ -96,7 +96,7 @@ export default {
       })
     },
     moveEvent(i, newX, newY){
-      axios.post('/course/insert1', {
+      axios.post('/course/insert', {
         course_id: i,
         x: newX,
         y: newY
