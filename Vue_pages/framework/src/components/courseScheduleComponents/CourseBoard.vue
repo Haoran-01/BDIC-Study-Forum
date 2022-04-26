@@ -60,7 +60,7 @@ export default {
     this.index = this.layout.length;
   },
   created() {
-    axios.get('http://127.0.0.1:4523/mock/831624/course/get_all_courses')
+    axios.get('/course/get_all_courses')
     .then((response)=>{
       const code = response.status;
       if (code === 200){
