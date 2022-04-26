@@ -71,6 +71,7 @@ def comments():
     for i in comments:
         user = UserProfile.query.filter_by(user_email=i.user_email).first()
         dic = {
+            "comment_id": i.cmt_id,
             "user_name" : user.user_name,
             "user_email": i.user_email,
             "content": i.content,
@@ -114,6 +115,7 @@ def publish_comment():
 @bp.route('/like/comment', methods=['GET', 'POST'])
 def like():
     data = request.get_json(silent=True)
+    print(data)
     comment_id = data['comment_id']
     comment = Comment.query.filter_by(cmt_id=comment_id).first()
     comment.like = comment.like + 1

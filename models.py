@@ -97,15 +97,12 @@ class Course(db.Model):
     front_id = db.Column(db.Integer, nullable=True)
     user_email = db.Column(db.VARCHAR(50), nullable=True)
 
-    """def __init__(self, course_name, teacher, classroom, course_color, x, y, front_id, user_email, course_id):
-        self.course_name = course_name
+
+    def __init__(self, id,classroom,teacher,course_name):
+        self.id = id
         self.teacher = teacher
         self.classroom = classroom
-        self.course_color = course_color
-        self.x = x
-        self.y = y
-        self.front_id = front_id
-        self.user_email = user_email
-        self.course_id = course_id"""
+        # self.course_color = course_color
+        self.course_name = course_name
 
 

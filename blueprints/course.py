@@ -23,18 +23,19 @@ def move_course():
 @bp.route('/course/insert',methods=['POST','GET'])
 @login_required
 def insert_course():
-    data = request.get_json()
-    id = Course.course_id
+    data = request.get_json(silent=True)
+    print(data)
+    id = Course.id
     front_id = data["course_id"]
     current_user_email = current_user.user_email
     classroom = data["classroom"]
     teacher = data["teacher"]
-    course_name = data["course_name"]
-    course_color = data["course_color"]
+    course_name = data["course_title"]
+    # course_color = data["course_color"]
 
-    course = Course(id,classroom,teacher,course_name,course_color)
+    course = Course(id,classroom,teacher,course_name)
     sql = Course.front_id ==front_id and Course.user_email==current_user_email
-    db.session.query(Course).filter_by(sql).update(course)
+    db.session.query(Course).filter(sql).update(course)
     db.session.commit()
 
     return {"success":200}
