@@ -72,7 +72,7 @@ export default {
         course_title: this.subject,
         classroom: this.classroom,
         teacher: this.lecturer,
-        course_color: this.color
+        course_color: this.colors
       })
       .then((response)=>{
         const code = response.status;
