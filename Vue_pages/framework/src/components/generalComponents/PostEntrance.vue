@@ -11,7 +11,7 @@
     <router-link class="section" :to="{path:'/sector',query:{typeName:this.type_name}}">{{ item.post_type_name }}</router-link>
   </div>
   <router-link class="postTitle" :to="{path:'/post',query:{postId:item.post_id}}">{{item.title}}</router-link>
-  <div class="postContent" :id="'postContent' + this.index"></div>
+  <div class="postContent" :id="'postContent' + this.index" v-html="this.item.content"></div>
   <div class="postToolBar">
     <router-link class="toolButton" id="comment" :to="{path:'/post',query:{postId:item.post_id}}">
       <div class="postIcon" id="commentIcon"></div>
@@ -64,11 +64,6 @@ export default {
       return 'width: ' + this.width + 'px';
     }
   },
-  created() {
-    const contentId = 'postContent' + this.$props.index;
-    const content = document.getElementById(contentId);
-    content.innerHTML = this.item.content;
-  }
 }
 </script>
 

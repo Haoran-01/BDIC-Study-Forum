@@ -25,8 +25,6 @@
                   <router-link :to="{path:'/create_post'}">Post</router-link>
               </div>
             </div>
-
-
           </nav>
       </div>
       <div class="posts">
@@ -43,7 +41,7 @@ export default {
   components:{SectionEntrance},
   data(){
     return{
-      typeName: this.$route.query.typeName,
+      typeName: '',
       items:[
 
       ]
