@@ -71,23 +71,23 @@ export default {
     return{
       item: [],
       commentData:[],
-      index:this.$route.params.postId,
+      index:this.$route.query.postId,
       content: {}
     }
   },
   created() {
     axios.get('/forum/post',{
-      post_id:this.$route.params.postId
+      post_id:this.$route.query.postId
     }).then((response) => {
       this.$data.item=response.data.data;
       this.item = this.item[0]
-      this.item.post_id=this.$route.params.postId
+      this.item.post_id=this.$route.query.postId
     }).catch(function (error) {
       console.log(error);
     });
 
     axios.get('/forum/post/comments',{
-      post_id:this.$route.params.postId
+      post_id:this.$route.query.postId
     }).then((response) => {
       this.commentData=response.data.comments;
     }).catch(function (error) {

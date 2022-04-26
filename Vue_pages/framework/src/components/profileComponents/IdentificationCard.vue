@@ -73,7 +73,7 @@ export default {
     }
   },
   created() {
-    this.hostEmail=this.$route.params.email;
+    this.hostEmail=this.$route.query.email;
     axios.get('/get_session')
         .then((response) => {
           this.accessEmail=response.data.message;
@@ -174,9 +174,10 @@ export default {
   }
 
   .changeButton{
-    background-color: blue;
+    background-color: rgba(92, 92, 184, 0);
     height: 30px;
     width: 30px;
+    border: none;
   }
 
 

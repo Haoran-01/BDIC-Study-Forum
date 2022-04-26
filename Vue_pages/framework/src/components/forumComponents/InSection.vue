@@ -14,10 +14,10 @@
             <div class="girdNav">
               <div class="FirstChoice">
                 <div class="choice">
-                  <router-link :to="{path:'/new',query:this.$route.params.typeName}" @click="sendSectionRequirement">New</router-link>
+                  <router-link :to="{path:'/new',query:this.$route.query.typeName}" @click="sendSectionRequirement">New</router-link>
                 </div>
                 <div class="choice">
-                  <router-link :to="{path:'/hot',query:this.$route.params.typeName}">Hot</router-link>
+                  <router-link :to="{path:'/hot',query:this.$route.query.typeName}">Hot</router-link>
                 </div>
               </div>
               <div class="blank"></div>
@@ -55,7 +55,7 @@ export default {
   },
   created() {
     axios.get('/forum/section_detail',{
-      type_name:this.$route.params.typeName
+      type_name:this.$route.query.typeName
     }).then((response) => {
       this.items=response.data.data;
     }).catch(function (error) {

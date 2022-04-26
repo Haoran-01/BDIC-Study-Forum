@@ -39,7 +39,7 @@ export default {
   },
   created() {
     axios.get('/profile/my_post', {
-      email: this.$route.params.email
+      email: this.$route.query.email
     })
         .then((response) =>{
           const code = response.status;

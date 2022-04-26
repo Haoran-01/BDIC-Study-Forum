@@ -6,10 +6,10 @@
       <div class="navigator">
         <nav class="nav">
           <div class="choice">
-            <router-link :to="{path:'/posts',query:this.$route.params.email}">My posts</router-link>
+            <router-link :to="{path:'/posts',query:this.$route.query.email}">My posts</router-link>
           </div>
           <div class="choice">
-            <router-link :to="{path:'/favourite',query:this.$route.params.email}">My favourite</router-link>
+            <router-link :to="{path:'/favourite',query:this.$route.query.email}">My favourite</router-link>
           </div>
         </nav>
       </div>

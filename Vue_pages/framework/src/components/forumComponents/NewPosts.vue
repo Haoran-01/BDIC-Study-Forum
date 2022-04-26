@@ -29,7 +29,7 @@ export default {
   },
   created() {
     axios.get('/forum/section/get_new_posts', {
-      type_name: this.$route.params.typeName
+      type_name: this.$route.query.typeName
     })
         .then((response) =>{
           const code = response.status;

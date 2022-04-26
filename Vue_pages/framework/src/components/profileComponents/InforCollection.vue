@@ -28,7 +28,7 @@ export default {
     }
   },
   created() {
-    this.currentEmail=this.$route.params.email;
+    this.currentEmail=this.$route.query.email;
 
     axios.get('/profile', {
       user_email:this.currentEmail
