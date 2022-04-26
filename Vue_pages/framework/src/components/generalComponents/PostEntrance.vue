@@ -67,7 +67,7 @@ export default {
   created() {
     const contentId = 'postContent' + this.$props.index;
     const content = document.getElementById(contentId);
-    content.innerHTML = item.content;
+    content.innerHTML = this.item.content;
   }
 }
 </script>
