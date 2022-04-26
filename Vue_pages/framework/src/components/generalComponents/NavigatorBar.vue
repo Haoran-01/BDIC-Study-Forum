@@ -12,7 +12,7 @@
         <div class="navLinkDecoration"></div>
       </div>
       <div class="navItem">
-        <router-link class="navLink" id="courseSchedule" :to="{name:'courseSchedule',params:{email:this.userEmail}}" Style="cursor:pointer;">Course</router-link>
+        <router-link class="navLink" id="courseSchedule" to="/" Style="cursor:pointer;">Course</router-link>
         <div class="navLinkDecoration"></div>
       </div>
     </nav>

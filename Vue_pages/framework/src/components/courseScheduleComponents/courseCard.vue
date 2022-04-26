@@ -43,6 +43,7 @@ import { Sketch } from '@ckpack/vue-color';
 import axios from "axios";
 import {useToast} from "vue-toastification";
 import "vue-toastification/dist/index.css";
+import {toRaw} from "@vue/reactivity";
 
 export default {
   setup(){
@@ -66,7 +67,7 @@ export default {
   },
   methods:{
     handleClose(){
-      axios.post('changed', {
+      axios.post('http://127.0.0.1:4523/mock2/831624/17446677', {
         course_id: this.id,
         course_title: this.subject,
         classroom: this.classroom,
@@ -82,14 +83,18 @@ export default {
     }
   },
   created() {
-    axios.get('get_one')
+    axios.get('http://127.0.0.1:4523/mock/831624/course', {
+      courseId : this.id
+    })
         .then((response)=>{
           const code = response.status;
           if (code === 200){
-            this.subject = response.data.course_id;
-            this.classroom = response.data.classroom;
-            this.lecturer = response.data.teacher;
-            this.color = response.data.course_color;
+            let data = toRaw(response.data)
+            console.log(data)
+            this.subject = data.course_title;
+            this.classroom = data.classroom;
+            this.lecturer = data.teacher;
+            this.color = data.course_color;
           }
         })
   }

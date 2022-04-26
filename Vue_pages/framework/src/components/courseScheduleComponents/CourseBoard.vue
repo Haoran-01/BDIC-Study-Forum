@@ -40,6 +40,7 @@ import courseCard from "@/components/courseScheduleComponents/courseCard";
 import axios from "axios";
 import {useToast} from "vue-toastification";
 import "vue-toastification/dist/index.css";
+import {shallowRef} from "@vue/reactivity"
 
 export default {
   setup(){
@@ -50,10 +51,8 @@ export default {
   components:{GridLayout, GridItem, courseCard},
   data(){
     return{
-      rawData:{},
-      layout: [
-
-      ]
+      rawData:[],
+      layout: []
     }
   },
   mounted() {
@@ -61,12 +60,12 @@ export default {
     this.index = this.layout.length;
   },
   created() {
-    axios.get('get_course')
+    axios.get('http://127.0.0.1:4523/mock/831624/course/get_all_courses')
     .then((response)=>{
       const code = response.status;
       if (code === 200){
-        this.rawData = response.data
-        // this.setLayout()
+        this.rawData = shallowRef(response.data);
+        this.layout = (this.setLayout());
       }
     })
   },
@@ -86,7 +85,7 @@ export default {
     removeItem: function (val) {
       const index = this.layout.map(item => item.i).indexOf(val);
       this.layout.splice(index, 1);
-      axios.post('delete', {
+      axios.post('http://127.0.0.1:4523/mock2/831624/18087467', {
         course_id: val
       })
       .then((response)=>{
@@ -97,7 +96,7 @@ export default {
       })
     },
     moveEvent(i, newX, newY){
-      axios.post('moved', {
+      axios.post('http://127.0.0.1:4523/mock2/831624/18093937', {
         course_id: i,
         x: newX,
         y: newY
@@ -108,12 +107,25 @@ export default {
           this.tip.info('Change saved successfully.');
         }
       })
+    },
+    setLayout(){
+      let newAllData = [];
+      let length = this.rawData.data.length;
+      for (let i = 0; i < length; i++){
+        let newData = {
+          "x": this.rawData.data[i].x,
+          "y": this.rawData.data[i].y,
+          "w": 1,
+          "h": 1,
+          "i": this.rawData.data[i].course_id
+        }
+        newAllData.push(newData);
+      }
+      return newAllData;
     }
   },
   computed:{
-/*    setLayout(){
 
-    }*/
   }
 }
 </script>
