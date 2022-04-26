@@ -87,7 +87,7 @@ class Comment(db.Model):
 #课表
 class Course(db.Model):
     __tablename__ = 'course'
-    course_id = db.Column(db.Integer, primary_key= True, autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     classroom = db.Column(db.VARCHAR(50), nullable=True)
     teacher = db.Column(db.VARCHAR(50), nullable=True)
     course_name = db.Column(db.VARCHAR(50), nullable=True)
@@ -97,7 +97,7 @@ class Course(db.Model):
     front_id = db.Column(db.Integer, nullable=True)
     user_email = db.Column(db.VARCHAR(50), nullable=True)
 
-    def __init__(self, course_name, teacher, classroom, course_color, x, y, front_id, user_email):
+    """def __init__(self, course_name, teacher, classroom, course_color, x, y, front_id, user_email, course_id):
         self.course_name = course_name
         self.teacher = teacher
         self.classroom = classroom
@@ -106,4 +106,6 @@ class Course(db.Model):
         self.y = y
         self.front_id = front_id
         self.user_email = user_email
+        self.course_id = course_id"""
+
 
