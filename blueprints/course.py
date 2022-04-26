@@ -7,26 +7,24 @@ from flask_login import login_required,current_user
 
 bp = Blueprint("course",__name__,url_prefix="/")
 
-@bp.route('/course',methods=['POST','GET'])
+@bp.route('/course/move',methods=['POST','GET'])
 def move_course():
     data = request.get_json()
-    course_id = Course.course_id
     front_id = data["course_id"]
     x = data["x"]
     y = data["y"]
-    move_course = Course(course_id, None, None, None, None, x, y, front_id)
-    print(move_course)
+    course = Course(x=x, y=y, front_id=front_id)
 
-    db.session.add(move_course)
+    db.session.add(course)
     db.session.commit()
 
     return {"success":200}
 
-@bp.route('/course/insert2',methods=['POST','GET'])
+@bp.route('/course/insert',methods=['POST','GET'])
 @login_required
 def insert_course():
     data = request.get_json()
-    course_id = Course.course_id
+    id = Course.course_id
     front_id = data["course_id"]
     current_user_email = current_user.user_email
     classroom = data["classroom"]
@@ -34,7 +32,7 @@ def insert_course():
     course_name = data["course_name"]
     course_color = data["course_color"]
 
-    course = Course(course_id,classroom,teacher,course_name,course_color)
+    course = Course(id,classroom,teacher,course_name,course_color)
     sql = Course.front_id ==front_id and Course.user_email==current_user_email
     db.session.query(Course).filter_by(sql).update(course)
     db.session.commit()
