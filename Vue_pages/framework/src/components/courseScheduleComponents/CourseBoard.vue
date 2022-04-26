@@ -85,7 +85,7 @@ export default {
     removeItem: function (val) {
       const index = this.layout.map(item => item.i).indexOf(val);
       this.layout.splice(index, 1);
-      axios.post('http://127.0.0.1:4523/mock2/831624/18087467', {
+      axios.post('/course/delete', {
         course_id: val
       })
       .then((response)=>{
@@ -96,7 +96,7 @@ export default {
       })
     },
     moveEvent(i, newX, newY){
-      axios.post('http://127.0.0.1:4523/mock2/831624/18093937', {
+      axios.post('/course/insert1', {
         course_id: i,
         x: newX,
         y: newY
