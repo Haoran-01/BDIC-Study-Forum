@@ -14,10 +14,10 @@
             <div class="girdNav">
               <div class="FirstChoice">
                 <div class="choice">
-                  <router-link :to="{path:'/new',query:this.$route.query.typeName}" @click="sendSectionRequirement">New</router-link>
+                  <router-link :to="{path:'/sector/new',query:this.$route.query.typeName}" @click="sendSectionRequirement">New</router-link>
                 </div>
                 <div class="choice">
-                  <router-link :to="{path:'/hot',query:this.$route.query.typeName}">Hot</router-link>
+                  <router-link :to="{path:'/sector/hot',query:this.$route.query.typeName}">Hot</router-link>
                 </div>
               </div>
               <div class="blank"></div>

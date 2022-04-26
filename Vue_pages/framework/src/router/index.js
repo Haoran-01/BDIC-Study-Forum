@@ -20,12 +20,12 @@ const routes = [
     // },
     children:[
       {
-        path:'/posts',
+        path:'/profile/posts',
         name:'posts',
         component: () => import(/* webpackChunkName: "posts" */ '../components/profileComponents/MyPost.vue')
       },
       {
-        path:'/favourite',
+        path:'/profile/favourite',
         name:'favourite',
         component: () => import(/* webpackChunkName: "favourite" */ '../components/profileComponents/MyFavourite.vue')
       }
@@ -55,12 +55,12 @@ const routes = [
     // },
     children: [
       {
-        path:"/new",
+        path:"/sector/new",
         name:"new",
         component: () => import(/* webpackChunkName: "new" */ '../components/forumComponents/NewPosts')
       },
       {
-        path: "/hot",
+        path: "/sector/hot",
         name: "hot",
         component: () => import(/* webpackChunkName: "sector" */ '../components/forumComponents/HotPosts')
       }
