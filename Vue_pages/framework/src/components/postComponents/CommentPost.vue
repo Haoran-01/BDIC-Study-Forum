@@ -1,10 +1,10 @@
 <template>
   <div class="FrameWork">
     <div class="topBar">
-      <router-link :to="{name:'profile',params:{email:item.user_email}}">
+      <router-link :to="{path:'/profile',query:{email:item.user_email}}">
         <img :src=item.user_image class="headImage">
       </router-link>
-      <router-link :to="{name:'profile',params:{email:item.user_email}}">
+      <router-link :to="{path:'/profile',query:{email:item.user_email}}">
         <span class="userName">{{item.user_name}}</span>
       </router-link>
       <span class="point">·</span>

@@ -13,7 +13,7 @@
         </div>
         <div class="sideBar">
           <top-section-list></top-section-list>
-          <user-activity-card></user-activity-card>
+          <user-activity-card v-if="userLogined"></user-activity-card>
         </div>
       </div>
     </div>
@@ -53,6 +53,7 @@ export default {
   data() {
     return {
       cookieVisibility: true,
+      userLogined: false,
       postData:[
           // {
           //   userName: 'Jerry',
@@ -162,9 +163,11 @@ export default {
         .catch(function (error) {
           console.log(error);
         })
+    const vue = this;
+    this.userLogined = vue.$store.state.loginState;
   },
   mounted() {
-    window.addEventListener('scroll', this.checkMainFunctionsPosition, true)
+    window.addEventListener('scroll', this.checkMainFunctionsPosition, true);
   },
   unmounted() {
     window.removeEventListener('scroll', this.checkMainFunctionsPosition, true)

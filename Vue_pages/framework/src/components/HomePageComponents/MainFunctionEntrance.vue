@@ -3,7 +3,7 @@
     <router-link class="entrance" id = "forum" to="/forum">
       <div class="entranceText">Forum</div>
     </router-link>
-    <router-link class="entrance" id="courseSchedule" to="/course_schedule">
+    <router-link class="entrance" id="courseSchedule" :to="{path:'/course_schedule',query:{email:getEmail}}">
       <div class="entranceText">Course<br/>Schedule</div>
     </router-link>
     <div class="entrance" id="comingSoon">
@@ -14,7 +14,17 @@
 
 <script>
 export default {
-  name: "MainFunctionEntrance"
+  name: "MainFunctionEntrance",
+  data(){
+    return{
+      email: ''
+    }
+  },
+  computed:{
+    getEmail(){
+      return this.$store.state.userEmail;
+    }
+  }
 }
 </script>
 

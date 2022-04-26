@@ -9,23 +9,23 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/profile/:email',
+    path: '/profile',
     name: 'profile',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "profile" */ '../views/ProfileView.vue'),
-    redirect: to =>{
-      return to.path + '/posts'
-    },
+    // redirect: to =>{
+    //   return to.path + '/posts'
+    // },
     children:[
       {
-        path:'posts',
+        path:'/posts',
         name:'posts',
         component: () => import(/* webpackChunkName: "posts" */ '../components/profileComponents/MyPost.vue')
       },
       {
-        path:'favourite',
+        path:'/favourite',
         name:'favourite',
         component: () => import(/* webpackChunkName: "favourite" */ '../components/profileComponents/MyFavourite.vue')
       }
@@ -47,27 +47,27 @@ const routes = [
     component: () => import(/* webpackChunkName: "forum" */ '../views/CourseScheduleView')
   },
   {
-    path: "/sector/:typeName",
+    path: "/sector",
     name: "sector",
     component: () => import(/* webpackChunkName: "sector" */ '../components/forumComponents/InSection.vue'),
-    redirect: to =>{
-      return to.path + '/new'
-    },
+    // redirect: to =>{
+    //   return to.path + '/new'
+    // },
     children: [
       {
-        path:"new",
+        path:"/new",
         name:"new",
         component: () => import(/* webpackChunkName: "new" */ '../components/forumComponents/NewPosts')
       },
       {
-        path: "hot",
+        path: "/hot",
         name: "hot",
         component: () => import(/* webpackChunkName: "sector" */ '../components/forumComponents/HotPosts')
       }
     ]
   },
   {
-    path: "/post/:postId",
+    path: "/post",
     name: "post",
     component: () => import(/* webpackChunkName: "post" */ '../components/postComponents/InPost.vue')
   }

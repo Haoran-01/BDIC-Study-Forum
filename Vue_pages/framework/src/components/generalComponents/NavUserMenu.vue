@@ -4,7 +4,7 @@
     <div class="menuItemIcon" id="createPostIcon"></div>
     <div class="menuItemText"> New Post </div>
   </router-link>
-  <router-link class="menuItem" :to="{name:'profile',params:{email:this.emailId}}">
+  <router-link class="menuItem" :to="{path:'profile',query:{email:this.emailId}}">
     <div class="menuItemIcon" id="profileIcon"></div>
     <div class="menuItemText"> Profile </div>
   </router-link>

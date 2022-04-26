@@ -1,19 +1,19 @@
 <template>
 <div class="postEntranceFrame" :style="setWidth">
   <div class="topBar">
-    <router-link  :to="{name:'profile',params:{email:item.user_email}}">
+    <router-link  :to="{path:'/profile',query:{email:item.user_email}}">
       <img class="headImage" :src=this.item.picture_url >
     </router-link>
-    <router-link  :to="{name:'profile',params:{email:item.user_email}}">
+    <router-link  :to="{path:'/profile',query:{email:item.user_email}}">
     <span class="userName">{{ item.user_name }}</span>
     </router-link>
     <span class="point">·</span>
-    <router-link class="section" :to="{name:'sector',params:{typeName:this.type_name}}">{{ item.post_type_name }}</router-link>
+    <router-link class="section" :to="{path:'/sector',query:{typeName:this.type_name}}">{{ item.post_type_name }}</router-link>
   </div>
-  <router-link class="postTitle" :to="{name:'post',params:{postId:item.post_id}}">{{item.title}}</router-link>
+  <router-link class="postTitle" :to="{path:'/post',query:{postId:item.post_id}}">{{item.title}}</router-link>
   <div class="postImage">{{item.content}}</div>
   <div class="postToolBar">
-    <router-link class="toolButton" id="comment" :to="{name:'post',params:{postId:item.post_id}}">
+    <router-link class="toolButton" id="comment" :to="{path:'/post',query:{postId:item.post_id}}">
       <div class="postIcon" id="commentIcon"></div>
       <span class="toolText" id="commentNumber">{{ item.comments_number }} Comments</span>
     </router-link>
