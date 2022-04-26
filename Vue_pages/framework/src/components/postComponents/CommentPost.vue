@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "CommentPost",
   props:[
@@ -42,8 +44,9 @@ export default {
       if (likeButton.getAttribute('class') === 'Like'){
         likeButton.setAttribute('class', 'LikeActivated');
         this.like = this.like + 1;
-        /*axios.post('')
-        .then()*/
+        axios.post('/forum/like/comment', {
+          comment_id: this.item.comment_id
+        })
       }else {
         likeButton.setAttribute('class', 'Like');
         this.like = this.like - 1;
