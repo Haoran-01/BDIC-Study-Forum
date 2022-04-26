@@ -5,7 +5,7 @@
      <div class="changeSection">
        <button type="button" class="changeButton" @click="showModal=true">
        </button>
-       <Modal v-model="showModal" title="Change Detail" :modalStyle="'max-width: 600px'">
+       <Modal v-model="showModal" title="Change Detail" :modalStyle="'max-width: 600px'" @beforeClose="handleClose">
          <div class="modalFrame">
            <div class="subjectArea">
              <label class="modalInputText">Subject</label>
@@ -40,21 +40,63 @@
 import VueModal from '@kouts/vue-modal'
 import '@kouts/vue-modal/dist/vue-modal.css'
 import { Sketch } from '@ckpack/vue-color';
+import axios from "axios";
+import {useToast} from "vue-toastification";
+import "vue-toastification/dist/index.css";
+import {toRaw} from "@vue/reactivity";
 
 export default {
+  setup(){
+    const tip = useToast();
+    return {tip};
+  },
   name: "courseCard",
   components: {
     'Modal': VueModal,
     Sketch,
   },
+  props:['id'],
   data() {
     return {
       showModal: false,
       subject: "Subject",
       classroom: "",
       lecturer: "",
-      colors: ''
+      colors: '',
     }
+  },
+  methods:{
+    handleClose(){
+      axios.post('http://127.0.0.1:4523/mock2/831624/17446677', {
+        course_id: this.id,
+        course_title: this.subject,
+        classroom: this.classroom,
+        teacher: this.lecturer,
+        course_color: this.color
+      })
+      .then((response)=>{
+        const code = response.status;
+        if (code === 200){
+          this.tip.info('Change saved successfully.');
+        }
+      })
+    }
+  },
+  created() {
+    axios.get('http://127.0.0.1:4523/mock/831624/course', {
+      courseId : this.id
+    })
+        .then((response)=>{
+          const code = response.status;
+          if (code === 200){
+            let data = toRaw(response.data)
+            console.log(data)
+            this.subject = data.course_title;
+            this.classroom = data.classroom;
+            this.lecturer = data.teacher;
+            this.color = data.course_color;
+          }
+        })
   }
 }
 </script>

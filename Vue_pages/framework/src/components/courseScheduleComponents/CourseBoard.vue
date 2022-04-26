@@ -11,8 +11,9 @@
       :vertical-compact="false"
       :margin="[0, 0]"
       :use-css-transforms="true"
-      preventCollision="false"
+      :preventCollision="true"
     >
+
     <grid-item v-for="item in layout"
        :x="item.x"
        :y="item.y"
@@ -21,8 +22,9 @@
        :i="item.i"
        :key="item.i"
        :maxW="1"
+       @moved="moveEvent"
     >
-      <course-card class="courseCard"></course-card> <!--把你的标签写这里-->
+      <course-card class="courseCard" v-bind="item.i"></course-card> <!--把你的标签写这里-->
       <div class="remove" @click="removeItem(item.i)">
 
       </div>
@@ -35,21 +37,37 @@
 <script>
 import {GridLayout, GridItem} from 'vue3-grid-layout'
 import courseCard from "@/components/courseScheduleComponents/courseCard";
-// import axios from "axios";
+import axios from "axios";
+import {useToast} from "vue-toastification";
+import "vue-toastification/dist/index.css";
+import {shallowRef} from "@vue/reactivity"
 
 export default {
+  setup(){
+    const tip = useToast();
+    return {tip};
+  },
   name: "CourseBoard",
   components:{GridLayout, GridItem, courseCard},
   data(){
     return{
-      layout: [
-
-      ]
+      rawData:[],
+      layout: []
     }
   },
   mounted() {
     // this.$gridlayout.load();
     this.index = this.layout.length;
+  },
+  created() {
+    axios.get('http://127.0.0.1:4523/mock/831624/course/get_all_courses')
+    .then((response)=>{
+      const code = response.status;
+      if (code === 200){
+        this.rawData = shallowRef(response.data);
+        this.layout = (this.setLayout());
+      }
+    })
   },
   methods: {
     addItem: function () {
@@ -63,20 +81,51 @@ export default {
       });
       // Increment the counter to ensure key is always unique.
       this.index++;
-
-      console.log(this.layout);
     },
     removeItem: function (val) {
       const index = this.layout.map(item => item.i).indexOf(val);
       this.layout.splice(index, 1);
-
-      console.log(this.layout);
-    },
-/*    moveEvent(){
-      axios.post('', {
-        x:
+      axios.post('http://127.0.0.1:4523/mock2/831624/18087467', {
+        course_id: val
       })
-    }*/
+      .then((response)=>{
+        const code = response.status;
+        if (code === 200){
+          this.tip.info('Delete successfully.');
+        }
+      })
+    },
+    moveEvent(i, newX, newY){
+      axios.post('http://127.0.0.1:4523/mock2/831624/18093937', {
+        course_id: i,
+        x: newX,
+        y: newY
+      })
+      .then((response)=>{
+        const code = response.status;
+        if (code === 200){
+          this.tip.info('Change saved successfully.');
+        }
+      })
+    },
+    setLayout(){
+      let newAllData = [];
+      let length = this.rawData.data.length;
+      for (let i = 0; i < length; i++){
+        let newData = {
+          "x": this.rawData.data[i].x,
+          "y": this.rawData.data[i].y,
+          "w": 1,
+          "h": 1,
+          "i": this.rawData.data[i].course_id
+        }
+        newAllData.push(newData);
+      }
+      return newAllData;
+    }
+  },
+  computed:{
+
   }
 }
 </script>

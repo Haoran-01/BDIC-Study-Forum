@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkframework"]=self["webpackChunkframework"]||[]).push([[287],{3853:function(r,n,e){e.r(n),e.d(n,{default:function(){return s}});var t=e(6252);function u(r,n,e,u,a,f){return(0,t.wg)(),(0,t.iD)("div",null," My Post ")}var a={name:"MyPost"},f=e(3744);const o=(0,f.Z)(a,[["render",u]]);var s=o}}]);
+//# sourceMappingURL=posts.1794e81a.js.map

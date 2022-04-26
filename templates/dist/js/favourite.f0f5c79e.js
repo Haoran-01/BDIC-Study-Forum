@@ -1,2 +1,0 @@
-"use strict";(self["webpackChunkframework"]=self["webpackChunkframework"]||[]).push([[962],{155:function(r,e,n){n.r(e),n.d(e,{default:function(){return o}});var u=n(252);function a(r,e,n,a,t,f){return(0,u.wg)(),(0,u.iD)("div",null," My Favourite ")}var t={name:"MyFavourite"},f=n(744);const i=(0,f.Z)(t,[["render",a]]);var o=i}}]);
-//# sourceMappingURL=favourite.f0f5c79e.js.map
