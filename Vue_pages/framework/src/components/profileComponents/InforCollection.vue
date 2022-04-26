@@ -31,7 +31,9 @@ export default {
     this.currentEmail=this.$route.query.email;
 
     axios.get('/profile', {
-      user_email:this.currentEmail
+      params:{
+        user_email:this.currentEmail
+      }
     }).then((response) => {
       this.currentName=response.data.user_name;
     })

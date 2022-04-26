@@ -84,7 +84,9 @@ export default {
   },
   created() {
     axios.get('/course/query_single_course', {
-      courseId : this.id
+      params:{
+        courseId : this.id
+      }
     })
         .then((response)=>{
           const code = response.status;

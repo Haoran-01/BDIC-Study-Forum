@@ -130,7 +130,9 @@ export default {
     });
 
     axios.get('/profile', {
-      user_email:this.UserEmail
+      params:{
+        user_email:this.UserEmail
+      }
     })
       .then((response) => {
         this.Username=response.data.user_name;

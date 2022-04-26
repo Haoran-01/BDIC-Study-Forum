@@ -29,7 +29,9 @@ export default {
   },
   created() {
     axios.get('/forum/section/get_hot_posts', {
-      type_name: this.$route.query.typeName
+      params:{
+        type_name: this.$route.query.typeName
+      }
     })
         .then((response) =>{
           const code = response.status;

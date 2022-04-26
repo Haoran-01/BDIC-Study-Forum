@@ -55,7 +55,9 @@ export default {
   },
   created() {
     axios.get('/forum/section_detail',{
-      type_name:this.$route.query.typeName
+      params:{
+        type_name:this.$route.query.typeName
+      }
     }).then((response) => {
       this.items=response.data.data;
     }).catch(function (error) {

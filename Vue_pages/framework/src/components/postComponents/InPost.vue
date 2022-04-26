@@ -77,7 +77,9 @@ export default {
   },
   created() {
     axios.get('/forum/post',{
-      post_id:this.$route.query.postId
+      params:{
+        post_id:this.$route.query.postId
+      }
     }).then((response) => {
       this.$data.item=response.data.data;
       this.item = this.item[0]
@@ -87,7 +89,9 @@ export default {
     });
 
     axios.get('/forum/post/comments',{
-      post_id:this.$route.query.postId
+      params:{
+        post_id:this.$route.query.postId
+      }
     }).then((response) => {
       this.commentData=response.data.comments;
     }).catch(function (error) {
