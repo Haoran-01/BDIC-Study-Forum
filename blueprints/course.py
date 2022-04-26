@@ -21,21 +21,20 @@ def move_course():
     return {"success":200}
 
 @bp.route('/course/insert',methods=['POST','GET'])
-@login_required
+#@login_required
 def insert_course():
-    data = request.get_json(silent=True)
-    print(data)
-    id = Course.id
+    data = request.get_json()
+    #id = Course.course_id
     front_id = data["course_id"]
-    current_user_email = current_user.user_email
+    user_email = current_user.user_email
+    #user_email = "2769059069@qq.com"
     classroom = data["classroom"]
     teacher = data["teacher"]
-    course_name = data["course_title"]
-    # course_color = data["course_color"]
+    course_name = data["course_name"]
+    #course_color = data["course_color"]
 
-    course = Course(id,classroom,teacher,course_name)
-    sql = Course.front_id ==front_id and Course.user_email==current_user_email
-    db.session.query(Course).filter(sql).update(course)
+    sql = Course.front_id ==front_id and Course.user_email==user_email
+    db.session.query(Course).filter(sql).update({"classroom":"classroom","teacher":"teacher","course_name":"course_name","user_email":"user_email"})
     db.session.commit()
 
     return {"success":200}
@@ -59,7 +58,9 @@ def query_single_course():
     current_user_email = current_user.user_email
     sql = Course.front_id == front_id and Course.user_email == current_user_email
     single_course = db.session.query(Course).filter(sql)
-    return jsonify({'classroom':single_course.classroom, 'teacher': single_course.teacher, 'course_name':single_course.course_name, 'course_color':single_course.course_color})
+    #return jsonify({'classroom':single_course.classroom, 'teacher': single_course.teacher, 'course_name':single_course.course_name, 'course_color':single_course.course_color})
+    return jsonify({'classroom':single_course.classroom, 'teacher': single_course.teacher, 'course_name':single_course.course_name})
+
 
 @bp.route('/course/user_all_course',methods=['POST','GET'])
 def user_all_course():
