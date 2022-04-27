@@ -35,7 +35,7 @@ def insert_course():
     #course_color = data["course_color"]
 
     sql = Course.front_id ==front_id and Course.user_email==user_email
-    db.session.query(Course).filter(sql).update({"classroom":"classroom","teacher":"teacher","course_name":"course_name","user_email":"user_email"})
+    db.session.query(Course).filter(sql).update({"classroom":classroom,"teacher":teacher,"course_name":course_name,"user_email":user_email})
     db.session.commit()
 
     return {"success":200}
