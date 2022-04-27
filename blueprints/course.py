@@ -30,7 +30,8 @@ def insert_course():
     #user_email = "2769059069@qq.com"
     classroom = data["classroom"]
     teacher = data["teacher"]
-    course_name = data["course_name"]
+    # 前端写成title了，先改成这样
+    course_name = data["course_title"]
     #course_color = data["course_color"]
 
     sql = Course.front_id ==front_id and Course.user_email==user_email
