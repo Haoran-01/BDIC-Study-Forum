@@ -71,23 +71,27 @@ export default {
     return{
       item: [],
       commentData:[],
-      index:this.$route.params.postId,
+      index:this.$route.query.postId,
       content: {}
     }
   },
   created() {
     axios.get('http://127.0.0.1:4523/mock/831624/forum/post',{
-      post_id:this.$route.params.postId
+      params:{
+        post_id:this.$route.query.postId
+      }
     }).then((response) => {
       this.$data.item=response.data.data;
       this.item = this.item[0]
-      this.item.post_id=this.$route.params.postId
+      this.item.post_id=this.$route.query.postId
     }).catch(function (error) {
       console.log(error);
     });
 
     axios.get('http://127.0.0.1:4523/mock/831624/forum/post/comments',{
-      post_id:this.$route.params.postId
+      params:{
+        post_id:this.$route.query.postId
+      }
     }).then((response) => {
       this.commentData=response.data.comments;
     }).catch(function (error) {

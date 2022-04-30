@@ -39,7 +39,9 @@ export default {
   },
   created() {
     axios.get('http://127.0.0.1:4523/mock/831624/profile/my_post?apifoxResponseId=36910546', {
-      email: this.$route.params.email
+      params:{
+        email: this.$route.query.email
+      }
     })
         .then((response) =>{
           const code = response.status;

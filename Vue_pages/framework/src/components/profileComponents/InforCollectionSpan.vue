@@ -130,7 +130,9 @@ export default {
     });
 
     axios.get('http://127.0.0.1:4523/mock/831624/profile', {
-      user_email:this.UserEmail
+      params:{
+        user_email:this.UserEmail
+      }
     })
       .then((response) => {
         this.Username=response.data.user_name;

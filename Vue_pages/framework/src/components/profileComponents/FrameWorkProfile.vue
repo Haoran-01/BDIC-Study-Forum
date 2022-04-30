@@ -6,10 +6,10 @@
       <div class="navigator">
         <nav class="nav">
           <div class="choice">
-            <router-link :to="{path:'/posts',query:this.$route.params.email}">My posts</router-link>
+            <router-link :to="{path:'/profile/posts',query:{email:this.email}}">My posts</router-link>
           </div>
           <div class="choice">
-            <router-link :to="{path:'/favourite',query:this.$route.params.email}">My favourite</router-link>
+            <router-link :to="{path:'/profile/favourite',query:{email:this.email}}">My favourite</router-link>
           </div>
         </nav>
       </div>
@@ -23,8 +23,16 @@
 import IdentificationCard from "@/components/profileComponents/IdentificationCard";
 export default {
   name: "FrameWorkProfile",
+  data(){
+    return{
+      email: ''
+    }
+  },
   components: {
     IdentificationCard
+  },
+  created() {
+    this.email = this.$route.query.email;
   }
 }
 

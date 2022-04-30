@@ -27,12 +27,7 @@ export default {
   },
   methods:{
     logOut(){
-/*      axios.post('', {
-        message: 'logout'
-      })
-      .catch(function (error){
-        console.log(error)
-      })*/
+      axios.get('/logout')
       window.location.assign(window.location.origin + '/user/login');
     }
   },
