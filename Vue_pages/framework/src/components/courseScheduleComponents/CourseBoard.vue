@@ -24,7 +24,7 @@
        :maxW="1"
        @moved="moveEvent"
     >
-      <course-card class="courseCard" v-bind="item.i"></course-card> <!--把你的标签写这里-->
+      <course-card class="courseCard" v-bind="{cid:item.i}"></course-card> <!--把你的标签写这里-->
       <div class="remove" @click="removeItem(item.i)">
 
       </div>

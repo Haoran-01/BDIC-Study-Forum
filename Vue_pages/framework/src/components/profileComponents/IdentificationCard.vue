@@ -9,7 +9,7 @@
           <CropperImage></CropperImage>
         </Modal>
       </div>
-      <div class="Otherselfie" v-if="IsHost">
+      <div class="Otherselfie" v-if="!IsHost">
         <InforCollection></InforCollection>
       </div>
       <div class="selfie" v-else>
@@ -21,7 +21,7 @@
         </transition>
       </div>
     </div>
-    <div class="directionBar" v-show="!IsHost">
+    <div class="directionBar" v-show="IsHost">
       <div class="part1">
         <button :class="animateButton" class="SpanButton" @click="HandleClick"></button>
       </div>
@@ -73,11 +73,17 @@ export default {
     }
   },
   created() {
-    this.hostEmail=this.$route.params.email;
-    axios.get('/get_session')
+    this.hostEmail=this.$route.query.email;
+    axios.get('http://127.0.0.1:4523/mock/831624/get_session')
         .then((response) => {
           this.accessEmail=response.data.message;
-          this.IsHost = this.hostEmail === this.accessEmail;
+          console.log(this.hostEmail);
+          console.log(this.accessEmail);
+          if (this.accessEmail != this.hostEmail){
+            this.IsHost=false;
+          }else {
+            this.IsHost=true;
+          }
         })
         .catch(function (error) {
           console.log(error);
@@ -174,9 +180,10 @@ export default {
   }
 
   .changeButton{
-    background-color: blue;
+    background-color: rgba(92, 92, 184, 0);
     height: 30px;
     width: 30px;
+    border: none;
   }
 
 

@@ -11,7 +11,7 @@
     <router-link class="section" :to="{path:'/sector',query:{typeName:this.type_name}}">{{ item.post_type_name }}</router-link>
   </div>
   <router-link class="postTitle" :to="{path:'/post',query:{postId:item.post_id}}">{{item.title}}</router-link>
-  <div class="postImage">{{item.content}}</div>
+  <div class="postContent" :id="'postContent' + this.index" v-html="this.item.content"></div>
   <div class="postToolBar">
     <router-link class="toolButton" id="comment" :to="{path:'/post',query:{postId:item.post_id}}">
       <div class="postIcon" id="commentIcon"></div>
@@ -22,7 +22,7 @@
       <span class="toolText" id="shareText">Share</span>
     </div>
     <div class="toolButton" id="favorite" @click="handleFavorite">
-      <div class="favoriteIcon" :id="index"></div>
+      <div class="favoriteIcon" :id="'favorite' + this.index"></div>
       <span class="toolText" id="favoriteText">Favorite</span>
     </div>
   </div>
@@ -48,7 +48,7 @@ export default {
       this.$emit('sendShareInfo');
     },
     handleFavorite(){
-      const id = this.$props.index;
+      const id = 'favorite' + this.$props.index;
       const favoriteIcon = document.getElementById(id);
       if (favoriteIcon.getAttribute('class') === 'favoriteIcon'){
         favoriteIcon.setAttribute('class', 'favoriteIconActivated');
@@ -63,7 +63,7 @@ export default {
     setWidth(){
       return 'width: ' + this.width + 'px';
     }
-  }
+  },
 }
 </script>
 
@@ -129,7 +129,7 @@ a{
   font-family: "Noto Sans", sans-serif;
   text-align: left;
 }
-.postImage {
+.postContent {
   grid-area: 3 / 2 / 4 / 3;
   text-align: left;
 }

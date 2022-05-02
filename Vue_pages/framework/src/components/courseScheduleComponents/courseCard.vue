@@ -55,7 +55,7 @@ export default {
     'Modal': VueModal,
     Sketch,
   },
-  props:['id'],
+  props:['cid'],
   data() {
     return {
       showModal: false,
@@ -67,12 +67,12 @@ export default {
   },
   methods:{
     handleClose(){
-      axios.post('/course/insert2', {
-        course_id: this.id,
+      axios.post('http://127.0.0.1:4523/mock2/831624/17446677', {
+        course_id: this.cid,
         course_title: this.subject,
         classroom: this.classroom,
         teacher: this.lecturer,
-        course_color: this.color
+        course_color: this.colors.hex
       })
       .then((response)=>{
         const code = response.status;
@@ -83,8 +83,10 @@ export default {
     }
   },
   created() {
-    axios.get('/course/query_single_course', {
-      courseId : this.id
+    axios.get('http://127.0.0.1:4523/mock/831624/course', {
+      params:{
+        courseId : this.id
+      }
     })
         .then((response)=>{
           const code = response.status;
