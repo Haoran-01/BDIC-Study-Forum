@@ -129,7 +129,7 @@ export default {
       console.log(error);
     });
 
-    axios.get('/profile', {
+    axios.get('http://127.0.0.1:4523/mock/831624/profile', {
       params:{
         user_email:this.UserEmail
       }

@@ -67,7 +67,7 @@ export default {
   },
   methods:{
     handleClose(){
-      axios.post('/course/insert', {
+      axios.post('http://127.0.0.1:4523/mock2/831624/17446677', {
         course_id: this.cid,
         course_title: this.subject,
         classroom: this.classroom,
@@ -83,7 +83,7 @@ export default {
     }
   },
   created() {
-    axios.get('/course/query_single_course', {
+    axios.get('http://127.0.0.1:4523/mock/831624/course', {
       params:{
         courseId : this.id
       }

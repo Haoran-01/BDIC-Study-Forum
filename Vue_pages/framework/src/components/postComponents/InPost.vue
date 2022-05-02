@@ -76,7 +76,7 @@ export default {
     }
   },
   created() {
-    axios.get('/forum/post',{
+    axios.get('http://127.0.0.1:4523/mock/831624/forum/post',{
       params:{
         post_id:this.$route.query.postId
       }
@@ -88,7 +88,7 @@ export default {
       console.log(error);
     });
 
-    axios.get('/forum/post/comments',{
+    axios.get('http://127.0.0.1:4523/mock/831624/forum/post/comments',{
       params:{
         post_id:this.$route.query.postId
       }
