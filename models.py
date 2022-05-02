@@ -58,7 +58,7 @@ class UserProfile(db.Model):
     user_name = db.Column(db.VARCHAR(200), nullable = False, unique=False)
     introduction = db.Column(db.VARCHAR(500), nullable = False, unique=False)
     user_email = db.Column(db.VARCHAR(200), primary_key = True, nullable=False, unique=True)
-    grade = db.Column(db.Integer, nullable=False)
+    grade = db.Column(db.VARCHAR(200), nullable=False)
     department = db.Column(db.VARCHAR(200), nullable = False, unique=False)
     major = db.Column(db.VARCHAR(200), nullable = False, unique=False)
     profile = db.Column(db.CHAR(200), nullable=False)
