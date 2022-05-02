@@ -22,10 +22,10 @@ def set_session():
     session['_user_id'] = data['user_email']
     return jsonify({'code':200})
 
-@bp.route('/get_session')
+@bp.route('/get_session',methods=['GET'])
 def get_session():
     if session.get("_user_id"):
         user_email = session.get('_user_id')
-        return jsonify({"code":200,"message":user_email})
+        return jsonify({"message":user_email}),200
     else:
-        return jsonify({"code":400})
+        return jsonify(status=400), 400

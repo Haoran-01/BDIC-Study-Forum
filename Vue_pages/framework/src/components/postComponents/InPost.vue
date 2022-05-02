@@ -50,7 +50,7 @@ export default {
       if (this.$refs.editor.getText() === '\n' || this.$refs.editor.getText() === ''){
         this.tip.error("Comment cannot be blank")
       }else {
-        axios.post('http://127.0.0.1:4523/mock/831624/forum/publish/post', {
+        axios.post('/forum/publish/comment', {
           content: this.content,
           post_id: this.item.post_id
         })

@@ -92,7 +92,7 @@ export default {
       this.$data.html = h;
     },
     sendPost(){
-      axios.post('http://127.0.0.1:4523/mock/831624/forum//publish/post', {
+      axios.post('/forum/publish/post', {
         section: this.sectionId,
         title: this.title,
         content: this.html

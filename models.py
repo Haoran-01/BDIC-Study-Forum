@@ -58,7 +58,7 @@ class UserProfile(db.Model):
     user_name = db.Column(db.VARCHAR(200), nullable = False, unique=False)
     introduction = db.Column(db.VARCHAR(500), nullable = False, unique=False)
     user_email = db.Column(db.VARCHAR(200), primary_key = True, nullable=False, unique=True)
-    grade = db.Column(db.Integer, nullable=False)
+    grade = db.Column(db.VARCHAR(200), nullable=False)
     department = db.Column(db.VARCHAR(200), nullable = False, unique=False)
     major = db.Column(db.VARCHAR(200), nullable = False, unique=False)
     profile = db.Column(db.CHAR(200), nullable=False)
@@ -91,21 +91,18 @@ class Course(db.Model):
     classroom = db.Column(db.VARCHAR(50), nullable=True)
     teacher = db.Column(db.VARCHAR(50), nullable=True)
     course_name = db.Column(db.VARCHAR(50), nullable=True)
-    course_color = db.Column(db.VARCHAR(50), nullable=True)
+    #course_color = db.Column(db.VARCHAR(50), nullable=True)
     x = db.Column(db.Integer, nullable=True)
     y = db.Column(db.Integer, nullable=True)
     front_id = db.Column(db.Integer, nullable=True)
     user_email = db.Column(db.VARCHAR(50), nullable=True)
 
-    """def __init__(self, course_name, teacher, classroom, course_color, x, y, front_id, user_email, course_id):
-        self.course_name = course_name
+
+    """def __init__(self, id,classroom,teacher,course_name):
+        self.id = id
         self.teacher = teacher
         self.classroom = classroom
-        self.course_color = course_color
-        self.x = x
-        self.y = y
-        self.front_id = front_id
-        self.user_email = user_email
-        self.course_id = course_id"""
+        # self.course_color = course_color
+        self.course_name = course_name"""
 
 
