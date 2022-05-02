@@ -179,7 +179,7 @@ footer{
     border-radius: 2px;
     width: 400px;
     height: 647px;
-    overflow: visible;
+    overflow: hidden;
     position: relative;
     /*将main块元素设置成position:relative*/
 }

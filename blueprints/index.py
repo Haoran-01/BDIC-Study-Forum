@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, jsonify
+from flask import Blueprint, request, render_template, jsonify, url_for
 from exts import db
 from models import PostModel, QuestionType, Comment
 import flask_login
@@ -64,7 +64,7 @@ def get_popular_type():
             "type_name": i.type_name,
             "today_comment": i.today_comment,
             # 需要有相对应的板块图片
-            "profile": "http://hzvgqyy.ni/occvggpean",
+            "type_picture": i.sector_image_url,
             "rank": i.rank
         }
         data.append(dict)
