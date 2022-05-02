@@ -58,7 +58,7 @@ def get_my_post():
             "post_type_name": QuestionType.query.filter_by(type_number=i.post_type).first().type_name,
             "post_id": i.id,
             "user_name": i.author.user_name,
-            "picture_url": "http://tncm.zm/psm",
+            "picture_url": UserProfile.query.filter_by(user_email=i.author_email).first().profile,
             "title": i.title,
             "user_email": i.author_email,
             "time": i.create_time

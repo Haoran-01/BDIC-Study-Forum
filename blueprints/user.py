@@ -1,15 +1,14 @@
 import random
 import string
 
-from wtforms import ValidationError
-from flask import Blueprint, request, render_template, redirect, url_for, flash, session, jsonify
-from forms import LoginFrom, RegisterForm, EmailCaptchaModel, ForgetFormEmail, ForgetFormPassword
+from flask import Blueprint, request, render_template, redirect, url_for, jsonify
+from forms import LoginFrom, RegisterForm, EmailCaptchaModel, ForgetFormPassword
 from flask_login import login_user, logout_user, login_required
-from models import User
+from models import User, UserProfile
 from exts import db, mail
 from flask_mail import Message
 from datetime import datetime
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash
 
 bp = Blueprint("User", __name__, url_prefix="/user")
 
@@ -47,6 +46,9 @@ def register_check():
         user.user_email = user_email
         user.user_name = user_name
         user.user_password = hash_password
+        user_profile = UserProfile(user_name=user_name, user_email=user_email,introduction="",grade=1,department=""
+        , major="",profile="")
+        db.session.add(user_profile)
         db.session.add(user)
         db.session.commit()
         return jsonify({"code": 200, "message": "Sign up successfully!"})

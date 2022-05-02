@@ -135,7 +135,7 @@ def get_new_posts():
             "post_id": i.id,
             "user_name": i.author.user_name,
             # 需要有相对应的用户照片url
-            "picture_url": "http://tncm.zm/psm",
+            "picture_url": UserProfile.query.filter_by(user_email=i.author_email).first().profile,
             "title": i.title,
             "user_email": i.author_email,
             "time": i.create_time
@@ -159,7 +159,7 @@ def get_hot_posts():
             "post_id": i.id,
             "user_name": i.author.user_name,
             # 需要有相对应的用户照片url
-            "picture_url": "http://tncm.zm/psm",
+            "picture_url": UserProfile.query.filter_by(user_email=i.author_email).first().profile,
             "title": i.title,
             "user_email": i.author_email,
             "time": i.create_time

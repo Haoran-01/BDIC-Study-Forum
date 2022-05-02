@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template, jsonify, url_for
 from exts import db
-from models import PostModel, QuestionType, Comment
+from models import PostModel, QuestionType, Comment, UserProfile
 import flask_login
 
 bp = Blueprint("Index", __name__, url_prefix="/")
@@ -43,7 +43,7 @@ def get_post():
             "post_id": i.id,
             "user_name": i.author.user_name,
             # 需要有相对应的用户照片url
-            "picture_url": "http://tncm.zm/psm",
+            "picture_url": UserProfile.query.filter_by(user_email=i.author_email).first().profile,
             "title": i.title,
             "user_email": i.author_email,
             "time": i.create_time
