@@ -36,7 +36,7 @@ export default {
     }
   },
   created() {
-    axios.get('http://127.0.0.1:4523/mock/831624/forum/sections')
+    axios.get('/forum/sections')
     .then((response) =>{
       this.sectionData = response.data.data;
     })

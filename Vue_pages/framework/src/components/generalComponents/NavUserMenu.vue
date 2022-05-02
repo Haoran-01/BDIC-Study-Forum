@@ -32,7 +32,7 @@ export default {
     }
   },
   created() {
-    axios.get('http://127.0.0.1:4523/mock/831624/get_session')
+    axios.get('/get_session')
       .then((response) => {
         this.emailId=response.data.message;
       })

@@ -22,11 +22,11 @@ def login():
 
 
 # 用户登出
-@bp.route("/logout")
+@bp.route("/logout",methods=['GET'])
 @login_required
 def logout():
     logout_user()
-    return "Logged out successfully!"
+    return None
 
 
 # 注册功能
