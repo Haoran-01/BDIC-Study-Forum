@@ -91,17 +91,17 @@ def user_all_course():
     return course_res_json 
     """
 
-@bp.route('/upload_excel', methods=['POST'])
-@login_required
 
 @bp.route('/excel_recognition', methods=['GET'])
 @login_required
 def excel_file_recognition():
     user_email = current_user.user_email
-    file_name = request.args.get('file_name')
-    if file_name.endswith('.xls'):
-        xlfile = xlrd.open_workbook('2018级物联网工程专业课表.xls')
-        sheet = xlfile.sheet_by_index(0)
+    file_name = request.files.get('file_name')
+    fn = file_name.name
+    if fn.endswith('.xls'):
+        file = file_name.read()
+        wb = xlrd.open_workbook(file_contents=file)
+        sheet = wb.sheet_by_index(0)
         i = 0
         j = 0
         for row in sheet.get_rows():
@@ -110,10 +110,11 @@ def excel_file_recognition():
                     result = cell.value.split('/')
                     if len(result) == 4:
                         print(j - 2, i - 2, result)
+                        course = Course
                 j = j + 1
             i = i + 1
             j = 0
-    if file_name.endswith('.xlsx'):
+    if fn.endswith('.xlsx'):
         wb = openpyxl.load_workbook('2018级物联网工程专业课表.xlsx')
         sheet = wb.worksheets[0]
         i = 0
