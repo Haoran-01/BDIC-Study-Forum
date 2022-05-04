@@ -20,14 +20,14 @@ def move_course():
 
     return {"success":200}
 
-@bp.route('/course/insert',methods=['POST','GET'])
+@bp.route('/insert',methods=['POST','GET'])
 @login_required
 def insert_course():
+    print("enter insert course")
     data = request.get_json()
-    #id = Course.course_id
     front_id = data["course_id"]
     user_email = current_user.user_email
-    #user_email = "2769059069@qq.com"
+    print("user_email "+user_email)
     classroom = data["classroom"]
     teacher = data["teacher"]
     # 前端写成title了，先改成这样
@@ -37,10 +37,10 @@ def insert_course():
     sql = Course.front_id ==front_id and Course.user_email==user_email
     db.session.query(Course).filter(sql).update({"classroom":classroom,"teacher":teacher,"course_name":course_name,"user_email":user_email})
     db.session.commit()
-
+    print("out of insert_course")
     return {"success":200}
 
-@bp.route('/course/delete',methods=['POST','GET'])
+@bp.route('/delete',methods=['POST','GET'])
 @login_required
 def delete_course():
     data = request.get_json()
@@ -52,7 +52,7 @@ def delete_course():
     db.session.close()
 
     return {"success":200}
-
+"""
 @bp.route('/query_single_course',methods=['POST','GET'])
 @login_required
 def query_single_course():
@@ -63,7 +63,7 @@ def query_single_course():
     single_course = db.session.query(Course).filter(sql)
     #return jsonify({'classroom':single_course.classroom, 'teacher': single_course.teacher, 'course_name':single_course.course_name, 'course_color':single_course.course_color})
     return jsonify({'classroom':single_course.classroom, 'teacher': single_course.teacher, 'course_name':single_course.course_name})
-
+"""
 
 @bp.route('/user_all_course',methods=['POST','GET'])
 @login_required
@@ -78,6 +78,7 @@ def user_all_course():
         }
         result.append(dic)
     return jsonify(result)
+
 
 """
     my_id=str(course_id)
