@@ -15,6 +15,10 @@
         <router-link class="navLink" id="courseSchedule" :to="{path:'/course_schedule',query:{email:this.userEmail}}" Style="cursor:pointer;">Course</router-link>
         <div class="navLinkDecoration"></div>
       </div>
+      <div class="navItem">
+        <router-link class="navLink" id="classroom" to="/Classroom" Style="cursor: pointer">Classroom</router-link>
+        <div class="navLinkDecoration"></div>
+      </div>
     </nav>
   </div>
   <div class="searchArea">
@@ -191,7 +195,7 @@ export default {
 nav {
   display: grid;
   grid-template-rows: 100%;
-  grid-template-columns: repeat(3, 100px);
+  grid-template-columns: repeat(4, 100px);
   padding: 0;
   margin: 0;
   text-align: center;

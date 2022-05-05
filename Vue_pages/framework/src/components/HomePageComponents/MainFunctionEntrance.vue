@@ -6,9 +6,9 @@
     <router-link class="entrance" id="courseSchedule" :to="{path:'/course_schedule',query:{email:getEmail}}">
       <div class="entranceText">Course<br/>Schedule</div>
     </router-link>
-    <div class="entrance" id="comingSoon">
-      <div class="entranceText">Coming<br/>Soon</div>
-    </div>
+    <router-link class="entrance" id="Classroom" to="/Classroom">
+      <div class="entranceText">Classroom<br/>searching</div>
+    </router-link>
   </div>
 </template>
 
@@ -85,6 +85,10 @@ export default {
 
 #courseSchedule{
   background-image: url("../../../../../templates/dist/images/course_schedule_entrance.png");
+}
+
+#Classroom{
+  background-image: url("../../../../../templates/dist/images/Classroom.jpg");
 }
 
 </style>

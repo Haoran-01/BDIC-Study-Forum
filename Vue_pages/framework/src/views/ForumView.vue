@@ -6,7 +6,7 @@
       </div>
       <span v-for="(item, index) in items" :key="index">
         <SectionEntrance v-bind="item"></SectionEntrance>
-    </span>
+      </span>
     </div>
 
   </div>

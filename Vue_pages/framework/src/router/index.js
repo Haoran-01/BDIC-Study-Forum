@@ -70,6 +70,11 @@ const routes = [
     path: "/post",
     name: "post",
     component: () => import(/* webpackChunkName: "post" */ '../components/postComponents/InPost.vue')
+  },
+  {
+    path: "/Classroom",
+    name: "classroom",
+    component: () => import(/* webpackChunkName: "classroom" */ '../views/ClassroomView.vue')
   }
 ]
 

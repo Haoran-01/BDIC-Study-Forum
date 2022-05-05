@@ -4,6 +4,7 @@
     <div class="informationArea">
       <div class="pictureUpload">
         <button type="button" class="changeButton" @click="showModal=true">
+          Avatar
         </button>
         <Modal v-model="showModal" title="Change Detail" >
           <CropperImage></CropperImage>
@@ -180,10 +181,19 @@ export default {
   }
 
   .changeButton{
+    transition: 0.5s ease-in;
     background-color: rgba(92, 92, 184, 0);
     height: 30px;
-    width: 30px;
-    border: none;
+    width: 60px;
+    cursor: pointer;
+    font-weight: bold;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+
+  .changeButton:hover{
+    background-color: #00B8FF;
+    color: #FFFFFF;
   }
 
 

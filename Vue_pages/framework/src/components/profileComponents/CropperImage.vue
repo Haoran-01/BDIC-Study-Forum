@@ -1,7 +1,7 @@
 <template>
   <div class="show-info">
-    <h2>example1 基本例子 无限制</h2>
-    <div class="test test1">
+    <h3>Edit avatar</h3>
+    <div class="cropper-content">
       <vueCropper
           ref="cropper"
           :img="option.img"
@@ -32,17 +32,17 @@
     <div class="test-button">
       <label class="btn" for="uploads">upload</label>
       <input type="file" id="uploads" style="position:absolute; clip:rect(0 0 0 0);" accept="image/png, image/jpeg, image/gif, image/jpg" @change="selectImg($event)">
-      <button @click="changeScale(1)" class="btn">+</button>
-      <button @click="changeScale(-1)" class="btn">-</button>
-      <button @click="rotateLeft" class="btn">rotateLeft</button>
-      <button @click="rotateRight" class="btn">rotateRight</button>
+      <button @click="changeScale(1)" class="btn-1" id="first">+</button>
+      <button @click="changeScale(-1)" class="btn-1">-</button>
+      <button @click="rotateLeft" class="btn-2">rotateLeft</button>
+      <button @click="rotateRight" class="btn-2">rotateRight</button>
       <div class="upload-btn">
-        <button @click="uploadImg('blob')">上传封面</button>
+        <button @click="uploadImg('blob')" class="Submit">Submit</button>
       </div>
     </div>
 
 
-    <p>截图框大小</p>
+    <h3>Preview</h3>
     <!--预览效果图-->
     <div class="show-preview">
       <div :style="previews.div" class="preview">
@@ -56,6 +56,7 @@
 <script>
 import 'vue-cropper/dist/index.css'
 import { VueCropper }  from "vue-cropper";
+import axios from "axios";
 
 export default {
   name: "CropperImage",
@@ -114,10 +115,6 @@ export default {
     selectImg (e) {
       let file = e.target.files[0]
       if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(e.target.value)) {
-        this.$message({
-          message: '图片类型要求：jpeg、jpg、png',
-          type: "error"
-        });
         return false
       }
       //转化为blob
@@ -143,23 +140,18 @@ export default {
           let formData = new FormData();
           formData.append('file',data,"DX.jpg")
           //调用axios上传
-          let {data: res} = await _this.$http.post('/api/file/imgUpload', formData)
+
+          let {data: res} = await axios.post("http://127.0.0.1:4523/mock/831624/profile/post_photo", formData)
+          // let {data: res} = await _this.$http.post('/api/file/imgUpload', formData)
+
+          //await表示暂停运行，指代码运行到这里就停止了，等待await后面的操作运行完再运行
           if(res.code === 200){
-            _this.$message({
-              message: res.msg,
-              type: "success"
-            });
             let data = res.data.replace('[','').replace(']','').split(',');
             let imgInfo = {
               name : _this.Name,
               url : data[0]
             };
             _this.$emit('uploadImgSuccess',imgInfo);
-          }else {
-            _this.$message({
-              message: '文件服务异常，请联系管理员！',
-              type: "error"
-            });
           }
         })
       }
@@ -171,7 +163,8 @@ export default {
 <style scoped>
 .cropper-content{
   height: 300px;
-  width: 200px;
+  width: 450px;
+  justify-content: center;
 }
 .show-preview{
   flex: 1;
@@ -179,18 +172,80 @@ export default {
   display: flex;
   display: -webkit-flex;
   justify-content: center;
-  height: 300px;
-  width: 200px;
+
 }
 
 .preview{
   overflow: hidden;
   border:1px solid #67c23a;
   background: #cccccc;
-  flex: 1;
-  -webkit-flex: 1;
-  display: flex;
-  display: -webkit-flex;
-  justify-content: center;
 }
+
+
+
+.preview img{
+  display: block;
+}
+
+button{
+  font-weight: bold;
+  width: 100px;
+  height: 25px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  margin: 15px;
+  background-color: #FFFFFF;
+
+}
+
+#first{
+  margin-left: 30px;
+}
+
+.btn-1{
+  transition: 0.5s ease-out;
+  width: 25px;
+}
+
+.btn-1:hover{
+  background-color: #35c703;
+  color: #FFFFFF;
+  border-style: none;
+}
+
+.btn-2{
+  transition: 0.5s ease-out;
+}
+
+.btn-2:hover{
+  background-color: #35c703;
+  color: #FFFFFF;
+  border-style: none;
+}
+
+.Submit{
+  transition: 0.5s ease-in;
+  margin: 0;
+}
+
+.Submit:hover{
+  background-color: #00B8FF;
+  color: #FFFFFF;
+  border-style: none;
+}
+
+.btn{
+  padding: 5px 5px;
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 100px;
+}
+
+.btn:hover{
+  background-color: #b47a7a;
+  color: #FFFFFF;
+}
+
+
 </style>
