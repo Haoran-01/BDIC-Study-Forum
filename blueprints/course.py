@@ -102,6 +102,11 @@ def user_all_course():
 @login_required
 def excel_file_recognition():
     user_email = current_user.user_email
+    largest_front_id_course = Course.query.filter_by(user_email=user_email).all()
+    current_front_id = 0
+    for i in largest_front_id_course:
+        if current_front_id < int(i.front_id):
+            current_front_id = int(i.front_id) + 1;
     file_name = request.files.get('file_name')
     fn = file_name.name
     if fn.endswith('.xls'):
@@ -114,9 +119,11 @@ def excel_file_recognition():
             for cell in row:
                 if cell.value != '':
                     result = cell.value.split('/')
-                    if len(result) == 4:
-                        print(j - 2, i - 2, result)
-                        course = Course
+                    if len(result) >= 4:
+                        course = Course(course_name=result[0], classroom=result[2], teacher=result[3], x=j-2, y=i-2, front_id = str(current_front_id), user_email=user_email)
+                        current_front_id = current_front_id + 1
+                        db.session.add(course)
+                        db.session.commit()
                 j = j + 1
             i = i + 1
             j = 0
@@ -129,8 +136,12 @@ def excel_file_recognition():
             for cell in row:
                 if cell.value != None:
                     result = cell.value.split('/')
-                    if len(result) == 4:
-                        print(j - 2, i - 2, result)
+                    if len(result) >= 4:
+                        course = Course(course_name=result[0], classroom=result[2], teacher=result[3], x=j - 2, y=i - 2,
+                                        front_id=str(current_front_id), user_email=user_email)
+                        current_front_id = current_front_id + 1
+                        db.session.add(course)
+                        db.session.commit()
                 j = j + 1
             i = i + 1
             j = 0

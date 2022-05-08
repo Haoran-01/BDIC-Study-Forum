@@ -9,40 +9,41 @@ bp = Blueprint("edit_profile",__name__,url_prefix="/")
 
 #个人信息编辑
 @bp.route('/profile',methods=['POST','GET'])
-#@login_required
 def edit_profile():
-    print('begin edit')
     data = request.get_json(silent=True)
 
     user_name = data["user_name"]
     introduction = data["introduction"]
+    #user_email = current_user.user_email
     user_email = data["user_email"]
     grade = data["grade"]
     department = data["department"]
     major = data["major"]
 
-    userprofile = UserProfile(user_name,introduction,user_email,grade,department,major,"profile111")
-    #def __init__(self, user_name, introduction, user_email, grade, department, major, profile)
-    #print(data)
+    userprofile = UserProfile.query.filter_by(user_email=user_email).first()
 
-    db.session.add(userprofile)
+    userprofile.user_name = user_name
+    userprofile.introduction = introduction
+    userprofile.grade = grade
+    userprofile.department = department
+    userprofile.major = major
     db.session.commit()
 
-    json_data = {
-        "user_name":data["user_name"],
-        "introduction":data["introduction"],
-        "user_email":data["user_email"],
-        "grade":data["grade"],
-        "department":data["department"],
-        "major":data["major"]
-    }
+    return jsonify(code=200)
 
-    #print(json_data)
-    up_res_json = json.dumps(json_data)
-    #print(up_res_json)
-    return up_res_json
+@bp.route('get_profile', methods=['GET'])
+def get_profile():
+    data = request.get_json(silent=True)
+    user_email = data["user_email"]
+    userprofile = UserProfile.query.filter_by(user_email=user_email).first()
 
-    #return jsonify(code= 200, message= "save successfully!", data=data)
+    user_name = userprofile.user_name
+    introduction = userprofile.introduction
+    grade = userprofile.grade
+    department = userprofile.department
+    major = userprofile.major
+
+    return jsonify(user_name=user_name, introduction=introduction, grade=grade, department=department, major=major)
 
 # 个人界面得到自己的所有帖子
 @bp.route("/profile/my_post", methods=['GET'])
