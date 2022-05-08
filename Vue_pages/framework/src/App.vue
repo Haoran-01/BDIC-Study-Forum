@@ -1,6 +1,8 @@
 <template>
   <div class="navigator">
-    <NavigatorBar></NavigatorBar>
+    <n-config-provider :locale="zhCN" :date-locale="dateZhCN" :theme-overrides="themeOverrides">
+      <NavigatorBar></NavigatorBar>
+    </n-config-provider>
   </div>
 
 </template>
@@ -21,8 +23,35 @@ body{
 }
 </style>
 <script>
+import { defineComponent } from 'vue'
 import NavigatorBar from "@/components/generalComponents/NavigatorBar";
-export default {
-  components: {NavigatorBar}
+import {dateZhCN, NConfigProvider, zhCN} from "naive-ui";
+import('naive-ui').GlobalThemeOverrides;
+
+const themeOverrides = {
+  common: {
+    primaryColor: '#00B8FF',
+    primaryColorHover: '#00B8FF'
+  },
+  Button: {
+    textColor: '#00B8FF'
+  },
+  Select: {
+    peers: {
+      InternalSelection: {
+        textColor: '#00B8FF'
+      }
+    }
+  },
 }
+export default defineComponent({
+  components: {NavigatorBar,NConfigProvider},
+  setup() {
+    return {
+      zhCN,
+      dateZhCN,
+      themeOverrides
+    }
+  }
+})
 </script>
