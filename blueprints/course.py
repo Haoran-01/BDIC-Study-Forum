@@ -52,7 +52,7 @@ def delete_course():
     db.session.close()
 
     return {"success":200}
-"""
+
 @bp.route('/query_single_course',methods=['POST','GET'])
 @login_required
 def query_single_course():
@@ -62,8 +62,8 @@ def query_single_course():
     sql = Course.front_id == front_id and Course.user_email == user_email
     single_course = db.session.query(Course).filter(sql)
     #return jsonify({'classroom':single_course.classroom, 'teacher': single_course.teacher, 'course_name':single_course.course_name, 'course_color':single_course.course_color})
-    return jsonify({'classroom':single_course.classroom, 'teacher': single_course.teacher, 'course_name':single_course.course_name})
-"""
+    return jsonify({'course_title': single_course.course_name, 'classroom':single_course.classroom, 'teacher': single_course.teacher, 'course_name':single_course.course_name})
+
 
 @bp.route('/user_all_course',methods=['POST','GET'])
 @login_required
