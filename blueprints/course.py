@@ -128,7 +128,8 @@ def excel_file_recognition():
             i = i + 1
             j = 0
     if fn.endswith('.xlsx'):
-        wb = openpyxl.load_workbook('2018级物联网工程专业课表.xlsx')
+        file = file_name.read()
+        wb = openpyxl.load_workbook(file)
         sheet = wb.worksheets[0]
         i = 0
         j = 0
