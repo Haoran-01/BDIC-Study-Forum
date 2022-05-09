@@ -1,9 +1,7 @@
-import json
-
 from flask import Blueprint, request, render_template, jsonify
 from flask_login import login_required, current_user
 
-from models import QuestionType, PostModel, User, Comment, UserProfile
+from models import QuestionType, PostModel, User, Comment, UserProfile, CommentLike
 from exts import db
 
 bp = Blueprint("forum", __name__, url_prefix="/forum")
@@ -88,11 +86,20 @@ def publish_comment():
     return jsonify(code=200)
 
 @bp.route('/like/comment', methods=['GET', 'POST'])
+@login_required
 def like():
     data = request.get_json(silent=True)
     comment_id = data['comment_id']
+    if_like = data['if_like']
     comment = Comment.query.filter_by(cmt_id=comment_id).first()
-    comment.like = comment.like + 1
+    if if_like:
+        new_like = CommentLike(cmt_id = comment_id, user_email = current_user.user_email)
+        db.session.add(new_like)
+        comment.like = comment.like + 1
+    else:
+        the_like = CommentLike.query.filter_by(cmt_id = comment_id,user_email = current_user.user_email)
+        db.session.remove(the_like)
+        comment.like = comment.like - 1
     db.session.commit()
     return jsonify(code=200)
 

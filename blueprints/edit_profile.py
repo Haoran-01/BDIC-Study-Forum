@@ -31,7 +31,7 @@ def edit_profile():
 
     return jsonify(code=200)
 
-@bp.route('get_profile', methods=['GET'])
+@bp.route('/get_profile', methods=['GET'])
 def get_profile():
     data = request.get_json(silent=True)
     user_email = data["user_email"]
@@ -68,3 +68,8 @@ def get_my_post():
     if len(data) == 0:
         return jsonify(code=200,message="没发布过帖子")
     return jsonify(code=200,data=data)
+
+@bp.route('/profile/post_photo', methods = ['GET', 'POST'])
+
+def post_photo():
+    return
