@@ -129,7 +129,7 @@ export default {
       console.log(error);
     });
 
-    axios.get('/profile', {
+    axios.get('/get_profile', {
       params:{
         user_email:this.UserEmail
       }
