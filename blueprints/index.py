@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template, jsonify, url_for
 from exts import db
-from models import PostModel, QuestionType, Comment, UserProfile
+from models import PostModel, QuestionType, Comment, UserProfile, CommentLike
 import flask_login
 
 bp = Blueprint("Index", __name__, url_prefix="/")
@@ -22,6 +22,7 @@ def if_sign_in():
         return None
 """
 
+
 # 论坛主界面
 @bp.route("/", methods=['POST', 'GET'])
 def index():
@@ -30,7 +31,7 @@ def index():
 
 
 # 论坛主界面得到10个最新的帖子
-@bp.route("/index/get_post",methods=['GET'])
+@bp.route("/index/get_post", methods=['GET'])
 def get_post():
     posts = db.session.query(PostModel).order_by(PostModel.comments_number.desc()).all()
     data = []
@@ -46,11 +47,11 @@ def get_post():
             "title": i.title,
             "user_email": i.author_email,
             "time": i.create_time
-                }
+        }
         data.append(dict)
     if len(data) == 0:
         return jsonify(code=200, message="该论坛还没有帖子")
-    return jsonify({"code":200,"data":data})
+    return jsonify({"code": 200, "data": data})
 
 
 # 论坛主界面得到热门板块
@@ -67,9 +68,10 @@ def get_popular_type():
             "rank": i.rank
         }
         data.append(dict)
-    return jsonify({"code":200,"data":data})
+    return jsonify({"code": 200, "data": data})
 
-@bp.route("/index/get_information",methods=['GET'])
+
+@bp.route("/index/get_information", methods=['GET'])
 def get_information():
     if flask_login.current_user:
         email = flask_login.current_user.user_email
@@ -78,13 +80,8 @@ def get_information():
         # 个人评论数
         comment_number = len(Comment.query.filter_by(user_email=email).all())
         # 赞同回复
-        # 假装有一些代码
-        return jsonify({'code':200,'post_number':post_numbers,'comment_number':comment_number})
+        agree_number = len(CommentLike.query.filter_by(user_email=flask_login.current_user.user_email).all())
+        return jsonify(
+            {'post_number': post_numbers, 'comment_number': comment_number, 'agree_number': agree_number}), 200
     else:
-        return jsonify({'code':400})
-
-# @bp.route('/1',methods=['GET'])
-# def test():
-#     numbers = len(PostModel.query.filter_by(author_email='2334201198@qq.com').all())
-#     print(numbers)
-#     return jsonify({'code':200,'message':1})
+        return jsonify({'code': 400})

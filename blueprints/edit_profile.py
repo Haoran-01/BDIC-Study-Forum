@@ -1,6 +1,4 @@
-from flask import Blueprint, request, render_template, redirect, url_for, flash, jsonify
-from sqlalchemy.sql.functions import current_user
-from flask_login import login_required
+from flask import Blueprint, request, jsonify
 from models import UserProfile, PostModel, QuestionType
 from exts import db
 import os
@@ -56,7 +54,7 @@ def get_my_post():
     posts = PostModel.query.filter_by(author_email=email)
     data = []
     for i in posts:
-        dict = {
+        dic = {
             "content": i.content,
             "comments_number": i.comments_number,
             "post_type_name": QuestionType.query.filter_by(type_number=i.post_type).first().type_name,
@@ -67,7 +65,7 @@ def get_my_post():
             "user_email": i.author_email,
             "time": i.create_time
         }
-        data.append(dict)
+        data.append(dic)
     if len(data) == 0:
         return jsonify(code=200, message="没发布过帖子")
     return jsonify(code=200, data=data)

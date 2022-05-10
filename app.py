@@ -1,12 +1,12 @@
-from flask import Flask,jsonify,session,request
+from flask import Flask, jsonify
 from wtforms import ValidationError
 import config
 from flask_login import LoginManager
 from flask_migrate import Migrate
 from exts import db, mail
 import os
-from blueprints import user_bp,cs_bp,forum_bp,index_bp,userprofile_bp,course_bp,search_empty_class_bp
-from models import User,UserProfile
+from blueprints import user_bp, cs_bp, forum_bp, index_bp, userprofile_bp, course_bp, search_empty_class_bp
+from models import User
 
 # 创建一个app对象
 app = Flask(__name__, template_folder="templates/dist", static_folder="templates/dist", static_url_path="")
@@ -25,7 +25,6 @@ app.register_blueprint(index_bp)
 app.register_blueprint(userprofile_bp)
 app.register_blueprint(course_bp)
 app.register_blueprint(search_empty_class_bp)
-
 
 # 配置session secret_key
 app.secret_key = os.getenv("SECRET_KEY", "dskjfwqienkehyr1")
@@ -47,7 +46,6 @@ def load_user(user_email):
         curr_user = User()
         curr_user.user_email = user_email
         return curr_user
-
 
 
 @app.errorhandler(ValidationError)

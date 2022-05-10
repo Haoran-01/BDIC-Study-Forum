@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from models import Course, Classroom
+from models import Classroom
 from exts import db
 
 bp = Blueprint("search_empty_class", __name__, url_prefix="/search_empty_class")
