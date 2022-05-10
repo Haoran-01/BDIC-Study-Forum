@@ -52,7 +52,7 @@ export default {
     }
   },
   created() {
-    axios.get('http://127.0.0.1:4523/mock/831624/forum/section_detail',{
+    axios.get('/forum/section_detail',{
       params:{
         type_name:this.$route.query.typeName
       }

@@ -20,7 +20,7 @@
                         :options="options3"
                         clearable="true"
                         style="width: 200px; position: relative; left: 220px; bottom: 34px"/>
-              <n-button color="#00B8FF" style="bottom: 68px; left: 25px">
+              <n-button color="#00B8FF" style="bottom: 68px; left: 25px" @click="handleSearch">
                 Search
               </n-button>
             </div>
@@ -56,83 +56,95 @@
 </template>
 
 <script>
-import { defineComponent, ref } from "vue";
+import {defineComponent, ref, shallowRef} from "vue";
 import RoomSection from "@/components/classroomComponents/RoomSection";
+import axios from "axios";
+import {useToast} from "vue-toastification";
 export default defineComponent({
   components: {RoomSection},
   setup() {
+    const tip = useToast();
     return {
+      tip,
       value1: ref(null),
       value2: ref(null),
       value3: ref(null),
       options1: [
         {
           label: "Class 1~2",
-          value: "firstClass",
+          value: 0,
         },
         {
           label: "Class 3~4",
-          value: "secondClass"
+          value: 1
         },
         {
           label: "Class 5~6",
-          value: "thirdClass"
+          value: 2
         },
         {
           label: "Class 7~8",
-          value: "fourthClass"
+          value: 3
         },
         {
           label: "Class 9~10",
-          value: "fiveClass"
+          value: 4
         },
         {
           label: "Class 11~12",
-          value: "sixClass"
+          value: 5
         }
       ],
       options2: [
         {
-          label: "First Flour",
-          value: "firstFlour"
+          label: "First Floor",
+          value: 1
         },
         {
-          label:"Second Flour",
-          value: "secondFlour"
+          label:"Second Floor",
+          value: 2
         },
         {
-          label:"Three Flour",
-          value: "threeFlour"
+          label:"Three Floor",
+          value: 3
         },
         {
-          label:"Four Flour",
-          value: "fourFlour"
+          label:"Four Floor",
+          value: 4
         },
         {
-          label:"Five Flour",
-          value: "fiveFlour"
+          label:"Five Floor",
+          value: 5
         },
       ],
       options3: [
         {
           label: "Monday",
-          value: "monday",
+          value: 0
         },
         {
           label: "Tuesday",
-          value: "tuesday"
+          value: 1
         },
         {
           label: "Wednesday",
-          value: "wednesday"
+          value: 2
         },
         {
           label: "Thursday",
-          value: "thursday"
+          value: 3
         },
         {
           label: "Friday",
-          value: "friday"
+          value: 4
+        },
+        {
+          label: "Saturday",
+          value: 5
+        },
+        {
+          label: "Sunday",
+          value: 6
         }
       ],
     };
@@ -140,7 +152,7 @@ export default defineComponent({
   data() {
     return {
       postData:[ // axios请求的数据的示例
-        { //教室一
+/*        { //教室一
           roomNumber: 222,
           plugNumber: 4,
           firstClass: "full",
@@ -159,9 +171,27 @@ export default defineComponent({
           fourthClass: "full",
           fifthClass: "full",
           sixthClass: "full"
-        },
+        },*/
 
       ]
+    }
+  },
+  methods: {
+    handleSearch(){
+      if (this.value2 === null || this.value3 === null){
+        this.tip.error("The choices should not be blank");
+      }else {
+        axios.post("/search_empty_class/time_view", {
+          floor: this.value2,
+          date: this.value3
+        })
+            .then((response)=>{
+              const code = response.status;
+              if (code === 200){
+                this.postData = shallowRef(response.data.data);
+              }
+            })
+      }
     }
   }
 });

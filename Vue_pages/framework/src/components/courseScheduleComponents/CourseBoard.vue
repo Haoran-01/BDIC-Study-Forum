@@ -31,7 +31,25 @@
     </grid-item>
     </grid-layout>
   </div>
-  <button class="addItem" @click="addItem">Add a course</button>
+
+  <n-button class="uploadButton" @click="openUploadModal" color="#00B8FF">Upload Course Table</n-button>
+  <n-modal v-model:show="showModal" title="Upload Course Table" transform-origin="center">
+    <n-upload
+        action="/course/excel_recognition"
+        accept=".xls,.xlsx"
+        show-file-list="true"
+        class="uploader"
+        file-list-style="width: 350px;"
+        max="1"
+    >
+      <n-upload-dragger class="uploadDragger">
+        <n-text style="font-size: 16px">
+          Click or drag a file to this area to upload
+        </n-text>
+      </n-upload-dragger>
+    </n-upload>
+  </n-modal>
+  <n-button class="addItem" @click="addItem" color="#00B8FF">Add a course</n-button>
 </template>
 
 <script>
@@ -40,7 +58,8 @@ import courseCard from "@/components/courseScheduleComponents/courseCard";
 import axios from "axios";
 import {useToast} from "vue-toastification";
 import "vue-toastification/dist/index.css";
-import {shallowRef} from "@vue/reactivity"
+import {shallowRef} from "@vue/reactivity";
+import {ref} from "vue";
 
 export default {
   setup(){
@@ -52,7 +71,9 @@ export default {
   data(){
     return{
       rawData:[],
-      layout: []
+      layout: [],
+      showModal: ref(false),
+      id_list: []
     }
   },
   mounted() {
@@ -68,19 +89,40 @@ export default {
         this.layout = (this.setLayout());
       }
     })
+    axios.get('/course/front_id_list')
+    .then((response)=>{
+      const code = response.status;
+      if (code === 200){
+        this.id_list= shallowRef(response.data.data);
+      }
+    })
   },
   methods: {
     addItem: function () {
+      console.log(this.id_list)
       // Add a new item. It must have a unique key!
-      this.layout.push({
-        x: -1,
-        y: -1, // puts it at the bottom
-        w: 1,
-        h: 1,
-        i: this.index,
-      });
-      // Increment the counter to ensure key is always unique.
-      this.index++;
+      if (this.id_list[0] !== null){
+        this.layout.push({
+          x: -1,
+          y: -1, // puts it at the bottom
+          w: 1,
+          h: 1,
+          i: this.id_list.sort().reverse()[0] + 1,
+        });
+        // Increment the counter to ensure key is always unique.
+        this.id_list.push(this.id_list.sort().reverse()[0] + 1);
+      }else {
+        this.layout.push({
+          x: -1,
+          y: -1, // puts it at the bottom
+          w: 1,
+          h: 1,
+          i: 0,
+        });
+        // Increment the counter to ensure key is always unique.
+        this.id_list.push(0);
+      }
+
     },
     removeItem: function (val) {
       const index = this.layout.map(item => item.i).indexOf(val);
@@ -96,6 +138,7 @@ export default {
       })
     },
     moveEvent(i, newX, newY){
+      console.log(i);
       axios.post('/course/move', {
         course_id: i,
         x: newX,
@@ -122,6 +165,9 @@ export default {
         newAllData.push(newData);
       }
       return newAllData;
+    },
+    openUploadModal(){
+      this.showModal = true;
     }
   },
   computed:{
@@ -165,11 +211,11 @@ export default {
   /*  整个课程表样式写这里*/
   /*  更多样式看这里：https://github.com/jbaysolutions/vue-grid-layout/blob/master/website/docs/.vuepress/components/ExampleStylingPlaceholder.vue*/
 }
-.addItem{
-  transition: .2s ease-in;
+.uploadButton{
+  /*transition: .2s ease-in;*/
   position: relative;
   bottom: 875px;
-  left: 455px;
+  left: 345px;/*
   width: 150px;
   height: 30px;
   font-family: "Noto Sans", sans-serif;
@@ -180,12 +226,42 @@ export default {
   border: none;
   border-radius: 100px;
   outline: none;
-  cursor: pointer;
+  cursor: pointer;*/
 }
+.uploader{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: 200px;
+  width: 400px;
+  background-color: #FFFFFF;
+}
+.uploadDragger{
+  position: relative;
+  top: 30px;
+  width: 350px;
+}
+.addItem{
+  /*transition: .2s ease-in;*/
+  position: relative;
+  bottom: 875px;
+  left: 395px;/*
+  width: 150px;
+  height: 30px;
+  font-family: "Noto Sans", sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+  background-color: #00B8FF;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 100px;
+  outline: none;
+  cursor: pointer;*/
+}/*
 .addItem:hover{
   transition: .2s ease-out;
   box-shadow: 0 0 0 3px #8ab5ff;
-}
+}*/
 </style>
 <style>
 .content .vue-grid-item.vue-grid-placeholder {

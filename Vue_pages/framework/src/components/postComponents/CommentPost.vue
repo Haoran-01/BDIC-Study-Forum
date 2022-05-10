@@ -35,7 +35,10 @@ export default {
   ],
   emits:['sendReply'],
   data(){
-    return {like: null}
+    return {
+      like: null,
+      if_like: false
+    }
   },
   methods:{
     handleLike(){
@@ -44,12 +47,19 @@ export default {
       if (likeButton.getAttribute('class') === 'Like'){
         likeButton.setAttribute('class', 'LikeActivated');
         this.like = this.like + 1;
+        this.if_like = true;
         axios.post('/forum/like/comment', {
-          comment_id: this.item.comment_id
+          comment_id: this.item.comment_id,
+          if_like: true
         })
       }else {
         likeButton.setAttribute('class', 'Like');
         this.like = this.like - 1;
+        this.if_like = false;
+        axios.post('/forum/like/comment', {
+          comment_id: this.item.comment_id,
+          if_like: false
+        })
       }
     },
     handleReply(){
@@ -66,6 +76,14 @@ export default {
   },
   created() {
     this.like = this.item.like;
+    this.if_like = this.item.if_like;
+    const likeId = 'like' + this.$props.index;
+    const likeButton = document.getElementById(likeId);
+    if (this.if_like){
+      likeButton.setAttribute('class', 'LikeActivated');
+    }else {
+      likeButton.setAttribute('class', 'Like');
+    }
   }
 }
 </script>

@@ -46,7 +46,7 @@ export default {
   methods:{
     handleUsername(Submit){
       this.Username = Submit;
-      axios.post('http://127.0.0.1:4523/mock/831624/profile',{
+      axios.post('/profile',{
         user_name:this.Username,
         introduction:this.Intro,
         grade:this.Grade,
@@ -61,7 +61,7 @@ export default {
     },
     handleIntro(Submit){
       this.Intro = Submit;
-      axios.post('http://127.0.0.1:4523/mock/831624/profile',{
+      axios.post('/profile',{
         user_name:this.Username,
         introduction:this.Intro,
         grade:this.Grade,
@@ -76,7 +76,7 @@ export default {
     },
     handleGrade(Submit){
       this.Grade = Submit;
-      axios.post('http://127.0.0.1:4523/mock/831624/profile',{
+      axios.post('/profile',{
         user_name:this.Username,
         introduction:this.Intro,
         grade:this.Grade,
@@ -91,7 +91,7 @@ export default {
     },
     handleDepartment(Submit){
       this.Department = Submit;
-      axios.post('http://127.0.0.1:4523/mock/831624/profile',{
+      axios.post('/profile',{
         user_name:this.Username,
         introduction:this.Intro,
         grade:this.Grade,
@@ -106,7 +106,7 @@ export default {
     },
     handleMajor(Submit){
       this.Major = Submit;
-      axios.post('http://127.0.0.1:4523/mock/831624/profile',{
+      axios.post('/profile',{
         user_name:this.Username,
         introduction:this.Intro,
         grade:this.Grade,
@@ -121,7 +121,7 @@ export default {
     }
   },
   created() {
-    axios.get('http://127.0.0.1:4523/mock/831624/get_session')
+    axios.get('/get_session')
       .then((response) => {
         this.UserEmail=response.data.message;
       })
@@ -129,7 +129,7 @@ export default {
       console.log(error);
     });
 
-    axios.get('http://127.0.0.1:4523/mock/831624/profile', {
+    axios.get('/profile', {
       params:{
         user_email:this.UserEmail
       }

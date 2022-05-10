@@ -38,7 +38,7 @@ export default {
     }
   },
   created() {
-    axios.get('http://127.0.0.1:4523/mock/831624/profile/my_post?apifoxResponseId=36910546', {
+    axios.get('/profile/my_post', {
       params:{
         email: this.$route.query.email
       }

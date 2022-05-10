@@ -1,11 +1,11 @@
 <template>
   <div class="courseCard">
-    <div class="colorBar" :style="{ backgroundColor: colors.hex,}"> </div>
+    <div class="colorBar" :style="{ backgroundColor: this.model.color,}"> </div>
     <div class="subjectTitle"> {{ subject }}
      <div class="changeSection">
        <button type="button" class="changeButton" @click="showModal=true">
        </button>
-       <Modal v-model="showModal" title="Change Detail" :modalStyle="'max-width: 600px'" @beforeClose="handleClose">
+       <n-modal v-model:show="showModal" title="Change Detail" class="uploadModel" transform-origin="center" @on-after-leave="handleClose">
          <div class="modalFrame">
            <div class="subjectArea">
              <label class="modalInputText">Subject</label>
@@ -19,9 +19,9 @@
              <label class="modalInputText">Lecturer</label>
              <input class="modalInput" v-model="lecturer"/>
            </div>
-           <Sketch class="colorSelector" v-model="colors"/>
+           <n-color-picker class="colorSelector" v-model:value="model.color" :show-alpha="false" :modes="['hex']"/>
          </div>
-       </Modal>
+       </n-modal>
      </div>
     </div>
     <div class="classRoom">
@@ -37,24 +37,24 @@
 </template>
 
 <script>
-import VueModal from '@kouts/vue-modal'
 import '@kouts/vue-modal/dist/vue-modal.css'
-import { Sketch } from '@ckpack/vue-color';
 import axios from "axios";
 import {useToast} from "vue-toastification";
 import "vue-toastification/dist/index.css";
-import {toRaw} from "@vue/reactivity";
+import {reactive, toRaw} from "@vue/reactivity";
 
 export default {
   setup(){
     const tip = useToast();
-    return {tip};
+    const model = reactive({
+      color: '#18A058'
+    })
+    return {
+      tip,
+      model
+    };
   },
   name: "courseCard",
-  components: {
-    'Modal': VueModal,
-    Sketch,
-  },
   props:['cid'],
   data() {
     return {
@@ -62,17 +62,18 @@ export default {
       subject: "Subject",
       classroom: "",
       lecturer: "",
-      colors: '',
+      color: this.model.color
     }
   },
   methods:{
     handleClose(){
-      axios.post('http://127.0.0.1:4523/mock2/831624/17446677', {
+      console.log(this.cid);
+      axios.post('/course/insert', {
         course_id: this.cid,
         course_title: this.subject,
         classroom: this.classroom,
         teacher: this.lecturer,
-        course_color: this.colors.hex
+        course_color: this.model.color
       })
       .then((response)=>{
         const code = response.status;
@@ -83,7 +84,7 @@ export default {
     }
   },
   created() {
-    axios.get('http://127.0.0.1:4523/mock/831624/course', {
+    axios.get('/course/query_single_course', {
       params:{
         courseId : this.id
       }
@@ -96,7 +97,7 @@ export default {
             this.subject = data.course_title;
             this.classroom = data.classroom;
             this.lecturer = data.teacher;
-            this.color = data.course_color;
+            this.model.color = data.course_color;
           }
         })
   }
@@ -168,6 +169,13 @@ input{
 .lecture {
   grid-area: 7 / 5 / 8 / 6;
   font-size: 15px;
+}
+.uploadModel{
+  background-color: #FFFFFF;
+  width: 500px;
+  height: 300px;
+  border-radius: 10px;
+  padding: 10px;
 }
 .modalFrame {
   display: grid;

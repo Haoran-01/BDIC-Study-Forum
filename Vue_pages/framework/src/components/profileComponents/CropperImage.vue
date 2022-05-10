@@ -141,7 +141,7 @@ export default {
           formData.append('file',data,"DX.jpg")
           //调用axios上传
 
-          let {data: res} = await axios.post("http://127.0.0.1:4523/mock/831624/profile/post_photo", formData)
+          let {data: res} = await axios.post("/profile/post_photo", formData)
           // let {data: res} = await _this.$http.post('/api/file/imgUpload', formData)
 
           //await表示暂停运行，指代码运行到这里就停止了，等待await后面的操作运行完再运行
