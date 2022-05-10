@@ -94,7 +94,7 @@ class Course(db.Model):
     teacher = db.Column(db.VARCHAR(50), nullable=True)
     classroom = db.Column(db.VARCHAR(50), db.ForeignKey("classroom.classroom_number"))
     course_name = db.Column(db.VARCHAR(50), nullable=True)
-    # course_color = db.Column(db.VARCHAR(50), nullable=True)
+    course_color = db.Column(db.VARCHAR(50), nullable=True, default="#000000")
     x = db.Column(db.Integer, nullable=True)
     y = db.Column(db.Integer, nullable=True)
     front_id = db.Column(db.Integer, nullable=True)

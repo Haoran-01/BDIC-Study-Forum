@@ -33,13 +33,13 @@ def insert_course():
     teacher = data["teacher"]
     # 前端写成title了，先改成这样
     course_name = data["course_title"]
-    # course_color = data["course_color"]
+    course_color = data["course_color"]
 
     sql = Course.front_id == front_id and Course.user_email == user_email
     db.session.query(Course).filter(sql).update(
-        {"classroom": classroom, "teacher": teacher, "course_name": course_name, "user_email": user_email})
+        {"course_color":course_color,"classroom": classroom, "teacher": teacher, "course_name": course_name, "user_email": user_email})
     db.session.commit()
-    print("out of insert_course")
+    #print("out of insert_course")
     return {"success": 200}
 
 
@@ -67,10 +67,11 @@ def query_single_course():
     single_course = db.session.query(Course).filter(sql)
     # return jsonify({'classroom':single_course.classroom, 'teacher': single_course.teacher, 'course_name':single_course.course_name, 'course_color':single_course.course_color})
     return jsonify({'course_title': single_course.course_name, 'classroom': single_course.classroom,
-                    'teacher': single_course.teacher, 'course_name': single_course.course_name})
+                    'teacher': single_course.teacher, 'course_name': single_course.course_name,
+                    'course_color':single_course.course_color})
 
 
-@bp.route('/user_all_course', methods=['POST', 'GET'])
+@bp.route('/get_all_course', methods=['POST', 'GET'])
 @login_required
 def user_all_course():
     user_all_course = db.session.query(Course).filter(Course.user_email == current_user.user_email).all()
@@ -83,24 +84,6 @@ def user_all_course():
         }
         result.append(dic)
     return jsonify(result)
-
-
-"""
-    my_id=str(course_id)
-
-    json_data = {"items":{
-        "course_id": my_id,
-        "classroom": data["classroom"],
-        "teacher": data["teacher"],
-        "course_name": data["course_name"],
-        "course_color": data["course_color"]
-    }}
-
-    #print(json_data)
-    course_res_json = json.dumps(json_data)
-    #print(course_res_json)
-    return course_res_json 
-    """
 
 
 @bp.route('/excel_recognition', methods=['GET'])
