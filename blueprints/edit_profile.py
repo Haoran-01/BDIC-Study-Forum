@@ -37,7 +37,6 @@ def get_profile():
     user_email = request.args.get("user_email")
     # user_email = data["user_email"]
     userprofile = UserProfile.query.filter_by(user_email=user_email).first()
-
     user_name = userprofile.user_name
     introduction = userprofile.introduction
     grade = userprofile.grade
