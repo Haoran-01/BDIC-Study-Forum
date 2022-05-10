@@ -37,6 +37,7 @@ export default {
       if (response.status === 200){
         this.$data.post_number = response.data.post_number;
         this.$data.comment_number = response.data.comment_number;
+        this.$data.agree_number = response.data.agree_number;
       }
     })
   }
