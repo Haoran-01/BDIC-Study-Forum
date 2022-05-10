@@ -86,7 +86,7 @@ export default {
   created() {
     axios.get('/course/query_single_course', {
       params:{
-        courseId : this.cid
+        course_id : this.cid
       }
     })
         .then((response)=>{

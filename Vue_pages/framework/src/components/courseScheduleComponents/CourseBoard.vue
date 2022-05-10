@@ -99,9 +99,8 @@ export default {
   },
   methods: {
     addItem: function () {
-      console.log(this.id_list)
       // Add a new item. It must have a unique key!
-      if (this.id_list[0] !== null){
+      if (this.id_list.length !== 0){
         this.layout.push({
           x: -1,
           y: -1, // puts it at the bottom
