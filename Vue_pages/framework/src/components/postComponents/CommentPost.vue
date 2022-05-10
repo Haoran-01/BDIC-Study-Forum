@@ -74,7 +74,7 @@ export default {
       return 'reply' + this.index;
     }
   },
-  created() {
+  mounted() {
     this.like = this.item.like;
     this.if_like = this.item.if_like;
     const likeId = 'like' + this.$props.index;
