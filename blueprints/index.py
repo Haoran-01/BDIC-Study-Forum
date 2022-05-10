@@ -22,7 +22,6 @@ def if_sign_in():
         return None
 """
 
-
 # 论坛主界面
 @bp.route("/", methods=['POST', 'GET'])
 def index():

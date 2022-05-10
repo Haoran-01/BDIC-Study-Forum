@@ -54,6 +54,5 @@ def validation_error(e):
     return jsonify({"code": 400, "message": e.args})
 
 
-
 if __name__ == '__main__':
     app.run()

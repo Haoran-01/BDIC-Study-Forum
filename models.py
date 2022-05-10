@@ -62,6 +62,7 @@ class UserProfile(db.Model):
     department = db.Column(db.VARCHAR(200), nullable = False, unique=False)
     major = db.Column(db.VARCHAR(200), nullable = False, unique=False)
     profile = db.Column(db.CHAR(200), nullable=False)
+    like_comment = db.Column(db.VARCHAR(1000), default="", unique=False)
 
     def __init__(self, user_name, introduction,user_email,grade,department,major, profile):
       self.user_name = user_name
@@ -105,4 +106,8 @@ class Course(db.Model):
         # self.course_color = course_color
         self.course_name = course_name"""
 
-
+class CommentLike(db.Model):
+    __tablename__ = 'like'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    cmt_id = db.Column(db.Integer, db.ForeignKey("comment.cmt_id"))
+    user_email = db.Column(db.CHAR(200), db.ForeignKey("user.user_email"))
