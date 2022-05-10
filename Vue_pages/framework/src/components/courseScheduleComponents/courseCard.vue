@@ -5,7 +5,7 @@
      <div class="changeSection">
        <button type="button" class="changeButton" @click="showModal=true">
        </button>
-       <n-modal v-model:show="showModal" title="Change Detail" class="uploadModel" transform-origin="center" @on-after-leave="handleClose">
+       <n-modal v-model:show="showModal" title="Change Detail" class="uploadModel" transform-origin="center" :on-after-leave="handleClose">
          <div class="modalFrame">
            <div class="subjectArea">
              <label class="modalInputText">Subject</label>
