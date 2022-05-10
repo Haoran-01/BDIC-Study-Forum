@@ -131,7 +131,7 @@ export default {
 
     axios.get('/get_profile', {
       params:{
-        user_email:this.UserEmail
+        user_email:this.$route.query.email
       }
     })
       .then((response) => {
