@@ -44,8 +44,9 @@ def get_profile():
     grade = userprofile.grade
     department = userprofile.department
     major = userprofile.major
+    profile = userprofile.profile
 
-    return jsonify(user_name=user_name, introduction=introduction, grade=grade, department=department, major=major)
+    return jsonify(user_name=user_name, introduction=introduction, grade=grade, department=department, major=major, profile=profile), 200
 
 
 # 个人界面得到自己的所有帖子
