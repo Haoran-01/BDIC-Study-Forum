@@ -34,7 +34,7 @@ def insert_course():
     course_name = data["course_title"]
     #course_color = data["course_color"]
 
-    sql = Course.front_id ==front_id and Course.user_email==user_email
+    sql = Course.front_id == front_id and Course.user_email==user_email
     db.session.query(Course).filter(sql).update({"classroom":classroom,"teacher":teacher,"course_name":course_name,"user_email":user_email})
     db.session.commit()
     print("out of insert_course")
@@ -147,4 +147,13 @@ def excel_file_recognition():
             i = i + 1
             j = 0
 
-
+@bp.route('/front_id_list', methods=['GET'])
+@login_required
+def get_all_front_id():
+    email = current_user.user_email
+    courses = Course.query.filter_by(user_email=email).all()
+    result = []
+    for i in courses:
+        if i.front_id not in result:
+            result.append(i.front_id)
+    return jsonify(data=result)
