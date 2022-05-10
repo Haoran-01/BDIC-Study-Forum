@@ -73,7 +73,7 @@ export default {
         info: true,          //图片大小信息
         canScale: true,      //图片是否允许滚轮缩放
         autoCrop: true,      //是否默认生成截图框
-        autoCropWidth: 230,  //默认生成截图框宽度
+        autoCropWidth: 120,  //默认生成截图框宽度
         autoCropHeight: 150, //默认生成截图框高度
         fixed: true,         //是否开启截图框宽高固定比例
         fixedNumber: [1.53, 1], //截图框的宽高比例
@@ -133,26 +133,33 @@ export default {
     },
     //上传图片
     uploadImg (type) {
-      let _this = this;
+      // let _this = this;
       if (type === 'blob') {
         //获取截图的blob数据
-        this.$refs.cropper.getCropBlob(async (data) => {
+        this.$refs.cropper.getCropBlob( (data) => {
           let formData = new FormData();
           formData.append('file',data,"DX.jpg")
           //调用axios上传
-
-          let {data: res} = await axios.post("/profile/post_photo", formData)
-          // let {data: res} = await _this.$http.post('/api/file/imgUpload', formData)
+          let config = {
+            headers: {'Content-Type': 'multipart/form-data'}
+          }
+          console.log(formData.get('file'));
+          axios.post("/profile/post_photo", formData, config)
+                .then((response) =>{
+                  console.log(response)
+                })
+          // let {data: res} = await _this.$http.post('http://127.0.0.1:4523/mock/831624/profile/post_photo', formData)
 
           //await表示暂停运行，指代码运行到这里就停止了，等待await后面的操作运行完再运行
-          if(res.code === 200){
-            let data = res.data.replace('[','').replace(']','').split(',');
-            let imgInfo = {
-              name : _this.Name,
-              url : data[0]
-            };
-            _this.$emit('uploadImgSuccess',imgInfo);
-          }
+          // if(res.code === 200){
+          //   let data = res.data.replace('[','').replace(']','').split(',');
+          //   let imgInfo = {
+          //     name : _this.Name,
+          //     url : data[0]
+          //   };
+          //   _this.$emit('uploadImgSuccess',imgInfo);
+          //   console.log(res);
+          // }
         })
       }
     },
