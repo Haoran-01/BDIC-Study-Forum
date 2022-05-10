@@ -5,7 +5,7 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 from exts import db, mail
 import os
-from blueprints import user_bp,cs_bp,forum_bp,index_bp,userprofile_bp,course_bp
+from blueprints import user_bp,cs_bp,forum_bp,index_bp,userprofile_bp,course_bp,search_empty_class_bp
 from models import User,UserProfile
 
 # 创建一个app对象
@@ -24,6 +24,7 @@ app.register_blueprint(forum_bp)
 app.register_blueprint(index_bp)
 app.register_blueprint(userprofile_bp)
 app.register_blueprint(course_bp)
+app.register_blueprint(search_empty_class_bp)
 
 
 # 配置session secret_key

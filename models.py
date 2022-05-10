@@ -89,14 +89,17 @@ class Comment(db.Model):
 class Course(db.Model):
     __tablename__ = 'course'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    classroom = db.Column(db.VARCHAR(50), nullable=True)
+    # classroom = db.Column(db.VARCHAR(50), nullable=True)
     teacher = db.Column(db.VARCHAR(50), nullable=True)
+    classroom = db.Column(db.VARCHAR(50), db.ForeignKey("classroom.classroom_number"))
     course_name = db.Column(db.VARCHAR(50), nullable=True)
     #course_color = db.Column(db.VARCHAR(50), nullable=True)
     x = db.Column(db.Integer, nullable=True)
     y = db.Column(db.Integer, nullable=True)
     front_id = db.Column(db.Integer, nullable=True)
     user_email = db.Column(db.VARCHAR(50), nullable=True)
+
+    course = db.relationship("Classroom", backref="courses")
 
 
     """def __init__(self, id,classroom,teacher,course_name):
@@ -105,6 +108,14 @@ class Course(db.Model):
         self.classroom = classroom
         # self.course_color = course_color
         self.course_name = course_name"""
+class Classroom(db.Model):
+    __tablename__ = 'classroom'
+    classroom_number = db.Column(db.VARCHAR(50), nullable=True, primary_key=True)
+
+
+
+
+
 
 class CommentLike(db.Model):
     __tablename__ = 'like'

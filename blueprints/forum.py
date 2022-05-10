@@ -132,6 +132,7 @@ def get_new_posts():
     posts = db.session.query(PostModel).filter_by(post_type=post_type).order_by(PostModel.id.desc()).all()
     data = []
     for i in posts:
+        print(i.comments)
         dict = {
             "content": i.content,
             "comments_number": i.comments_number,
