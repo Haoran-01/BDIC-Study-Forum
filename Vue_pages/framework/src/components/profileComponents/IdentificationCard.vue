@@ -3,7 +3,8 @@
     <div class="rightBar"></div>
     <div class="informationArea">
       <div class="pictureUpload">
-        <button type="button" class="changeButton" @click="showModal=true">
+        <img class="Heading" :src="this.profile_url">
+        <button type="button" class="changeButton" @click="showModal=true" v-show="IsHost">
           Avatar
         </button>
         <Modal v-model="showModal" title="Change Detail" >
@@ -61,7 +62,8 @@ export default {
       },
       IsHost:true,
       accessEmail:'',
-      hostEmail:''
+      hostEmail:'',
+      profile_url:''
     }
   },
   methods:{
@@ -85,6 +87,18 @@ export default {
           }else {
             this.IsHost=true;
           }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+    axios.get('/get_profile', {
+      params:{
+        user_email:this.hostEmail
+      }
+    })
+        .then((response) => {
+          this.profile_url=response.data.profile;
         })
         .catch(function (error) {
           console.log(error);
@@ -142,7 +156,7 @@ export default {
     display: grid;
     grid-template-columns: 155px 1fr;
     grid-template-rows: 1fr;
-    grid-column-gap: 0px;
+    grid-column-gap: 25px;
     grid-row-gap: 0px;
   }
 
@@ -194,6 +208,14 @@ export default {
   .changeButton:hover{
     background-color: #00B8FF;
     color: #FFFFFF;
+  }
+
+  .Heading{
+    width: 120px;
+    height: 78px;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    box-shadow: 0 0 3px #727272;
   }
 
 
