@@ -4,3 +4,4 @@ from .index import bp as index_bp
 from .forum import bp as forum_bp
 from .edit_profile import bp as userprofile_bp
 from .course import bp as course_bp
+from .search_empty_class import bp as search_empty_class_bp

@@ -47,7 +47,7 @@ def register_check():
         user.user_name = user_name
         user.user_password = hash_password
         user_profile = UserProfile(user_name=user_name, user_email=user_email,introduction="",grade=1,department=""
-        , major="",profile="")
+        , major="",profile="http://127.0.0.1:5000/img/user_profile.png")
         db.session.add(user_profile)
         db.session.add(user)
         db.session.commit()

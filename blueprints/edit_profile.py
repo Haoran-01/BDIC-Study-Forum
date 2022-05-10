@@ -3,18 +3,19 @@ from sqlalchemy.sql.functions import current_user
 from flask_login import login_required
 from models import UserProfile, PostModel, QuestionType
 from exts import db
-import json
+import os
 
-bp = Blueprint("edit_profile",__name__,url_prefix="/")
+bp = Blueprint("edit_profile", __name__, url_prefix="/")
 
-#个人信息编辑
-@bp.route('/profile',methods=['POST','GET'])
+
+# 个人信息编辑
+@bp.route('/profile', methods=['POST', 'GET'])
 def edit_profile():
     data = request.get_json(silent=True)
 
     user_name = data["user_name"]
     introduction = data["introduction"]
-    #user_email = current_user.user_email
+    # user_email = current_user.user_email
     user_email = data["user_email"]
     grade = data["grade"]
     department = data["department"]
@@ -31,7 +32,8 @@ def edit_profile():
 
     return jsonify(code=200)
 
-@bp.route('get_profile', methods=['GET'])
+
+@bp.route('/get_profile', methods=['GET'])
 def get_profile():
     data = request.get_json(silent=True)
     user_email = data["user_email"]
@@ -42,12 +44,13 @@ def get_profile():
     grade = userprofile.grade
     department = userprofile.department
     major = userprofile.major
+    profile = userprofile.profile
 
-    return jsonify(user_name=user_name, introduction=introduction, grade=grade, department=department, major=major)
+    return jsonify(user_name=user_name, introduction=introduction, grade=grade, department=department, major=major, profile=profile), 200
+
 
 # 个人界面得到自己的所有帖子
 @bp.route("/profile/my_post", methods=['GET'])
-
 def get_my_post():
     email = request.args.get("email")
     posts = PostModel.query.filter_by(author_email=email)
@@ -66,5 +69,25 @@ def get_my_post():
         }
         data.append(dict)
     if len(data) == 0:
-        return jsonify(code=200,message="没发布过帖子")
-    return jsonify(code=200,data=data)
+        return jsonify(code=200, message="没发布过帖子")
+    return jsonify(code=200, data=data)
+
+
+@bp.route('/profile/post_photo', methods=['GET', 'POST'])
+def post_photo():
+    file = request.files.get('head_photo')
+    if file is None:
+        return jsonify(message="上传失败"), 400
+    file_name = file.filename
+    suffix = os.path.splitext(file_name)[-1]
+    the_path = os.path.abspath(os.path.join(file_name, os.path.pardir))
+    upload_path = os.path.join(the_path, 'templates', 'dist', 'upload', str())
+    print("upload_path: " + upload_path)
+    file.save(upload_path + file_name + suffix)
+    url = 'http://127.0.0.1:5000/upload/' + file_name + suffix
+    user_email = "yhr1019@163.com"
+    user_profile = UserProfile.query.filter_by(user_email=user_email).first()
+    user_profile.profile = url
+    db.session.commit()
+    print(url)
+    return jsonify(), 200

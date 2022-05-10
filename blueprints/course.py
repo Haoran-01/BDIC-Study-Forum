@@ -34,7 +34,7 @@ def insert_course():
     course_name = data["course_title"]
     #course_color = data["course_color"]
 
-    sql = Course.front_id ==front_id and Course.user_email==user_email
+    sql = Course.front_id == front_id and Course.user_email==user_email
     db.session.query(Course).filter(sql).update({"classroom":classroom,"teacher":teacher,"course_name":course_name,"user_email":user_email})
     db.session.commit()
     print("out of insert_course")
@@ -52,7 +52,7 @@ def delete_course():
     db.session.close()
 
     return {"success":200}
-"""
+
 @bp.route('/query_single_course',methods=['POST','GET'])
 @login_required
 def query_single_course():
@@ -62,8 +62,8 @@ def query_single_course():
     sql = Course.front_id == front_id and Course.user_email == user_email
     single_course = db.session.query(Course).filter(sql)
     #return jsonify({'classroom':single_course.classroom, 'teacher': single_course.teacher, 'course_name':single_course.course_name, 'course_color':single_course.course_color})
-    return jsonify({'classroom':single_course.classroom, 'teacher': single_course.teacher, 'course_name':single_course.course_name})
-"""
+    return jsonify({'course_title': single_course.course_name, 'classroom':single_course.classroom, 'teacher': single_course.teacher, 'course_name':single_course.course_name})
+
 
 @bp.route('/user_all_course',methods=['POST','GET'])
 @login_required
@@ -128,7 +128,8 @@ def excel_file_recognition():
             i = i + 1
             j = 0
     if fn.endswith('.xlsx'):
-        wb = openpyxl.load_workbook('2018级物联网工程专业课表.xlsx')
+        file = file_name.read()
+        wb = openpyxl.load_workbook(file)
         sheet = wb.worksheets[0]
         i = 0
         j = 0
@@ -146,4 +147,13 @@ def excel_file_recognition():
             i = i + 1
             j = 0
 
-
+@bp.route('/front_id_list', methods=['GET'])
+@login_required
+def get_all_front_id():
+    email = current_user.user_email
+    courses = Course.query.filter_by(user_email=email).all()
+    result = []
+    for i in courses:
+        if i.front_id not in result:
+            result.append(i.front_id)
+    return jsonify(data=result)

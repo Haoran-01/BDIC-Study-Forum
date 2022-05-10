@@ -62,6 +62,7 @@ class UserProfile(db.Model):
     department = db.Column(db.VARCHAR(200), nullable = False, unique=False)
     major = db.Column(db.VARCHAR(200), nullable = False, unique=False)
     profile = db.Column(db.CHAR(200), nullable=False)
+    like_comment = db.Column(db.VARCHAR(1000), default="", unique=False)
 
     def __init__(self, user_name, introduction,user_email,grade,department,major, profile):
       self.user_name = user_name
@@ -88,14 +89,17 @@ class Comment(db.Model):
 class Course(db.Model):
     __tablename__ = 'course'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    classroom = db.Column(db.VARCHAR(50), nullable=True)
+    # classroom = db.Column(db.VARCHAR(50), nullable=True)
     teacher = db.Column(db.VARCHAR(50), nullable=True)
+    classroom = db.Column(db.VARCHAR(50), db.ForeignKey("classroom.classroom_number"))
     course_name = db.Column(db.VARCHAR(50), nullable=True)
     #course_color = db.Column(db.VARCHAR(50), nullable=True)
     x = db.Column(db.Integer, nullable=True)
     y = db.Column(db.Integer, nullable=True)
     front_id = db.Column(db.Integer, nullable=True)
     user_email = db.Column(db.VARCHAR(50), nullable=True)
+
+    course = db.relationship("Classroom", backref="courses")
 
 
     """def __init__(self, id,classroom,teacher,course_name):
@@ -104,5 +108,17 @@ class Course(db.Model):
         self.classroom = classroom
         # self.course_color = course_color
         self.course_name = course_name"""
+class Classroom(db.Model):
+    __tablename__ = 'classroom'
+    classroom_number = db.Column(db.VARCHAR(50), nullable=True, primary_key=True)
 
 
+
+
+
+
+class CommentLike(db.Model):
+    __tablename__ = 'like'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    cmt_id = db.Column(db.Integer, db.ForeignKey("comment.cmt_id"))
+    user_email = db.Column(db.CHAR(200), db.ForeignKey("user.user_email"))
