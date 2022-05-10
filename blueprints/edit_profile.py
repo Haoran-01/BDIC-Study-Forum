@@ -31,10 +31,11 @@ def edit_profile():
     return jsonify(code=200)
 
 
-@bp.route('/get_profile', methods=['GET'])
+@bp.route('/get_profile', methods=['GET', 'POST'])
 def get_profile():
-    data = request.get_json(silent=True)
-    user_email = data["user_email"]
+    # data = request.get_json(silent=True)
+    user_email = request.args.get("user_email")
+    # user_email = data["user_email"]
     userprofile = UserProfile.query.filter_by(user_email=user_email).first()
 
     user_name = userprofile.user_name
@@ -73,7 +74,7 @@ def get_my_post():
 
 @bp.route('/profile/post_photo', methods=['GET', 'POST'])
 def post_photo():
-    file = request.files.get('head_photo')
+    file = request.files.get('file')
     if file is None:
         return jsonify(message="上传失败"), 400
     file_name = file.filename
