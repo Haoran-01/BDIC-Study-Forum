@@ -30,7 +30,7 @@
     </div>
     <div class="lecture">
     Lecturer:<br>
-      <span Style="font-weight: bold;">{{lecturer}}</span>
+      <span Style="font-weight: bold; font-size: 12px">{{lecturer}}</span>
     </div>
 
   </div>
@@ -155,12 +155,26 @@ input{
 }
 .subjectTitle {
   grid-area: 3 / 5 / 4 / 6;
-
+  width: 90%;
+  height: 30px;
   font-family: 'Arial Rounded MT',sans-serif;
   font-style: normal;
   font-size: 20px;
-
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  white-space: nowrap;
   color: #000000;
+}
+::-webkit-scrollbar{
+  height: 5px;
+}
+::-webkit-scrollbar-button{
+  display: none;
+}
+::-webkit-scrollbar-thumb{
+  background-color: #727272;
+  border-radius: 100px;
 }
 .classRoom {
   grid-area: 5 / 5 / 6 / 6;
@@ -169,6 +183,7 @@ input{
 .lecture {
   grid-area: 7 / 5 / 8 / 6;
   font-size: 15px;
+  line-height: 1;
 }
 .uploadModel{
   background-color: #FFFFFF;
