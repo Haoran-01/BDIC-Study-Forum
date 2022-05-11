@@ -97,7 +97,7 @@ def excel_file_recognition():
     for i in largest_front_id_course:
         if current_front_id < int(i.front_id):
             current_front_id = int(i.front_id) + 1
-    file_name = request.files['file_name']
+    file_name = request.files['file']
 
     file = file_name.read()
     wb = xlrd.open_workbook(file_contents=file)
