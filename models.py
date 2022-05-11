@@ -92,15 +92,14 @@ class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     # classroom = db.Column(db.VARCHAR(50), nullable=True)
     teacher = db.Column(db.VARCHAR(50), nullable=True)
-    classroom = db.Column(db.VARCHAR(50), db.ForeignKey("classroom.classroom_number"))
-    course_name = db.Column(db.VARCHAR(50), nullable=True)
-    course_color = db.Column(db.VARCHAR(50), nullable=True, default="#000000")
+    classroom = db.Column(db.VARCHAR(50))
+    course_name = db.Column(db.VARCHAR(120), nullable=True)
+    course_color = db.Column(db.VARCHAR(50), nullable=True, default="#FF0000")
     x = db.Column(db.Integer, nullable=True)
     y = db.Column(db.Integer, nullable=True)
     front_id = db.Column(db.Integer, nullable=True)
     user_email = db.Column(db.VARCHAR(50), nullable=True)
 
-    course = db.relationship("Classroom", backref="courses")
 
     """def __init__(self, id,classroom,teacher,course_name):
         self.id = id

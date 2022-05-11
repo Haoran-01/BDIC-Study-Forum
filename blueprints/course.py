@@ -13,7 +13,7 @@ def move_course():
     front_id = data["course_id"]
     x = data["x"]
     y = data["y"]
-    course = Course(x=x, y=y, front_id=front_id)
+    course = Course(x=x, y=y, front_id=front_id, user_email=current_user.user_email)
 
     db.session.add(course)
     db.session.commit()
@@ -60,18 +60,20 @@ def delete_course():
 @bp.route('/query_single_course', methods=['POST', 'GET'])
 @login_required
 def query_single_course():
-    data = request.get_json()
-    front_id = data["course_id"]
+    front_id = request.args.get("course_id")
     user_email = current_user.user_email
     sql = Course.front_id == front_id and Course.user_email == user_email
-    single_course = db.session.query(Course).filter(sql)
-    # return jsonify({'classroom':single_course.classroom, 'teacher': single_course.teacher, 'course_name':single_course.course_name, 'course_color':single_course.course_color})
-    return jsonify({'course_title': single_course.course_name, 'classroom': single_course.classroom,
+    single_course = db.session.query(Course).filter(sql).first()
+    if single_course == None:
+        return jsonify(data='notfound')
+    else:
+        # return jsonify({'classroom':single_course.classroom, 'teacher': single_course.teacher, 'course_name':single_course.course_name, 'course_color':single_course.course_color})
+        return jsonify({'course_title': single_course.course_name, 'classroom': single_course.classroom,
                     'teacher': single_course.teacher, 'course_name': single_course.course_name,
-                    'course_color':single_course.course_color})
+                    'course_color':single_course.course_color}), 200
 
 
-@bp.route('/get_all_course', methods=['POST', 'GET'])
+@bp.route('/get_all_courses', methods=['POST', 'GET'])
 @login_required
 def user_all_course():
     user_all_course = db.session.query(Course).filter(Course.user_email == current_user.user_email).all()
@@ -83,10 +85,10 @@ def user_all_course():
             "y": i.y
         }
         result.append(dic)
-    return jsonify(result)
+    return jsonify(data=result)
 
 
-@bp.route('/excel_recognition', methods=['GET'])
+@bp.route('/excel_recognition', methods=['POST','GET'])
 @login_required
 def excel_file_recognition():
     user_email = current_user.user_email
@@ -95,46 +97,28 @@ def excel_file_recognition():
     for i in largest_front_id_course:
         if current_front_id < int(i.front_id):
             current_front_id = int(i.front_id) + 1
-    file_name = request.files.get('file_name')
-    fn = file_name.name
-    if fn.endswith('.xls'):
-        file = file_name.read()
-        wb = xlrd.open_workbook(file_contents=file)
-        sheet = wb.sheet_by_index(0)
-        i = 0
+    file_name = request.files['file_name']
+
+    file = file_name.read()
+    wb = xlrd.open_workbook(file_contents=file)
+    sheet = wb.sheet_by_index(0)
+    i = 0
+    j = 0
+    for row in sheet.get_rows():
+        for cell in row:
+            if cell.value != '':
+                result = cell.value.split('/')
+                if len(result) >= 4:
+                    course = Course(course_name=result[0], classroom=result[2], teacher=result[3], x=j - 2, y=i - 2,
+                                    front_id=str(current_front_id), user_email=user_email)
+                    current_front_id = current_front_id + 1
+                    db.session.add(course)
+                    db.session.commit()
+            j = j + 1
+        i = i + 1
         j = 0
-        for row in sheet.get_rows():
-            for cell in row:
-                if cell.value != '':
-                    result = cell.value.split('/')
-                    if len(result) >= 4:
-                        course = Course(course_name=result[0], classroom=result[2], teacher=result[3], x=j - 2, y=i - 2,
-                                        front_id=str(current_front_id), user_email=user_email)
-                        current_front_id = current_front_id + 1
-                        db.session.add(course)
-                        db.session.commit()
-                j = j + 1
-            i = i + 1
-            j = 0
-    if fn.endswith('.xlsx'):
-        file = file_name.read()
-        wb = openpyxl.load_workbook(file)
-        sheet = wb.worksheets[0]
-        i = 0
-        j = 0
-        for row in sheet.iter_rows():
-            for cell in row:
-                if cell.value != None:
-                    result = cell.value.split('/')
-                    if len(result) >= 4:
-                        course = Course(course_name=result[0], classroom=result[2], teacher=result[3], x=j - 2, y=i - 2,
-                                        front_id=str(current_front_id), user_email=user_email)
-                        current_front_id = current_front_id + 1
-                        db.session.add(course)
-                        db.session.commit()
-                j = j + 1
-            i = i + 1
-            j = 0
+    return jsonify(), 200
+
 
 
 @bp.route('/front_id_list', methods=['GET'])
