@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from models import Classroom
+from models import Classroom, Course
 from exts import db
 
 bp = Blueprint("search_empty_class", __name__, url_prefix="/search_empty_class")
@@ -26,7 +26,7 @@ def time_view():
     data_list = []
     for i in classroom_number_range:
         if Classroom.query.filter_by(classroom_number=i).first() is not None:
-            courses = Classroom.query.filter_by(classroom_number=i).first().courses
+            courses = Course.query.filter_by(classroom="TB4-"+str(i)).all()
             today_courses = []
             dic = {
                 "class_room_number": i,
@@ -55,6 +55,7 @@ def time_view():
                 elif k.y == 5:
                     dic["sixth_class"] = "full"
             data_list.append(dic)
+            print(dic)
         else:
             dic = {
                 "class_room_number": i,
