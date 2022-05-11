@@ -91,8 +91,8 @@ class Course(db.Model):
     __tablename__ = 'course'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     # classroom = db.Column(db.VARCHAR(50), nullable=True)
-    teacher = db.Column(db.VARCHAR(50), nullable=True)
-    classroom = db.Column(db.VARCHAR(50))
+    teacher = db.Column(db.VARCHAR(120), nullable=True)
+    classroom = db.Column(db.VARCHAR(120))
     course_name = db.Column(db.VARCHAR(120), nullable=True)
     course_color = db.Column(db.VARCHAR(50), nullable=True, default="#FF0000")
     x = db.Column(db.Integer, nullable=True)

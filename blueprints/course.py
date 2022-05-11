@@ -1,4 +1,4 @@
-import openpyxl, xlrd
+import openpyxl, xlrd, os
 from flask import Blueprint, request, jsonify
 from models import Course
 from exts import db
@@ -131,3 +131,27 @@ def get_all_front_id():
         if i.front_id not in result:
             result.append(i.front_id)
     return jsonify(data=result)
+
+@bp.route('/classroom', methods=['GET'])
+def creat_classroom():
+    path = '/Users/wuwenjie/Desktop/project/BDIC_COMP2008J_Group_12/blueprints/class'
+    filename = os.listdir(path)
+    file_dir = [os.path.join(path, x) for x in filename]
+    for file in file_dir:
+        wb = xlrd.open_workbook(file)
+        sheet = wb.sheet_by_index(0)
+        i = 0
+        j = 0
+        for row in sheet.get_rows():
+            for cell in row:
+                if cell.value != '':
+                    result = cell.value.split('/')
+                    if len(result) >= 4:
+                        course = Course(course_name=result[0], classroom=result[2], teacher=result[3], x=j - 2, y=i - 2,
+                                        )
+                        db.session.add(course)
+                        db.session.commit()
+                j = j + 1
+            i = i + 1
+            j = 0
+    return jsonify(data ='cuccessful')
