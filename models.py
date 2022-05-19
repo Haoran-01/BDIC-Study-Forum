@@ -111,11 +111,17 @@ class Course(db.Model):
 
 class Classroom(db.Model):
     __tablename__ = 'classroom'
-    classroom_number = db.Column(db.VARCHAR(50), nullable=True, primary_key=True)
+    classroom_number = db.Column(db.VARCHAR(50), nullable=False, primary_key=True)
 
 
 class CommentLike(db.Model):
     __tablename__ = 'like'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     cmt_id = db.Column(db.Integer, db.ForeignKey("comment.cmt_id"))
     user_email = db.Column(db.CHAR(200), db.ForeignKey("user.user_email"))
+
+class Administrator(db.Model):
+    __tablename__ = 'adminiatrator'
+    id = db.Column(db.CHAR(20), primary_key=True, nullable=False)
+    user_password = db.Column(db.CHAR(20), nullable=False)
+
