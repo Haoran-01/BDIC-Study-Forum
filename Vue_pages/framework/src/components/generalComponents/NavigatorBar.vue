@@ -19,6 +19,10 @@
         <router-link class="navLink" id="classroom" to="/Classroom" Style="cursor: pointer">Classroom</router-link>
         <div class="navLinkDecoration"></div>
       </div>
+<!--      <div class="navItem">-->
+<!--        <router-link class="navLink" id="control" to="/control" Style="cursor: pointer">Control Board</router-link>-->
+<!--        <div class="navLinkDecoration"></div>-->
+<!--      </div>-->
     </nav>
   </div>
   <div class="searchArea">

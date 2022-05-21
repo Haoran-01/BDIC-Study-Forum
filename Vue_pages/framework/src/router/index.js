@@ -75,6 +75,24 @@ const routes = [
     path: "/Classroom",
     name: "classroom",
     component: () => import(/* webpackChunkName: "classroom" */ '../views/ClassroomView.vue')
+  },
+
+  {
+    path: "/control",
+    name: "controlNavigator",
+    component: () => import(/* webpackCHunkName: "control" */ '../components/controlComponents/controlNavigator.vue'),
+    children: [
+      {
+        path: "/control/controlBoard",
+        name: "controlBoard",
+        component: () => import(/* webpackChunkName: "control" */ '../views/controlBoardView.vue')
+      },
+      {
+        path: "/control/controlData",
+        name: "controlData",
+        component: () => import(/* webpackChunkName: "control" */ '../views/controlDataView.vue')
+      }
+    ]
   }
 ]
 
