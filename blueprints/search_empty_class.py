@@ -7,12 +7,15 @@ bp = Blueprint("search_empty_class", __name__, url_prefix="/search_empty_class")
 
 @bp.route("/create_classroom", methods=['GET','POST'])
 def create_classroom():
-    floor = [1,2,3,4,5,6,7,8]
+    floor = [2,3,4,5,6]
+    classroom = Classroom(classroom_number=102)
+    db.session.add(classroom)
     for i in floor:
-        classroom_number_range = range(i * 100, i * 100 + 30)
+        classroom_number_range = range(i * 100 + 1, i * 100 + 21)
         for j in classroom_number_range:
-            new_classroom = Classroom(classroom_number=j)
-            db.session.add(new_classroom)
+            if j%2 == 0:
+                new_classroom = Classroom(classroom_number=j)
+                db.session.add(new_classroom)
     db.session.commit()
     return jsonify(), 200
 
@@ -54,19 +57,6 @@ def time_view():
                     dic["fifth_class"] = "full"
                 elif k.y == 5:
                     dic["sixth_class"] = "full"
-            data_list.append(dic)
-            print(dic)
-        else:
-            dic = {
-                "class_room_number": i,
-                "first_class": "empty",
-                "second_class": "empty",
-                "third_class": "empty",
-                "fourth_class": "empty",
-                "fifth_class": "empty",
-                "sixth_class": "empty",
-                "plug_number": 2
-            }
             data_list.append(dic)
     return jsonify(data=data_list), 200
 
