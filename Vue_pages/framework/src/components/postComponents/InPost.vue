@@ -14,6 +14,7 @@
         <div class="postBar">
           <div class="ButtonFrame"></div>
           <div class="ButtonArea">
+            <button type="button" class="postButton" @click="pdfBtn"></button>
             <button type="button" class="postButton" @click="handlePost">POST</button>
           </div>
         </div>
@@ -65,6 +66,9 @@ export default {
     },
     handleReply(email){
       this.$refs.editor.setText('@' + email + ': ');
+    },
+    pdfBtn(){
+      window.print();
     }
   },
   data(){
