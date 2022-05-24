@@ -21,7 +21,7 @@
       role="dialog"
       aria-modal="true"
   >
-      <n-input type="password" placeholder="" :value="adminPass"></n-input>
+      <n-input type="password" placeholder="" v-model:value="adminPass"></n-input>
       <n-button style="float: right; display: flex; margin-top: 10px" @click="closeModal">Submit</n-button>
     </n-card>
   </n-modal>
@@ -60,11 +60,12 @@ export default defineComponent({
     return {
       showModal: ref(false),
       menuOptions,
-      adminPass: null,
+      adminPass: ref(null),
       tip
     };
   },
   mounted(){
+    this.showModal = true;
     axios.get('/adm')
         .then((response)=>{
           const code = response.status;
