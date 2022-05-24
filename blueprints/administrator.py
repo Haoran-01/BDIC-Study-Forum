@@ -9,6 +9,12 @@ from flask_login import login_required, current_user
 
 bp = Blueprint("administrator", __name__, url_prefix="/adm")
 
+@bp.route("/", methods=['GET'])
+
+
+
+
+
 @bp.route("/registration", methods=['GET'])
 def get_registration_number():
         # 总注册人数
@@ -42,9 +48,11 @@ def get_today_comment():
 
 @bp.route('/today_post', methods=['GET'])
 def get_today_post():
-    post_list = PostModel.query.filter_by().all()
+    post_list = PostModel.query.all()
+    print(len(post_list))
     for i in post_list:
         if not i.create_time.date() == datetime.now().date():
+            # print(i.id)
             post_list.remove(i)
     return jsonify(today_post_num=len(post_list)), 200
 
