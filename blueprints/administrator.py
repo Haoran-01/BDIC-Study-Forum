@@ -88,7 +88,7 @@ def get_all_types():
     ).all()
 
     tran = db.session.query(PostModel).filter(
-        PostModel.post_type == 2
+        PostModel.post_type == 3
     ).all()
 
     return jsonify(data = [{'name':'Lecture Question', 'value': len(lecture)}, {'name':'Lost And Found', 'value':len(lost)}, {'name':'Transaction', 'value':len(tran)}])
@@ -96,7 +96,7 @@ def get_all_types():
 
 @bp.route('/seven_types', methods=['GET'])
 def get_seven_types():
-    end = datetime.now()
+    end = datetime.now() + timedelta(days=1)
     end_year = end.year
     end_month = end.month
     end_day = end.day
@@ -142,9 +142,8 @@ def get_seven_types():
 
 @bp.route('/seven_comment', methods=['GET'])
 def get_seven_comment():
-    end = datetime.now()
+    end = datetime.now() - timedelta(days=6)
 
-    end = end - timedelta(days=7)
     start = end - timedelta(days=1)
 
     end_year = end.year
@@ -186,9 +185,7 @@ def get_seven_comment():
 
 @bp.route('/seven_registration', methods=['GET'])
 def get_seven_registration():
-    end = datetime.now()
-
-    end = end - timedelta(days=7)
+    end = datetime.now()- timedelta(days=6)
     start = end - timedelta(days=1)
 
     end_year = end.year
@@ -230,9 +227,8 @@ def get_seven_registration():
 
 @bp.route('/seven_post', methods=['GET'])
 def get_seven_post():
-    end = datetime.now()
+    end = datetime.now() - timedelta(days=6)
 
-    end = end - timedelta(days=7)
     start = end - timedelta(days=1)
 
     end_year = end.year
