@@ -13,6 +13,7 @@ bp = Blueprint("administrator", __name__, url_prefix="/adm")
 def get_registration_number():
         # 总注册人数
         registration_numbers = len(User.query.all())
+        print(registration_numbers)
         return jsonify({'registration_numbers': registration_numbers}), 200
 
 
@@ -22,11 +23,13 @@ def get_gross_post():
         gross_post_numbers = len(PostModel.query.filter_by().all())
         return jsonify({'gross_post_numbers': gross_post_numbers}), 200
 
+
 @bp.route("/gross_comment", methods=['GET'])
 def get_gross_comment():
         # 总评论数
         gross_comment_numbers = len(Comment.query.filter_by().all())
         return jsonify({'gross_post_numbers': gross_comment_numbers}), 200
+
 
 @bp.route('/today_comment',methods=['GET'])
 def get_today_comment():
@@ -35,6 +38,7 @@ def get_today_comment():
         if not i.create_time.date() == datetime.now().date():
             comment_list.remove(i)
     return jsonify(today_comment_num=len(comment_list)), 200
+
 
 @bp.route('/today_post', methods=['GET'])
 def get_today_post():
@@ -71,6 +75,7 @@ def get_user_table():
         all_user_list.append(dict)
     return jsonify(data=all_user_list), 200
 
+
 @bp.route('/types', methods=['GET'])
 def get_all_types():
     # 查询2020年12月8日的数据
@@ -87,6 +92,7 @@ def get_all_types():
     ).all()
 
     return jsonify(data = [{'name':'Lecture Question', 'value': len(lecture)}, {'name':'Lost And Found', 'value':len(lost)}, {'name':'Transaction', 'value':len(tran)}])
+
 
 @bp.route('/seven_types', methods=['GET'])
 def get_seven_types():
@@ -133,6 +139,7 @@ def get_seven_types():
 
     return jsonify(data = [{'name':'Lecture Question', 'value': len(lecture)}, {'name':'Lost And Found', 'value':len(lost)}, {'name':'Transaction', 'value':len(tran)}])
 
+
 @bp.route('/seven_comment', methods=['GET'])
 def get_seven_comment():
     end = datetime.now()
@@ -173,11 +180,8 @@ def get_seven_comment():
         start_month = start.month
         start_day = start.day
 
-        i = i + 1;
-
-
-
-
+        i = i + 1
+    print(result)
     return jsonify(data = result)
 
 @bp.route('/seven_registration', methods=['GET'])
@@ -264,7 +268,7 @@ def get_seven_post():
         start_month = start.month
         start_day = start.day
 
-        i = i + 1;
+        i = i + 1
 
     return jsonify(data=result)
 
