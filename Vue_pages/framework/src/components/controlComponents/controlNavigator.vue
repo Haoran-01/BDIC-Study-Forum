@@ -18,6 +18,7 @@
 
 import {defineComponent, h} from "vue";
 import { RouterLink } from "vue-router";
+import axios from "axios";
 
 const menuOptions = [
   {
@@ -25,7 +26,7 @@ const menuOptions = [
       to: {
         path: "/control/controlBoard"
       }
-    }, { default: () => "控制面板" }),
+    }, { default: () => "Control Board" }),
     key: "1",
   },
   {
@@ -33,7 +34,7 @@ const menuOptions = [
       to: {
         path: "/control/controlData"
       }
-    }, { default: () => "数据报表" }),
+    }, { default: () => "Data Report" }),
     key: "2",
   }
 ];
@@ -44,6 +45,17 @@ export default defineComponent({
     return {
       menuOptions
     };
+  },
+  beforeRouteEnter(){
+    axios.get('admin')
+    .then((response)=>{
+      const code = response.status;
+      if (code === 200){
+        if (!response.admin){
+          window.location.assign(window.location.origin + '/user/login');
+        }
+      }
+    })
   }
 });
 </script>

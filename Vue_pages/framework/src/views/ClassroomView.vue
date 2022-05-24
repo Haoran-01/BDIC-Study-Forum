@@ -20,9 +20,23 @@
                         :options="options3"
                         clearable="true"
                         style="width: 200px; position: relative; left: 220px; bottom: 34px"/>
-              <n-button color="#00B8FF" style="bottom: 68px; left: 25px" @click="handleSearch">
+              <n-button color="#00B8FF" style="bottom: 68px; left: 115px" @click="handleSearch">
                 Search
               </n-button>
+              <n-switch
+                :rail-style="railStyle"
+                style="position: relative; bottom: 68px; left: 345px;"
+                size="large"
+                v-model:value="active"
+                @update:value="handleChangeSort"
+              >
+                <template #checked>
+                  Sort by usable time
+                </template>
+                <template #unchecked>
+                  Sort by room number
+                </template>
+              </n-switch>
             </div>
             <div style="position: relative; bottom: 25px;">
               <span v-for="(item, index) in postData" :key="index"> <!-- 这个地方是时间视图中，对于每个教室的循环，因为我不知道每一层有几个教室，所以循环postData中的内容，有几个显示几个-->
@@ -147,6 +161,53 @@ export default defineComponent({
           value: 6
         }
       ],
+      active: ref(false),
+      handleChangeSort(value){
+        if (value === false){
+          axios.post("/search_empty_class/time_view", {
+            floor: this.value2,
+            date: this.value3,
+            sort: 'room'
+          })
+              .then((response)=>{
+                const code = response.status;
+                if (code === 200){
+                  this.postData = shallowRef(response.data.data);
+                }
+              })
+        }
+        else {
+          axios.post("/search_empty_class/time_view", {
+            floor: this.value2,
+            date: this.value3,
+            sort: 'time'
+          })
+              .then((response)=>{
+                const code = response.status;
+                if (code === 200){
+                  this.postData = shallowRef(response.data.data);
+                }
+              })
+        }
+      },
+      railStyle: ({
+                    focused,
+                    checked
+                  }) => {
+        const style = {};
+        if (checked) {
+          style.background = "#00B8FF";
+          if (focused) {
+            style.boxShadow = "0 0 0 2px #2080f040";
+          }
+        } else {
+          style.background = "#00B8FF";
+          if (focused) {
+            style.boxShadow = "0 0 0 2px #2080f040";
+          }
+        }
+        return style;
+      }
     };
   },
   data() {
