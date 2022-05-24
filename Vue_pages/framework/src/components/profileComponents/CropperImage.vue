@@ -32,13 +32,15 @@
     <div class="test-button">
       <label class="btn" for="uploads">upload</label>
       <input type="file" id="uploads" style="position:absolute; clip:rect(0 0 0 0);" accept="image/png, image/jpeg, image/gif, image/jpg" @change="selectImg($event)">
-      <button @click="changeScale(1)" class="btn-1" id="first">+</button>
-      <button @click="changeScale(-1)" class="btn-1">-</button>
-      <button @click="rotateLeft" class="btn-2">rotateLeft</button>
-      <button @click="rotateRight" class="btn-2">rotateRight</button>
-      <div class="upload-btn">
-        <button @click="uploadImg('blob')" class="Submit">Submit</button>
-      </div>
+      <n-button-group size="small">
+        <n-button @click="changeScale(1)" class="btn-1" id="first" style="width: 10px">+</n-button>
+        <n-button @click="changeScale(-1)" class="btn-1" style="width: 10px">-</n-button>
+      </n-button-group>
+      <n-button-group size="small">
+        <n-button @click="rotateLeft" class="btn-2" style="width: 80px">rotateLeft</n-button>
+        <n-button @click="rotateRight" class="btn-2" style="width: 80px">rotateRight</n-button>
+      </n-button-group>
+        <n-button @click="uploadImg('blob')" class="Submit" type="info" style="background-color: #00B8FF">Submit</n-button>
     </div>
 
 
@@ -73,10 +75,10 @@ export default {
         info: true,          //图片大小信息
         canScale: true,      //图片是否允许滚轮缩放
         autoCrop: true,      //是否默认生成截图框
-        autoCropWidth: 120,  //默认生成截图框宽度
-        autoCropHeight: 150, //默认生成截图框高度
+        autoCropWidth: 100,  //默认生成截图框宽度
+        autoCropHeight: 100, //默认生成截图框高度
         fixed: true,         //是否开启截图框宽高固定比例
-        fixedNumber: [1.53, 1], //截图框的宽高比例
+        fixedNumber: [1, 1], //截图框的宽高比例
         full: false,         //false按原比例裁切图片，不失真
         fixedBox: true,      //固定截图框大小，不允许改变
         canMove: false,      //上传图片是否可以移动
@@ -210,7 +212,7 @@ button{
   margin-left: 30px;
 }
 
-.btn-1{
+/*.btn-1{
   transition: 0.5s ease-out;
   width: 25px;
 }
@@ -240,17 +242,20 @@ button{
   background-color: #00B8FF;
   color: #FFFFFF;
   border-style: none;
-}
+}*/
 
 .btn{
+  transition: 0.5s;
   padding: 5px 5px;
   cursor: pointer;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 100px;
+  color: #00B8FF;
 }
 
 .btn:hover{
-  background-color: #b47a7a;
+  transition: 0.5s;
+  background-color: #00B8FF;
   color: #FFFFFF;
 }
 

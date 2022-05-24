@@ -94,7 +94,7 @@ export default {
   }
 
   .imgShow img{
-    width: 16px;
+    width: 10px;
     height: 16px;
   }
 

@@ -7,9 +7,11 @@
         <button type="button" class="changeButton" @click="showModal=true" v-show="IsHost">
           Avatar
         </button>
-        <Modal v-model="showModal" title="Change Detail" >
-          <CropperImage></CropperImage>
-        </Modal>
+        <n-modal v-model:show="showModal" class="modal" transform-origin="center">
+          <div>
+            <CropperImage></CropperImage>
+          </div>
+        </n-modal>
       </div>
       <div class="Otherselfie" v-if="!IsHost">
         <InforCollection></InforCollection>
@@ -37,20 +39,19 @@ import InforCollectionSpan from "@/components/profileComponents/InforCollectionS
 import axios from "axios";
 import CropperImage from "@/components/profileComponents/CropperImage";
 import 'vue-cropper/dist/index.css';
-import VueModal from "@kouts/vue-modal";
 import '@kouts/vue-modal/dist/vue-modal.css'
+import {ref} from "vue";
 
 export default {
   name: "IdentificationCard",
   components:{
     InforCollectionSpan,
     InforCollection,
-    CropperImage,
-    'Modal': VueModal,
+    CropperImage
   },
   data(){
     return{
-      showModal: false,
+      showModal: ref(false),
       animate:{
         transition: true,
         frame: true,
@@ -211,11 +212,19 @@ export default {
   }
 
   .Heading{
-    width: 120px;
-    height: 78px;
+    width: 100px;
+    height: 100px;
     margin-top: 10px;
-    margin-bottom: 25px;
+    margin-bottom: 5px;
     box-shadow: 0 0 3px #727272;
+    border-radius: 100px;
+  }
+
+  .modal{
+    background-color: #FFFFFF;
+    padding: 0 20px 20px 20px;
+    justify-content: center;
+    border-radius: 10px;
   }
 
 

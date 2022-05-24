@@ -10,7 +10,10 @@ export default createStore({
     loginState: false,
     userEmail: '',
     // Current Section
-    currentSection: ''
+    currentSection: '',
+    //table delete index
+    currentDeleteIndex: {value: -1},
+    currentPostIndex: {value: -1}
   },
   getters: {
   },
@@ -36,6 +39,12 @@ export default createStore({
     setCurrentSection(state, section){
       state.currentSection = section;
     },
+    changeCurrentDeletion(state, indexFinal){
+      this.state.currentDeleteIndex = {value: indexFinal};
+    },
+    changeCurrentPost(state, indexFinal){
+      this.state.currentPostIndex = {value: indexFinal};
+    }
   },
   actions: {
   },
