@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 from models import Administrator, PostModel, Comment, QuestionType, User
 from exts import db
 from flask_login import login_required, current_user
-
+from datetime import datetime
 bp = Blueprint("administrator", __name__, url_prefix="/adm")
 
 
