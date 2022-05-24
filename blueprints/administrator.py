@@ -268,3 +268,10 @@ def get_seven_post():
 
     return jsonify(data=result)
 
+@bp.route('type_name', methods=['GET'])
+def get_all_type_name():
+    result = []
+    types = db.session.query(QuestionType).filter().all()
+    for type in types:
+        result.append(type.type_name)
+    return jsonify(data = result)
