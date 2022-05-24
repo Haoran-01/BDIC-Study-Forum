@@ -156,6 +156,7 @@ export default {
     }
   },
   created() {
+    // /index/get_post
     axios.get('/index/get_post')
         .then((response) => {
           this.postData = response.data.data;
