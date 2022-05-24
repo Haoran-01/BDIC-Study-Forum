@@ -25,18 +25,20 @@
 <!--      </div>-->
     </nav>
   </div>
-  <div>
-    <n-button @click="show = true" quaternary style="position: relative; left: 320px; top: 8px;">
+  <div class="helpArea">
+    <n-button @click="show = true" quaternary style="margin-right: 10px">
       ASK FOR HELP
     </n-button>
+  </div>
+  <div>
     <n-drawer v-model:show="show" :width="502">
       <n-drawer-content title="Send a message to Administrator" closable>
         <n-input
-            v-model:value="value"
+            v-model:value="helpValue"
             type="textarea"
             placeholder="Tell administrator your question"
         />
-        <n-button style="margin: 10px; float: right">Submit</n-button>
+        <n-button style="margin: 10px; float: right" @click="handleHelp">Submit</n-button>
         <n-card title="Previous questions">
           <n-collapse>
             <span v-for="(item, index) in messages" :key="index">
@@ -96,15 +98,18 @@ onUnmounted(()=>{
   window.removeEventListener('scroll', this.changeOptionsVisibility, true)
 })*/
 import NavUserMenu from "@/components/generalComponents/NavUserMenu";
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref } from 'vue';
+import {useToast} from "vue-toastification";
 
 import axios from "axios";
 export default defineComponent({
     name: "NavigatorBar",
   components: {NavUserMenu},
   setup () {
+      const tip = useToast();
     return {
-      show: ref(false)
+      show: ref(false),
+      tip
     }
   },
   data() {
@@ -112,6 +117,7 @@ export default defineComponent({
       userMenuVisibility: false,
       userLogined: false,
       userEmail: this.$store.state.userEmail,
+      helpValue: null,
       searchText:'',
       messages: [
         {
@@ -158,6 +164,17 @@ export default defineComponent({
           // if (this.$route.path !== '/'){
           //
           // }
+        }
+      })
+    },
+    handleHelp(){
+      axios.post('', {
+        content: this.helpValue
+      })
+      .then((response)=>{
+        const code = response.status;
+        if (code === 200){
+          this.info("Submit successfully.")
         }
       })
     }
@@ -274,6 +291,12 @@ nav a:link, a:visited{
 .navLink:hover+.navLinkDecoration{
   transition: .3s ease-out;
   width: 50px;
+}
+.helpArea{
+  grid-area: 1 / 3 / 2 / 4;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 .searchArea{
   grid-area: 1 / 4 / 2 / 5;

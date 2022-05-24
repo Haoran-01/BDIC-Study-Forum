@@ -13,27 +13,17 @@
       </n-gi>
       <n-gi>
         <n-card>
-          <v-chart class="chart" :option="NOUPSD" :autoresize="true" />
-        </n-card>
-      </n-gi>
-      <n-gi>
-        <n-card>
           <v-chart class="chart" :option="NRPSD" :autoresize="true" />
         </n-card>
       </n-gi>
       <n-gi>
         <n-card>
+          <v-chart class="chart" :option="PPESPSD" :autoresize="true" />
+        </n-card>
+      </n-gi>
+      <n-gi>
+        <n-card>
           <v-chart class="chart" :option="PPES" :autoresize="true" />
-        </n-card>
-      </n-gi>
-      <n-gi>
-        <n-card title="管理员每日收到信息次数">
-          6
-        </n-card>
-      </n-gi>
-      <n-gi>
-        <n-card >
-          7
         </n-card>
       </n-gi>
     </n-grid>
@@ -52,6 +42,7 @@ import {
 } from "echarts/components";
 import VChart, { THEME_KEY } from "vue-echarts";
 import {defineComponent, ref} from "vue";
+import axios from "axios";
 
 use([
   CanvasRenderer,
@@ -125,33 +116,6 @@ export default defineComponent({
         }
       ]
     });
-    const NOUPSD = ref({
-      xAxis: {
-        data: [1, 2, 3, 4, 5, 6, 7]
-      },
-      yAxis:{},
-      title: {
-        text: "Number of Online Users Past Seven Days",
-        left: "center"
-      },
-      series: [
-        {
-          name: "Number of Online Users Past Seven Days",
-          type: "line",
-          data: [23, 44, 11, 22, 41, 48, 20],
-          emphasis: {
-            label:{
-              show: true
-            },/*
-            itemStyle: {
-              shadowBlur: 10,
-              shadowOffsetX: 0,
-              shadowColor: "rgba(0, 0, 0, 0.5)"
-            }*/
-          }
-        }
-      ]
-    });
     const NRPSD = ref({
       xAxis: {
         data: [1, 2, 3, 4, 5, 6, 7]
@@ -175,6 +139,44 @@ export default defineComponent({
               shadowOffsetX: 0,
               shadowColor: "rgba(0, 0, 0, 0.5)"
             }*/
+          }
+        }
+      ]
+    });
+    const PPESPSD = ref({
+      title: {
+        text: "Proportion of Post In Each Section Past Seven Days",
+        left: "center"
+      },
+      tooltip: {
+        trigger: "item",
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+      },
+      legend: {
+        orient: "horizontal",
+        left:'center',
+        top: 30,
+        data: ["Hot Food", "Clothes", "Tools", "Food Origins", "Snacks"]
+      },
+      series: [
+        {
+          name: "Proportion of Post In Each Section",
+          type: "pie",
+          radius: "55%",
+          center: ["50%", "60%"],
+          data: [
+            { value: 335, name: "Hot Food" },
+            { value: 310, name: "Clothes" },
+            { value: 234, name: "Tools" },
+            { value: 135, name: "Food Origins" },
+            { value: 1548, name: "Snacks" }
+          ],
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: "rgba(0, 0, 0, 0.5)"
+            }
           }
         }
       ]
@@ -217,14 +219,51 @@ export default defineComponent({
         }
       ]
     });
-    return { NPPSD, NCPSD, NOUPSD, NRPSD, PPES };
+    return { NPPSD, NCPSD, NRPSD, PPESPSD, PPES };
+  },
+  created() {
+    axios.get('/adm/seven_types')
+        .then((response)=>{
+          const code = response.status;
+          if (code === 200){
+            this.PPESPSD.series[0].data = response.data.data;
+          }
+        });
+    axios.get('/adm/seven_comment')
+        .then((response)=>{
+          const code = response.status;
+          if (code === 200){
+            this.NCPSD.series[0].data = response.data.data;
+          }
+        });
+    axios.get('/seven_post')
+        .then((response)=>{
+          const code = response.status;
+          if (code === 200){
+            this.NPPSD.series[0].data = response.data.data;
+          }
+        });
+    axios.get('/adm/types')
+        .then((response)=>{
+          const code = response.status;
+          if (code === 200){
+            this.PPES.series[0].data = response.data.data;
+          }
+        });
+    axios.get('/adm/seven_registration')
+        .then((response)=>{
+          const code = response.status;
+          if (code === 200){
+            this.NRPSD.series[0].data = response.data.data;
+          }
+        });
   }
 });
 </script>
 
 <style scoped>
 .chart{
-  height: 400px;
+  height: 500px;
   width: 100%;
 }
 </style>
