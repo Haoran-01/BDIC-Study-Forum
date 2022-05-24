@@ -60,6 +60,7 @@
             <div id="forgetHr"></div>
             <button id="signUpButton" class="buttonNotObviously" onclick="register()">Sign up</button>
             <button id="forgetPassButton" class="buttonNotObviously" onclick="forgetPass()">Forgot password?</button>
+            <button id="adminLoginButton" class="buttonNotObviously" onclick="loginAdmin()">Login as administer</button>
         </div>
         <!--------forgetPassword区域------------------------------------------------------------------------------->
         <div class="forgetPassword", id="forgetPassword">
@@ -127,6 +128,9 @@
         function resetPass() { //显示重设密码界面
             forgetPassword.style.left = "-450px";
             resetPassword.style.left = "40px";
+        }
+        function loginAdmin() {
+            window.location.assign(window.location.origin + '/#/control');
         }
     </script>
 
