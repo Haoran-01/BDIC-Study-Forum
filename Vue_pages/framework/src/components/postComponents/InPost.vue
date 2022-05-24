@@ -1,6 +1,6 @@
 <template>
-  <div class="FrameWork">
-    <div class="ContentCenter">
+  <div class="FrameWork" v-show="!pdf">
+    <div class="ContentCenter" v-show="!pdf">
       <post-entrance v-bind="{item, index}" width="1000" @send-share-info="handleShare"></post-entrance>
       <div class="commentArea">
         <div class="EditArea">
@@ -14,8 +14,27 @@
         <div class="postBar">
           <div class="ButtonFrame"></div>
           <div class="ButtonArea">
-            <button type="button" class="postButton" @click="pdfBtn"></button>
+            <button type="button" class="postButton" @click="pdfBtn">Convert</button>
             <button type="button" class="postButton" @click="handlePost">POST</button>
+          </div>
+        </div>
+        <div class="commentDetail">
+          <div class="comments" v-for="(item, index) in commentData" :key="index">
+            <CommentPost v-bind="{item, index}" @send-reply="handleReply"></CommentPost>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="FrameWork" v-show="pdf">
+    <div class="ContentCenter" v-show="pdf">
+      <post-entrance v-bind="{item, index}" width="1000" @send-share-info="handleShare"></post-entrance>
+      <div class="commentArea">
+        <div class="postBar">
+          <div class="ButtonFrame"></div>
+          <div class="ButtonArea">
+            <button type="button" class="postButton" @click="pdfPrint">PDF</button>
+            <button type="button" class="postButton" @click="pdfBtn">Return</button>
           </div>
         </div>
         <div class="commentDetail">
@@ -68,6 +87,9 @@ export default {
       this.$refs.editor.setText('@' + email + ': ');
     },
     pdfBtn(){
+      this.pdf = !this.pdf;
+    },
+    pdfPrint(){
       window.print();
     }
   },
@@ -76,7 +98,8 @@ export default {
       item: [],
       commentData:[],
       index:this.$route.query.postId,
-      content: {}
+      content: {},
+      pdf:false
     }
   },
   created() {
