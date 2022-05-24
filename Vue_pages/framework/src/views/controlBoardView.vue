@@ -14,7 +14,7 @@
     <n-card class="functionEntrance" @click="showPosts" :hoverable="true" content-style="font-size:20px; display:flex; align-items: center; justify-content:center">
       <span>📰<br/>Post Management</span>
     </n-card>
-    <n-card class="functionEntrance" :hoverable="true" content-style="font-size: 20px; display:flex; align-items: center; justify-content:center; flex-direction: column;">
+    <n-card class="functionEntrance" @click="showMessages" :hoverable="true" content-style="font-size: 20px; display:flex; align-items: center; justify-content:center; flex-direction: column;">
       <span>📫<br/>Message</span>
       <n-badge :value="10" :max="10" />
     </n-card>
@@ -73,6 +73,22 @@
             :filter="true"
             :columnTypes = "plugin"
         ></v-grid>
+      </n-card>
+      <n-card v-if="isMessagesThere" class="table" title="📫 Message Management">
+        <n-collapse>
+        <span v-for="(item, index) in messages" :key="index">
+          <n-collapse-item :title=item.messageID>
+            <n-card :bordered="false" size="small" content-style="text-align: left">
+              {{ item.messageDetail }}
+            </n-card>
+            <n-input type="text" maxlength="100" show-count style="text-align: left; margin: 5px"/>
+            <n-button style="float: right; margin: 5px">Submit</n-button>
+            <template #header-extra>
+              {{ item.messageTime }}
+            </template>
+          </n-collapse-item>
+        </span>
+        </n-collapse>
       </n-card>
     </n-gi>
   </n-grid>
@@ -139,6 +155,13 @@ export default {
           section: "Lost & Found"
         },
       ],
+      messages: [
+        {
+          messageID: "Liudonglin",
+          messageTime: "2022.5.23",
+          messageDetail: "wonendie"
+        }
+      ]
     }
   },
   methods:{
@@ -152,6 +175,11 @@ export default {
       this.isMessagesThere=false;
       this.isUserTableThere=false;
     },
+    showMessages(){
+      this.isPostTableThere=false;
+      this.isMessagesThere=true;
+      this.isUserTableThere=false;
+    }
   },
   computed:{
     deleteUserIndex(){
