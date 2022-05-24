@@ -40,21 +40,21 @@ def get_gross_comment():
 @bp.route('/today_comment',methods=['GET'])
 def get_today_comment():
     comment_list = Comment.query.filter_by().all()
+    number = 0
     for i in comment_list:
-        if not i.create_time.date() == datetime.now().date():
-            comment_list.remove(i)
-    return jsonify(today_comment_num=len(comment_list)), 200
+        if i.create_time.date() == datetime.now().date():
+            number += 1
+    return jsonify(today_comment_num=number), 200
 
 
 @bp.route('/today_post', methods=['GET'])
 def get_today_post():
     post_list = PostModel.query.all()
-    print(len(post_list))
+    number = 0
     for i in post_list:
-        if not i.create_time.date() == datetime.now().date():
-            # print(i.id)
-            post_list.remove(i)
-    return jsonify(today_post_num=len(post_list)), 200
+        if i.create_time.date() == datetime.now().date():
+            number += 1
+    return jsonify(today_post_num=number), 200
 
 
 @bp.route('/post', methods=['GET'])
