@@ -25,6 +25,39 @@
 <!--      </div>-->
     </nav>
   </div>
+  <div>
+    <n-button @click="show = true" quaternary style="position: relative; left: 320px; top: 8px;">
+      ASK FOR HELP
+    </n-button>
+    <n-drawer v-model:show="show" :width="502">
+      <n-drawer-content title="Send a message to Administrator" closable>
+        <n-input
+            v-model:value="value"
+            type="textarea"
+            placeholder="Tell administrator your question"
+        />
+        <n-button style="margin: 10px; float: right">Submit</n-button>
+        <n-card title="Previous questions">
+          <n-collapse>
+            <span v-for="(item, index) in messages" :key="index">
+              <n-collapse-item :title=item.messageID>
+                <n-card :bordered="false" size="small" content-style="text-align: left">
+                  {{ item.messageDetail }}
+                  <div>
+                    <div style="font-weight: bolder">Reply:</div>
+                    {{ item.messageReply }}
+                  </div>
+                </n-card>
+                <template #header-extra>
+                  {{ item.messageTime }}
+                </template>
+              </n-collapse-item>
+            </span>
+          </n-collapse>
+        </n-card>
+      </n-drawer-content>
+    </n-drawer>
+  </div>
   <div class="searchArea">
     <input type="text" class="searchInput" @keyup.enter="search" v-model="searchText">
     <div class="searchIcon"></div>
@@ -63,16 +96,31 @@ onUnmounted(()=>{
   window.removeEventListener('scroll', this.changeOptionsVisibility, true)
 })*/
 import NavUserMenu from "@/components/generalComponents/NavUserMenu";
+import { defineComponent, ref } from 'vue'
+
 import axios from "axios";
-export default {
+export default defineComponent({
     name: "NavigatorBar",
   components: {NavUserMenu},
+  setup () {
+    return {
+      show: ref(false)
+    }
+  },
   data() {
     return {
       userMenuVisibility: false,
       userLogined: false,
       userEmail: this.$store.state.userEmail,
-      searchText:''
+      searchText:'',
+      messages: [
+        {
+          messageID: "Liudonglin",
+          messageTime: "2022.5.23",
+          messageDetail: "wonendie",
+          messageReply: "讲的不错，下次别讲了"
+        }
+      ]
     }
   },
   methods: {
@@ -142,7 +190,7 @@ export default {
   unmounted() {
     window.removeEventListener('scroll', this.changeOptionsVisibility, true)
   }
-}
+})
 </script>
 
 <style scoped>
