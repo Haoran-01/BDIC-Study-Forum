@@ -236,7 +236,7 @@ export default defineComponent({
             this.NCPSD.series[0].data = response.data.data;
           }
         });
-    axios.get('/seven_post')
+    axios.get('/adm/seven_post')
         .then((response)=>{
           const code = response.status;
           if (code === 200){
@@ -255,6 +255,15 @@ export default defineComponent({
           const code = response.status;
           if (code === 200){
             this.NRPSD.series[0].data = response.data.data;
+          }
+        });
+
+    axios.get('/adm/type_name')
+        .then((response)=>{
+          const code = response.status;
+          if (code === 200){
+            this.PPESPSD.legend.data = response.data.data;
+            this.PPES.legend.data = response.data.data;
           }
         });
   }

@@ -209,7 +209,7 @@ export default {
             this.userRows = response.data.data;
           }
         });
-    axios.get('/adm/regisration')
+    axios.get('/adm/registration')
         .then((response)=>{
           const code = response.status;
           if (code === 200){

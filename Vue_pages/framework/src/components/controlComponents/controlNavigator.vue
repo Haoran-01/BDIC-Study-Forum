@@ -47,11 +47,11 @@ export default defineComponent({
     };
   },
   beforeRouteEnter(){
-    axios.get('admin')
+    axios.get('/adm')
     .then((response)=>{
       const code = response.status;
       if (code === 200){
-        if (!response.admin){
+        if (!response.data){
           window.location.assign(window.location.origin + '/user/login');
         }
       }
