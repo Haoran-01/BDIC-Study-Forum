@@ -104,7 +104,8 @@ def get_all_types():
 
 @bp.route('/seven_types', methods=['GET'])
 def get_seven_types():
-    end = datetime.now()
+
+    end = datetime.now() - timedelta(days=6)
     end_year = end.year
     end_month = end.month
     end_day = end.day
@@ -136,7 +137,7 @@ def get_seven_types():
 
 @bp.route('/seven_comment', methods=['GET'])
 def get_seven_comment():
-    end = datetime.now() - timedelta(days=7)
+    end = datetime.now() - timedelta(days=6)
 
     end_year = end.year
     end_month = end.month
@@ -158,6 +159,8 @@ def get_seven_comment():
         end_year = end.year
         end_month = end.month
         end_day = end.day
+
+        print(end_day)
 
         i = i + 1
     print(result)
@@ -216,6 +219,8 @@ def get_seven_post():
         end_year = end.year
         end_month = end.month
         end_day = end.day
+
+
 
         i = i + 1
 
