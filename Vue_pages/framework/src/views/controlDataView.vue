@@ -222,6 +222,15 @@ export default defineComponent({
     return { NPPSD, NCPSD, NRPSD, PPESPSD, PPES };
   },
   created() {
+    axios.get('/adm')
+        .then((response)=>{
+          const code = response.status;
+          if (code === 200){
+            if (!response.data.data){
+              window.location.assign(window.location.origin + '/user/login');
+            }
+          }
+        })
     axios.get('/adm/seven_types')
         .then((response)=>{
           const code = response.status;

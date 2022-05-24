@@ -177,6 +177,16 @@ export default {
     }
   },
   created() {
+
+    axios.get('/adm')
+        .then((response)=>{
+          const code = response.status;
+          if (code === 200){
+            if (!response.data.data){
+              window.location.assign(window.location.origin + '/user/login');
+            }
+          }
+        })
     for (let i = 0; i < this.messages.length; i++){
       this.helpReplies.push({index: i, value: null});
       this.replyButtons.push(false);
