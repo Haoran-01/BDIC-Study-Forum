@@ -19,7 +19,7 @@ def get_gross_post():
         return jsonify({'gross_post_numbers': gross_post_numbers}), 200
 
 @bp.route("/adm/gross_comment", methods=['GET'])
-def get_gross_post():
+def get_gross_comment():
         # 总评论数
         gross_comment_numbers = len(Comment.query.filter_by().all())
         return jsonify({'gross_comment_numbers': gross_comment_numbers}), 200
