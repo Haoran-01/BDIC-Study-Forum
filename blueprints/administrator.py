@@ -234,12 +234,16 @@ def login():
 
 @bp.route('/post/delete', methods=['POST','GET'])
 def delete_post():
+
     id = request.get_json(silent=True)['post_id']
+    post = db.session.query(PostModel).filter_by(id=id).first()
+    if post == None:
+        return jsonify(), 200
     comments = db.session.query(Comment).filter_by(post_id=id).all()
     for comment in comments:
         db.session.query(CommentLike).filter_by(cmt_id=comment.cmt_id).delete()
         db.session.delete(comment)
-    post = db.session.query(PostModel).filter_by(id=id).first()
+
     db.session.delete(post)
     db.session.commit()
     return jsonify(), 200
