@@ -25,6 +25,41 @@
 <!--      </div>-->
     </nav>
   </div>
+  <div class="helpArea">
+    <n-button @click="show = true" quaternary style="margin-right: 10px">
+      ASK FOR HELP
+    </n-button>
+  </div>
+  <div>
+    <n-drawer v-model:show="show" :width="502">
+      <n-drawer-content title="Send a message to Administrator" closable>
+        <n-input
+            v-model:value="helpValue"
+            type="textarea"
+            placeholder="Tell administrator your question"
+        />
+        <n-button style="margin: 10px; float: right" @click="handleHelp">Submit</n-button>
+        <n-card title="Previous questions">
+          <n-collapse>
+            <span v-for="(item, index) in messages" :key="index">
+              <n-collapse-item :title=item.messageID>
+                <n-card :bordered="false" size="small" content-style="text-align: left">
+                  {{ item.messageDetail }}
+                  <div>
+                    <div style="font-weight: bolder">Reply:</div>
+                    {{ item.messageReply }}
+                  </div>
+                </n-card>
+                <template #header-extra>
+                  {{ item.messageTime }}
+                </template>
+              </n-collapse-item>
+            </span>
+          </n-collapse>
+        </n-card>
+      </n-drawer-content>
+    </n-drawer>
+  </div>
   <div class="searchArea">
     <input type="text" class="searchInput" @keyup.enter="search" v-model="searchText">
     <div class="searchIcon"></div>
@@ -63,16 +98,35 @@ onUnmounted(()=>{
   window.removeEventListener('scroll', this.changeOptionsVisibility, true)
 })*/
 import NavUserMenu from "@/components/generalComponents/NavUserMenu";
+import { defineComponent, ref } from 'vue';
+import {useToast} from "vue-toastification";
+
 import axios from "axios";
-export default {
+export default defineComponent({
     name: "NavigatorBar",
   components: {NavUserMenu},
+  setup () {
+      const tip = useToast();
+    return {
+      show: ref(false),
+      tip
+    }
+  },
   data() {
     return {
       userMenuVisibility: false,
       userLogined: false,
       userEmail: this.$store.state.userEmail,
-      searchText:''
+      helpValue: null,
+      searchText:'',
+      messages: [
+        {
+          messageID: "Liudonglin",
+          messageTime: "2022.5.23",
+          messageDetail: "wonendie",
+          messageReply: "讲的不错，下次别讲了"
+        }
+      ]
     }
   },
   methods: {
@@ -112,6 +166,17 @@ export default {
           // }
         }
       })
+    },
+    handleHelp(){
+      axios.post('', {
+        content: this.helpValue
+      })
+      .then((response)=>{
+        const code = response.status;
+        if (code === 200){
+          this.info("Submit successfully.")
+        }
+      })
     }
   },
   watch:{
@@ -142,7 +207,7 @@ export default {
   unmounted() {
     window.removeEventListener('scroll', this.changeOptionsVisibility, true)
   }
-}
+})
 </script>
 
 <style scoped>
@@ -226,6 +291,12 @@ nav a:link, a:visited{
 .navLink:hover+.navLinkDecoration{
   transition: .3s ease-out;
   width: 50px;
+}
+.helpArea{
+  grid-area: 1 / 3 / 2 / 4;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 .searchArea{
   grid-area: 1 / 4 / 2 / 5;

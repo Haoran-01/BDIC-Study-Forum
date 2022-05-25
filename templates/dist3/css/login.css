@@ -408,6 +408,12 @@ footer{
     top: 10px;
 }
 
+#adminLoginButton {
+    position: relative;
+    left: -133px;
+    top: 10px;
+}
+
 .buttonNotObviously {
     font-family: "Noto Sans", sans-serif;
     font-size: 16px;

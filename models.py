@@ -18,7 +18,7 @@ class EmailCaptchaModel(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     email = db.Column(db.CHAR(100), nullable=False, unique=True)
     captcha = db.Column(db.CHAR(10), nullable=False)
-    creat_time = db.Column(db.DateTime, default=datetime.now)
+    create_time = db.Column(db.DateTime, default=datetime.now)
 
 
 # 帖子模型

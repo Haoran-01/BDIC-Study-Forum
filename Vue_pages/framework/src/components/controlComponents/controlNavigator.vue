@@ -12,13 +12,27 @@
       <router-view></router-view>
     </n-layout>
   </n-layout>
+  <n-modal :show="showModal">
+    <n-card
+      style="width: 600px"
+      title="Please enter the admin password:"
+      :bordered="false"
+      size="huge"
+      role="dialog"
+      aria-modal="true"
+  >
+      <n-input type="password" placeholder="" v-model:value="adminPass"></n-input>
+      <n-button style="float: right; display: flex; margin-top: 10px" @click="closeModal">Submit</n-button>
+    </n-card>
+  </n-modal>
 </template>
 
 <script>
 
-import {defineComponent, h} from "vue";
+import {defineComponent, h, ref} from "vue";
 import { RouterLink } from "vue-router";
 import axios from "axios";
+import {useToast} from 'vue-toastification';
 
 const menuOptions = [
   {
@@ -42,20 +56,46 @@ const menuOptions = [
 export default defineComponent({
   name: "controlNavigator",
   setup() {
+    const tip = useToast();
     return {
-      menuOptions
+      showModal: ref(false),
+      menuOptions,
+      adminPass: ref(null),
+      tip
     };
   },
-  beforeRouteEnter(){
-    axios.get('admin')
-    .then((response)=>{
-      const code = response.status;
-      if (code === 200){
-        if (!response.admin){
-          window.location.assign(window.location.origin + '/user/login');
-        }
+  mounted(){
+    this.showModal = true;
+    axios.get('/adm')
+        .then((response)=>{
+          const code = response.status;
+          if (code === 200){
+            if (!response.data.data){
+              this.showModal = true;
+            }
+          }else {
+            window.location.assign(window.location.origin + '/user/login');
+          }
+        })
+  },
+  methods: {
+    closeModal(){
+      if (this.adminPass === null || this.adminPass === ''){
+        this.tip.error('Password should not be empty.');
+      }else {
+        axios.post('/adm/password', {
+          password: this.adminPass
+        })
+        .then((response)=>{
+          if (response.status === 200){
+            this.showModal = false;
+          }else {
+            this.tip.error("Wrong Password");
+            this.adminPass = "";
+          }
+        })
       }
-    })
+    }
   }
 });
 </script>
