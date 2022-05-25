@@ -1,19 +1,13 @@
 import datetime
 
 from flask import Blueprint, request, jsonify
-from models import Administrator, PostModel, Comment, EmailCaptchaModel, QuestionType, User
+from models import Administrator, PostModel, Comment, EmailCaptchaModel, QuestionType, User, CommentLike
 from exts import db
 from sqlalchemy import extract
 from datetime import datetime, timedelta
 from flask_login import login_required, current_user
 
 bp = Blueprint("administrator", __name__, url_prefix="/adm")
-
-@bp.route("/", methods=['GET'])
-
-
-
-
 
 @bp.route("/registration", methods=['GET'])
 def get_registration_number():
@@ -233,3 +227,19 @@ def get_all_type_name():
     for type in types:
         result.append(type.type_name)
     return jsonify(data = result)
+
+@bp.route('/password', methods=['POST','GET'])
+def login():
+    return jsonify(data = True)
+
+@bp.route('/post/delete', methods=['POST','GET'])
+def delete_post():
+    id = request.get_json(silent=True)['post_id']
+    comments = db.session.query(Comment).filter_by(post_id=id).all()
+    for comment in comments:
+        db.session.query(CommentLike).filter_by(cmt_id=comment.cmt_id).delete()
+        db.session.delete(comment)
+    post = db.session.query(PostModel).filter_by(id=id).first()
+    db.session.delete(post)
+    db.session.commit()
+    return jsonify(), 200
