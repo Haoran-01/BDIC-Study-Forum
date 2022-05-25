@@ -282,7 +282,6 @@ export default {
   watch: {
     deleteUserIndex(value, old){
       const newValue = value.value;
-      console.log(newValue);
       const data = toRaw(this.userRows);
       old;
       if (newValue !== -1){
@@ -298,7 +297,6 @@ export default {
     },
     deletePostIndex(value, old){
       const newValue = value.value;
-      console.log(newValue);
       const data = toRaw(this.postRows);
       old;
       if (newValue !== -1){
@@ -311,6 +309,15 @@ export default {
         }
         this.postRows = newData;
       }
+      axios.post('/adm/post/delete', {
+        post_id: data[newValue].post_id
+      })
+      .then((response)=>{
+        const code = response.status;
+        if (code === 200){
+          this.tip.info("Delete successfully.");
+        }
+      })
     },
     postIndex(value, old){
       const newValue = value.value;
