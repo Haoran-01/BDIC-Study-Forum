@@ -104,29 +104,43 @@ def get_seven_types():
     end_month = end.month
     end_day = end.day
 
-    # 查询2020年12月8日的数据
-    lecture = db.session.query(PostModel).filter(
-        extract('day', PostModel.create_time) == end_day,
-        extract('year', PostModel.create_time) == end_year,
-        extract('month', PostModel.create_time) == end_month,
-        PostModel.post_type == 1
-    ).all()
+    lec = 0
+    lo = 0
+    tr = 0
 
-    lost = db.session.query(PostModel).filter(
-        extract('day', PostModel.create_time) == end_day,
-        extract('year', PostModel.create_time) == end_year,
-        extract('month', PostModel.create_time) == end_month,
-        PostModel.post_type == 2
-    ).all()
+    for i in range(7):
+        end = end + timedelta(days=1)
 
-    tran = db.session.query(PostModel).filter(
-        extract('day', PostModel.create_time) <= end_day,
-        extract('year', PostModel.create_time) <= end_year,
-        extract('month', PostModel.create_time) <= end_month,
-        PostModel.post_type == 3
-    ).all()
+        end_year = end.year
+        end_month = end.month
+        end_day = end.day
 
-    return jsonify(data = [{'name':'Lecture Question', 'value': len(lecture)}, {'name':'Lost And Found', 'value':len(lost)}, {'name':'Transaction', 'value':len(tran)}])
+        lecture = db.session.query(PostModel).filter(
+            extract('day', PostModel.create_time) == end_day,
+            extract('year', PostModel.create_time) == end_year,
+            extract('month', PostModel.create_time) == end_month,
+            PostModel.post_type == 1
+        ).all()
+
+        lost = db.session.query(PostModel).filter(
+            extract('day', PostModel.create_time) == end_day,
+            extract('year', PostModel.create_time) == end_year,
+            extract('month', PostModel.create_time) == end_month,
+            PostModel.post_type == 2
+        ).all()
+
+        tran = db.session.query(PostModel).filter(
+            extract('day', PostModel.create_time) == end_day,
+            extract('year', PostModel.create_time) == end_year,
+            extract('month', PostModel.create_time) == end_month,
+            PostModel.post_type == 3
+        ).all()
+
+        lec += len(lecture)
+        lo += len(lost)
+        tr += len(tran)
+
+    return jsonify(data = [{'name':'Lecture Question', 'value': lec}, {'name':'Lost And Found', 'value':lo}, {'name':'Transaction', 'value':tr}])
 
 
 @bp.route('/seven_comment', methods=['GET'])
