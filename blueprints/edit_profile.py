@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify
+from flask_login import current_user
 from models import UserProfile, PostModel, QuestionType
 from exts import db
 import os
@@ -83,7 +84,7 @@ def post_photo():
     print("upload_path: " + upload_path)
     file.save(upload_path + file_name + suffix)
     url = 'http://127.0.0.1:5000/upload/' + file_name + suffix
-    user_email = "yhr1019@163.com"
+    user_email = current_user
     user_profile = UserProfile.query.filter_by(user_email=user_email).first()
     user_profile.profile = url
     db.session.commit()
