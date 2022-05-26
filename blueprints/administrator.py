@@ -290,6 +290,19 @@ def send_help():
     db.session.commit()
     return jsonify(), 200
 
+@bp.route('/reply', methods=['POST'])
+def reply_help():
+    data = request.get_json(silent=True)
+    help_id = data['help_id']
+    content = data['reply']
+    help = db.session.query(Help).filter_by(id=help_id).first()
+    help.has_reply = True
+    reply = Reply(content=content, help_id=help_id)
+    db.session.add(help)
+    db.session.commit()
+    return jsonify(), 200
+
+
 @bp.route('/get_all_user_question', methods=['GET'])
 def get_user_help():
     user_email = current_user.email
@@ -300,8 +313,8 @@ def get_user_help():
     for help in helps:
         dic["content"] = help.content
         dic["datetime"] = help.create_time
-        if help.reply_id != None:
-            dic["reply"] = (db.session.query(Reply).filter_by(id=help.reply_id).first()).content
+        if help.has_reply:
+            dic["reply"] = (db.session.query(Reply).filter_by(help_id=help.id).first()).content
         else:
             dic["reply"] = None
         result.append(dic)
@@ -316,11 +329,12 @@ def get_all_help():
     for help in helps:
         email = help.email
         user_profile = db.session.query(UserProfile).filter_by(user_email=email).first()
+        dic["id"] = help.id
         dic["name"] = user_profile.user_name
         dic["content"] = help.content
         dic["datetime"] = help.create_time
-        if help.reply_id != None:
-            dic["reply"] = (db.session.query(Reply).filter_by(id=help.reply_id).first()).content
+        if help.has_reply:
+            dic["reply"] = (db.session.query(Reply).filter_by(help_id=help.id).first()).content
         else:
             dic["reply"] = None
         result.append(dic)

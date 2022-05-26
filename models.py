@@ -131,11 +131,12 @@ class Help(db.Model):
     email = db.Column(db.CHAR(200), nullable = False)
     content = db.Column(db.CHAR(200), nullable = False)
     create_time = db.Column(db.DateTime, default=datetime.now)
-    reply_id = db.Column(db.Integer, nullable=True)
+    has_reply = db.Column(db.Boolean, default=False)
 
 class Reply(db.Model):
     __tablename__ = 'reply'
     id = db.Column(db.Integer, primary_key=True, nullable=False,autoincrement=True)
+    help_id = db.Column(db.Integer, nullable=False)
     content = db.Column(db.CHAR(200), nullable=False)
     reply_time = db.Column(db.DateTime, nullable=False)
 
