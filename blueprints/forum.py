@@ -125,7 +125,6 @@ def like():
     comment_id = data['comment_id']
     if_like = data['if_like']
     comment = Comment.query.filter_by(cmt_id=comment_id).first()
-    print(if_like)
     if if_like:
         new_like = CommentLike(cmt_id=comment_id, user_email=current_user.user_email)
         db.session.add(new_like)
