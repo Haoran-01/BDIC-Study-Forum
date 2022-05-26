@@ -60,6 +60,11 @@
             :filter="true"
             :columnTypes = "plugin"
         ></v-grid>
+        <n-pagination class="tablePages" v-model:page="userPage" :page-count="userTotalPages" @on-update:page="changeUserPage()" show-quick-jumper>
+          <template #goto>
+            go to
+          </template>
+        </n-pagination>
       </n-card>
       <n-card v-if="isPostTableThere" class="table" title="📰 Post Management">
         <v-grid
@@ -70,6 +75,11 @@
             :filter="true"
             :columnTypes = "plugin"
         ></v-grid>
+        <n-pagination class="tablePages" v-model:page="postPage" :page-count="postTotalPages" @on-update:page="changePostPage()" show-quick-jumper>
+          <template #goto>
+            go to
+          </template>
+        </n-pagination>
       </n-card>
       <n-card v-if="isMessagesThere" class="table" title="📫 Message Management">
         <n-collapse>
@@ -97,17 +107,25 @@ import NumberColumnType from '@revolist/revogrid-column-numeral';
 import SelectTypePlugin from "@revolist/revogrid-column-select";
 import VGrid, {VGridVueTemplate}from "@revolist/vue3-datagrid"
 import store from "../store/index";
-import {toRaw} from "vue";
+import {toRaw, ref} from "vue";
 import deleteButton from "@/components/controlComponents/deleteButton";
 import postButton from "@/components/controlComponents/postButton";
 import axios from "axios";
 import {useToast} from "vue-toastification";
+import muteButton from "@/components/controlComponents/muteButton";
+
 export default {
   components:{VGrid},
   name: "controlBoardView",
   setup(){
     const tip = useToast();
-    return {tip};
+    return {
+      tip,
+      userPage: ref(1),
+      postPage: ref(1),
+      userTotalPages: ref(1),
+      postTotalPages: ref(1)
+    };
   },
   data(){
     return{
@@ -123,7 +141,7 @@ export default {
       userColumns: [
         { name: "user email", prop: "user_email", size: 400, sortable: true},
         { name: "name", prop: "name", size: 400, sortable: true},
-        { name: "action", cellTemplate: VGridVueTemplate(deleteButton)}
+        { name: "action", cellTemplate: VGridVueTemplate(muteButton)}
       ],
       userRows: [
         {
@@ -177,7 +195,6 @@ export default {
     }
   },
   created() {
-
     axios.get('/adm')
         .then((response)=>{
           const code = response.status;
@@ -205,14 +222,32 @@ export default {
             this.today_post_num = response.data.today_post_num;
           }
     });
-    axios.get('/adm/post')
+    axios.get('/adm/post/pages')
+        .then((response)=>{
+          const code = response.status;
+          if (code === 200){
+            this.postTotalPages = response.data.pages;
+          }
+        });
+    axios.post('/adm/post', {
+      page_number: 1
+    })
         .then((response)=>{
           const code = response.status;
           if (code === 200){
             this.postRows = response.data.data;
           }
         });
-    axios.get('/adm/users')
+    axios.get('/adm/users/pages')
+        .then((response)=>{
+          const code = response.status;
+          if (code === 200){
+            this.userTotalPages = response.data.pages;
+          }
+        });
+    axios.post('/adm/users', {
+      page_number: 1
+    })
         .then((response)=>{
           const code = response.status;
           if (code === 200){
@@ -267,6 +302,28 @@ export default {
         }
       })
     },
+    changeUserPage(page){
+      axios.post('http://127.0.0.1:4523/mock/831624/adm/users', {
+        page_number: page
+      })
+          .then((response)=>{
+            const code = response.status;
+            if (code === 200){
+              this.postRows = response.data.data;
+            }
+          });
+    },
+    changePostPage(page){
+      axios.post('http://127.0.0.1:4523/mock/831624/adm/post', {
+        page_number: page
+      })
+          .then((response)=>{
+            const code = response.status;
+            if (code === 200){
+              this.postRows = response.data.data;
+            }
+          });
+    },
   },
   computed:{
     deleteUserIndex(){
@@ -280,7 +337,7 @@ export default {
     }
   },
   watch: {
-    deleteUserIndex(value, old){
+/*    deleteUserIndex(value, old){
       const newValue = value.value;
       const data = toRaw(this.userRows);
       old;
@@ -294,7 +351,7 @@ export default {
         }
         this.userRows = newData;
       }
-    },
+    },*/
     deletePostIndex(value, old){
       const newValue = value.value;
       const data = toRaw(this.postRows);
@@ -351,5 +408,9 @@ template{
   max-width: 100%;
   border-radius: 10px;
   height: calc(100vh - 290px - 20px - 200px - 12px);
+}
+.tablePages{
+  position: relative;
+  bottom: 25px;
 }
 </style>
