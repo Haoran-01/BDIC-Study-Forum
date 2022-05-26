@@ -125,3 +125,20 @@ class Administrator(db.Model):
     id = db.Column(db.CHAR(20), primary_key=True, nullable=False)
     user_password = db.Column(db.CHAR(20), nullable=False)
 
+class Help(db.Model):
+    __tablename__ = 'help'
+    id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
+    email = db.Column(db.CHAR(200), nullable = False)
+    content = db.Column(db.CHAR(200), nullable = False)
+    create_time = db.Column(db.DateTime, default=datetime.now)
+    has_reply = db.Column(db.Boolean, default=False)
+
+class Reply(db.Model):
+    __tablename__ = 'reply'
+    id = db.Column(db.Integer, primary_key=True, nullable=False,autoincrement=True)
+    help_id = db.Column(db.Integer, nullable=False)
+    content = db.Column(db.CHAR(200), nullable=False)
+    reply_time = db.Column(db.DateTime, default=datetime.now)
+
+
+

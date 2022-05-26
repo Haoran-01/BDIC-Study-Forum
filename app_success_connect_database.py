@@ -39,7 +39,7 @@ class Article(db.Model):
 
 
 # db.drop_all()
-db.create_all()
+# db.create_all()
 
 @app.route("/oto")
 def one_to_one():
