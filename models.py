@@ -138,7 +138,7 @@ class Reply(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False,autoincrement=True)
     help_id = db.Column(db.Integer, nullable=False)
     content = db.Column(db.CHAR(200), nullable=False)
-    reply_time = db.Column(db.DateTime, nullable=False)
+    reply_time = db.Column(db.DateTime, default=datetime.now)
 
 
 
