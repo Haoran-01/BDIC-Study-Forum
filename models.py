@@ -137,7 +137,7 @@ class Reply(db.Model):
     __tablename__ = 'reply'
     id = db.Column(db.Integer, primary_key=True, nullable=False,autoincrement=True)
     content = db.Column(db.CHAR(200), nullable=False)
-    reply_time = db.Column(db.DateTime, nullable=False)
+    reply_time = db.Column(db.DateTime, default=datetime.now)
 
 
 
