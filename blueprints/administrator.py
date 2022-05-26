@@ -1,7 +1,7 @@
 import datetime
 
 from flask import Blueprint, request, jsonify
-from models import Administrator, PostModel, Comment, EmailCaptchaModel, QuestionType, User, CommentLike
+from models import Administrator, PostModel, Comment, EmailCaptchaModel, QuestionType, User, CommentLike, Help, Reply, UserProfile
 from exts import db
 from sqlalchemy import extract
 from datetime import datetime, timedelta
@@ -261,3 +261,40 @@ def delete_post():
     db.session.delete(post)
     db.session.commit()
     return jsonify(), 200
+
+@bp.route('/get_all_user_question', methods=['GET'])
+def get_user_help():
+    user_email = current_user.email
+    user_name = (db.session.query(UserProfile).filter_by(user_email=user_email).first()).user_name
+    dic = {"name":user_name}
+    result = []
+    helps = db.session.query(Help).filter_by(email=user_email).all()
+    for help in helps:
+        dic["content"] = help.content
+        dic["datetime"] = help.create_time
+        if help.reply_id != None:
+            dic["reply"] = (db.session.query(Reply).filter_by(id=help.reply_id).first()).content
+        else:
+            dic["reply"] = None
+        result.append(dic)
+
+    return jsonify(data=result)
+
+@bp.route('/all_question', methods=['GET'])
+def get_all_help():
+    dic = {}
+    result = []
+    helps = db.session.query(Help).filter_by().all()
+    for help in helps:
+        email = help.email
+        user_profile = db.session.query(UserProfile).filter_by(user_email=email).first()
+        dic["name"] = user_profile.user_name
+        dic["content"] = help.content
+        dic["datetime"] = help.create_time
+        if help.reply_id != None:
+            dic["reply"] = (db.session.query(Reply).filter_by(id=help.reply_id).first()).content
+        else:
+            dic["reply"] = None
+        result.append(dic)
+
+    return jsonify(data=result)

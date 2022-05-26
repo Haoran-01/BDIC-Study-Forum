@@ -127,7 +127,7 @@ class Administrator(db.Model):
 
 class Help(db.Model):
     __tablename__ = 'help'
-    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     email = db.Column(db.CHAR(200), nullable = False)
     content = db.Column(db.CHAR(200), nullable = False)
     create_time = db.Column(db.DateTime, default=datetime.now)
@@ -135,7 +135,7 @@ class Help(db.Model):
 
 class Reply(db.Model):
     __tablename__ = 'reply'
-    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True, nullable=False,autoincrement=True)
     content = db.Column(db.CHAR(200), nullable=False)
     reply_time = db.Column(db.DateTime, nullable=False)
 
