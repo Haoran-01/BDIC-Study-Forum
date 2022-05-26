@@ -13,5 +13,8 @@ import 'vfonts/Lato.css'
 // 等宽字体
 import 'vfonts/FiraCode.css'
 
+
+
+
 createApp(App).use(store).use(router).use(VueGridLayout).use(toast).use(VueCropper).use(naive).mount('#app')
 
