@@ -293,19 +293,20 @@ def send_help():
 @bp.route('/reply', methods=['POST'])
 def reply_help():
     data = request.get_json(silent=True)
+    print(data)
     help_id = data['help_id']
     content = data['reply']
     help = db.session.query(Help).filter_by(id=help_id).first()
     help.has_reply = True
     reply = Reply(content=content, help_id=help_id)
-    db.session.add(help)
+    db.session.add(reply)
     db.session.commit()
     return jsonify(), 200
 
 
 @bp.route('/get_all_user_question', methods=['GET'])
 def get_user_help():
-    user_email = current_user.email
+    user_email = current_user.user_email
     user_name = (db.session.query(UserProfile).filter_by(user_email=user_email).first()).user_name
     dic = {"name":user_name}
     result = []
