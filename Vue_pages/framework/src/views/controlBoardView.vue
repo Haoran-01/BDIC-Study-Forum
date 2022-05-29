@@ -16,7 +16,7 @@
     </n-card>
     <n-card class="functionEntrance" @click="showMessages" :hoverable="true" content-style="font-size: 20px; display:flex; align-items: center; justify-content:center; flex-direction: column;">
       <span>📫<br/>Message</span>
-      <n-badge :value="messages.length" :max="10" />
+      <n-badge :value="newMessages.length" :max="10" />
     </n-card>
     </div>
   </n-card>
@@ -54,13 +54,14 @@
       <n-card v-if="isUserTableThere" class="table" title="👨‍🎓 User Management">
         <v-grid
             theme="compact"
+            style="height: 95%"
             :source="userRows"
             :columns="userColumns"
             :resize="true"
             :filter="true"
             :columnTypes = "plugin"
         ></v-grid>
-        <n-pagination class="tablePages" v-model:page="userPage" :page-count="userTotalPages" @on-update:page="changeUserPage()" show-quick-jumper>
+        <n-pagination class="tablePages" v-model:page="userPage" :page-count="userTotalPages" @update:page="changeUserPage" show-quick-jumper>
           <template #goto>
             go to
           </template>
@@ -68,6 +69,7 @@
       </n-card>
       <n-card v-if="isPostTableThere" class="table" title="📰 Post Management">
         <v-grid
+            style="height: 95%"
             theme="compact"
             :source="postRows"
             :columns="postColumns"
@@ -75,27 +77,43 @@
             :filter="true"
             :columnTypes = "plugin"
         ></v-grid>
-        <n-pagination class="tablePages" v-model:page="postPage" :page-count="postTotalPages" @on-update:page="changePostPage()" show-quick-jumper>
-          <template #goto>
-            go to
-          </template>
-        </n-pagination>
-      </n-card>
-      <n-card v-if="isMessagesThere" class="table" title="📫 Message Management">
-        <n-collapse>
-        <span v-for="(item, index) in messages" :key="index">
-          <n-collapse-item :title=item.messageID :display-directive="show">
-            <n-card :bordered="false" size="small" content-style="text-align: left">
-              {{ item.messageDetail }}
-            </n-card>
-            <n-input :value="helpReplies[index].value" type="text" maxlength="100" show-count style="text-align: left; margin: 5px"/>
-            <n-button style="float: right; margin: 5px" @click="handleSubmit(index)" :disabled="replyButtons[index]">Submit</n-button>
-            <template #header-extra>
-              {{ item.messageTime }}
+          <n-pagination class="tablePages" v-model:page="postPage" :page-count="postTotalPages" @update:page="changePostPage" show-quick-jumper>
+            <template #goto>
+              go to
             </template>
-          </n-collapse-item>
-        </span>
-        </n-collapse>
+          </n-pagination>
+      </n-card>
+      <n-card v-show="isMessagesThere" class="table" title="📫 Message Management" content-style="display: flex;">
+        <n-card class="messageCard" title="Waiting for Reply">
+          <n-collapse>
+            <n-collapse-item v-for="(item, index) in newMessages" :key="index" :title=item.name>
+              <n-card :bordered="false" size="small" content-style="text-align: left" style="height: 100px;">
+                {{ item.content }}
+                <n-input v-model:value="this.helpReplies[index].value" type="text" maxlength="100" show-count style="text-align: left; margin: 5px"/>
+                <n-button style="float: right; margin: 5px;" @click="handleSubmit(index)" :disabled="this.replyButtons[index]">Submit</n-button>
+              </n-card>
+              <template #header-extra>
+                {{ item.datetime }}
+              </template>
+            </n-collapse-item>
+          </n-collapse>
+        </n-card>
+        <n-card class="messageCard" title="Replied">
+          <n-collapse>
+            <n-collapse-item v-for="(item, index) in repliedMessages" :key="index" :title=item.name>
+              <n-card :bordered="false" size="small" content-style="text-align: left">
+                {{ item.content }}
+                <div>
+                  <div style="font-weight: bolder">Reply:</div>
+                  {{ item.reply }}
+                </div>
+              </n-card>
+              <template #header-extra>
+                {{ item.datetime }}
+              </template>
+            </n-collapse-item>
+          </n-collapse>
+        </n-card>
       </n-card>
     </n-gi>
   </n-grid>
@@ -107,24 +125,27 @@ import NumberColumnType from '@revolist/revogrid-column-numeral';
 import SelectTypePlugin from "@revolist/revogrid-column-select";
 import VGrid, {VGridVueTemplate}from "@revolist/vue3-datagrid"
 import store from "../store/index";
-import {toRaw, ref} from "vue";
+import {toRaw, ref, defineComponent} from "vue";
 import deleteButton from "@/components/controlComponents/deleteButton";
 import postButton from "@/components/controlComponents/postButton";
 import axios from "axios";
 import {useToast} from "vue-toastification";
 import muteButton from "@/components/controlComponents/muteButton";
+import {NPagination} from "naive-ui";
 
-export default {
-  components:{VGrid},
+export default defineComponent({
+  components:{VGrid, NPagination},
   name: "controlBoardView",
   setup(){
     const tip = useToast();
     return {
       tip,
+      replyButtons: ref([]),
       userPage: ref(1),
       postPage: ref(1),
       userTotalPages: ref(1),
-      postTotalPages: ref(1)
+      postTotalPages: ref(1),
+      helpReplies: ref([]),
     };
   },
   data(){
@@ -181,20 +202,27 @@ export default {
           section: "Lost & Found"
         },
       ],
-      messages: [
-        {
-          messageID: "Liudonglin",
-          messageTime: "2022.5.23",
-          messageDetail: "wonendie"
-        }
-      ],
-      helpReplies: [
-
-      ],
-      replyButtons:[]
+      newMessages:[],
+      repliedMessages:[]
     }
   },
   created() {
+    axios.get('/adm/all_question')
+        .then((response)=>{
+          const code = response.status;
+          if (code === 200){
+            this.newMessages = response.data.data2;
+            this.repliedMessages = response.data.data1;
+            let replies = [];
+            let buttons = [];
+            for (let i = 0; i < this.newMessages.length; i++){
+              replies.push({index: i, value: null});
+              buttons.push(false);
+            }
+            this.replyButtons = buttons;
+            this.helpReplies = replies;
+          }}
+        );
     axios.get('/adm')
         .then((response)=>{
           const code = response.status;
@@ -204,10 +232,6 @@ export default {
             }
           }
         })
-    for (let i = 0; i < this.messages.length; i++){
-      this.helpReplies.push({index: i, value: null});
-      this.replyButtons.push(false);
-    }
     axios.get('/adm/today_comment')
     .then((response)=>{
       const code = response.status;
@@ -293,28 +317,32 @@ export default {
       this.isUserTableThere=false;
     },
     handleSubmit(index){
-      axios.post('', this.helpReplies[index].value)
-      .then((response)=>{
-        const code = response.status;
-        if (code === 200){
-          this.tip.info('Reply successfully.');
-          this.replyButtons[index] = true;
-        }
-      })
+      if (this.helpReplies[index].value === '' || this.helpReplies[index].value === null){
+        this.tip.error('Reply should not be empty.');
+      }else {
+        axios.post('/adm/reply', this.helpReplies[index].value)
+            .then((response)=>{
+              const code = response.status;
+              if (code === 200){
+                this.tip.info('Reply successfully.');
+                this.replyButtons[index] = true;
+              }
+            })
+      }
     },
-    changeUserPage(page){
-      axios.post('http://127.0.0.1:4523/mock/831624/adm/users', {
+    changeUserPage (page){
+      axios.post('/adm/users', {
         page_number: page
       })
           .then((response)=>{
             const code = response.status;
             if (code === 200){
-              this.postRows = response.data.data;
+              this.userRows = response.data.data;
             }
           });
     },
-    changePostPage(page){
-      axios.post('http://127.0.0.1:4523/mock/831624/adm/post', {
+    changePostPage (page){
+      axios.post('/adm/post', {
         page_number: page
       })
           .then((response)=>{
@@ -386,7 +414,7 @@ export default {
       }
     }
   }
-}
+})
 </script>
 
 <style scoped>
@@ -409,8 +437,8 @@ template{
   border-radius: 10px;
   height: calc(100vh - 290px - 20px - 200px - 12px);
 }
-.tablePages{
-  position: relative;
-  bottom: 25px;
+.messageCard{
+  width: 50%;
+  height: 100%;
 }
 </style>

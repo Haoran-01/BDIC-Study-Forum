@@ -42,16 +42,16 @@
         <n-card title="Previous questions">
           <n-collapse>
             <span v-for="(item, index) in messages" :key="index">
-              <n-collapse-item :title=item.messageID>
+              <n-collapse-item :title=item.name>
                 <n-card :bordered="false" size="small" content-style="text-align: left">
-                  {{ item.messageDetail }}
+                  {{ item.content }}
                   <div>
                     <div style="font-weight: bolder">Reply:</div>
-                    {{ item.messageReply }}
+                    {{ item.reply }}
                   </div>
                 </n-card>
                 <template #header-extra>
-                  {{ item.messageTime }}
+                  {{ item.datetime }}
                 </template>
               </n-collapse-item>
             </span>
@@ -168,15 +168,20 @@ export default defineComponent({
       })
     },
     handleHelp(){
-      axios.post('', {
-        content: this.helpValue
-      })
-      .then((response)=>{
-        const code = response.status;
-        if (code === 200){
-          this.info("Submit successfully.")
-        }
-      })
+      if (this.helpValue === null || this.helpValue === '' ){
+        this.tip.error("Question should not be empty.")
+      }else {
+        axios.post('/adm/send', {
+          content: this.helpValue
+        })
+            .then((response)=>{
+              const code = response.status;
+              if (code === 200){
+                this.tip.info("Submit successfully.");
+                this.helpValue = '';
+              }
+            })
+      }
     }
   },
   watch:{
@@ -200,6 +205,15 @@ export default defineComponent({
         vue.userLogined = false;
       }
     })
+    if (vue.userLogined === false){
+      axios.get('/adm/get_all_user_question')
+      .then((response)=>{
+        let code = response.status;
+        if (code === 200){
+          this.messages = response.data.data;
+        }
+      })
+    }
   },
   mounted() {
     window.addEventListener('scroll', this.changeOptionsVisibility, true);
