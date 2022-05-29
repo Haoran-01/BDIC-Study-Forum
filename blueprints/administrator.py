@@ -323,10 +323,11 @@ def get_user_help():
 
 @bp.route('/all_question', methods=['GET'])
 def get_all_help():
-    dic = {}
-    result = []
+    result1 = []
+    result2 = []
     helps = db.session.query(Help).filter_by().all()
     for help in helps:
+        dic = {}
         email = help.email
         user_profile = db.session.query(UserProfile).filter_by(user_email=email).first()
         dic["id"] = help.id
@@ -335,8 +336,8 @@ def get_all_help():
         dic["datetime"] = help.create_time
         if help.has_reply:
             dic["reply"] = (db.session.query(Reply).filter_by(help_id=help.id).first()).content
+            result1.append(dic)
         else:
-            dic["reply"] = None
-        result.append(dic)
+            result2.append(dic)
 
-    return jsonify(data=result)
+    return jsonify(data1=result1, data2=result2)
