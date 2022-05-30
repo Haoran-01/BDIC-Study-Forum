@@ -308,10 +308,11 @@ def reply_help():
 def get_user_help():
     user_email = current_user.user_email
     user_name = (db.session.query(UserProfile).filter_by(user_email=user_email).first()).user_name
-    dic = {"name":user_name}
+
     result = []
     helps = db.session.query(Help).filter_by(email=user_email).all()
     for help in helps:
+        dic = {"name" : user_name}
         dic["content"] = help.content
         dic["datetime"] = help.create_time
         if help.has_reply:
