@@ -208,7 +208,7 @@ export default defineComponent({
     }
   },
   created() {
-    axios.get('http://127.0.0.1:4523/mock/831624/adm/all_question')
+    axios.get('/adm/all_question')
         .then((response)=>{
           const code = response.status;
           if (code === 200){
