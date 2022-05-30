@@ -320,7 +320,10 @@ export default defineComponent({
       if (this.helpReplies[index].value === '' || this.helpReplies[index].value === null){
         this.tip.error('Reply should not be empty.');
       }else {
-        axios.post('/adm/reply', {value: this.helpReplies[index].value})
+        axios.post('/adm/reply', {
+          reply: this.helpReplies[index].value,
+          help_id: this.newMessages[index].help_id
+        })
             .then((response)=>{
               const code = response.status;
               if (code === 200){
