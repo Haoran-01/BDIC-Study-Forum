@@ -99,6 +99,7 @@
           </n-collapse>
         </n-card>
         <n-card class="messageCard" title="Replied">
+          {{ this.helpReplies }}
           <n-collapse>
             <n-collapse-item v-for="(item, index) in repliedMessages" :key="index" :title=item.name>
               <n-card :bordered="false" size="small" content-style="text-align: left">
@@ -207,7 +208,7 @@ export default defineComponent({
     }
   },
   created() {
-    axios.get('/adm/all_question')
+    axios.get('http://127.0.0.1:4523/mock/831624/adm/all_question')
         .then((response)=>{
           const code = response.status;
           if (code === 200){
@@ -320,7 +321,7 @@ export default defineComponent({
       if (this.helpReplies[index].value === '' || this.helpReplies[index].value === null){
         this.tip.error('Reply should not be empty.');
       }else {
-        axios.post('/adm/reply', this.helpReplies[index].value)
+        axios.post('/adm/reply', {value: this.helpReplies[index].value})
             .then((response)=>{
               const code = response.status;
               if (code === 200){

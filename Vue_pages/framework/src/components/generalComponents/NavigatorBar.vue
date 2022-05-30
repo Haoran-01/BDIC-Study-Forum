@@ -26,7 +26,7 @@
     </nav>
   </div>
   <div class="helpArea">
-    <n-button @click="show = true" quaternary style="margin-right: 10px">
+    <n-button @click="show = true" v-if="userLogined" quaternary style="margin-right: 10px">
       ASK FOR HELP
     </n-button>
   </div>
