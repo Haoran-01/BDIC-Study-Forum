@@ -65,7 +65,7 @@ export default defineComponent({
     };
   },
   mounted(){
-    /*this.showModal = true;*/
+    this.showModal = true;
     axios.get('/adm')
         .then((response)=>{
           const code = response.status;
