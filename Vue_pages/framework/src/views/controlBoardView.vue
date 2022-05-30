@@ -99,7 +99,6 @@
           </n-collapse>
         </n-card>
         <n-card class="messageCard" title="Replied">
-          {{ this.helpReplies }}
           <n-collapse>
             <n-collapse-item v-for="(item, index) in repliedMessages" :key="index" :title=item.name>
               <n-card :bordered="false" size="small" content-style="text-align: left">

@@ -119,14 +119,7 @@ export default defineComponent({
       userEmail: this.$store.state.userEmail,
       helpValue: null,
       searchText:'',
-      messages: [
-        {
-          messageID: "Liudonglin",
-          messageTime: "2022.5.23",
-          messageDetail: "wonendie",
-          messageReply: "讲的不错，下次别讲了"
-        }
-      ]
+      messages: []
     }
   },
   methods: {
