@@ -322,7 +322,7 @@ export default defineComponent({
       }else {
         axios.post('/adm/reply', {
           reply: this.helpReplies[index].value,
-          help_id: this.newMessages[index].help_id
+          help_id: this.newMessages[index].id
         })
             .then((response)=>{
               const code = response.status;
