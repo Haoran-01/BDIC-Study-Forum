@@ -24,11 +24,9 @@ def move_course():
 @bp.route('/insert', methods=['POST', 'GET'])
 @login_required
 def insert_course():
-    print("enter insert course")
     data = request.get_json()
     front_id = data["course_id"]
     user_email = current_user.user_email
-    print("user_email " + user_email)
     classroom = data["classroom"]
     teacher = data["teacher"]
     # 前端写成title了，先改成这样
@@ -39,7 +37,6 @@ def insert_course():
     db.session.query(Course).filter(sql).update(
         {"course_color":course_color,"classroom": classroom, "teacher": teacher, "course_name": course_name, "user_email": user_email})
     db.session.commit()
-    #print("out of insert_course")
     return {"success": 200}
 
 

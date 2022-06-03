@@ -84,7 +84,7 @@ def post_photo():
     print("upload_path: " + upload_path)
     file.save(upload_path + file_name + suffix)
     url = 'http://127.0.0.1:5000/upload/' + file_name + suffix
-    user_email = current_user
+    user_email = current_user.user_email
     user_profile = UserProfile.query.filter_by(user_email=user_email).first()
     user_profile.profile = url
     db.session.commit()
